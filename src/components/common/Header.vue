@@ -21,7 +21,12 @@
 				<div class='content-shopping'>
 					<el-icon color='#808080' :size='24'><shopping-cart style="width: 24px; height:24px;"/></el-icon>
 				</div>
-				<div class='content-login'>登录 / 注册</div>
+				<div class='content-login'>
+						<router-link to="/login">
+							登录 / 注册
+						</router-link>
+
+				</div>
 			</div>
 		</div>
 	</header>
@@ -123,10 +128,11 @@ header{
     font-size: 16px;
     outline: none;
 }
-.content-login{
+.content-login a{
     font-size: 18px;
     color: #808080;
     text-align: center;
     cursor: pointer;
+	text-decoration: none;
 }
 </style>
