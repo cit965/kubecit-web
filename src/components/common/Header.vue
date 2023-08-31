@@ -6,8 +6,8 @@
 			</h1>
 			<div class='content-nav'>
 				<ul>
-					<li>首页</li>
-					<li>课程</li>
+					<li @click='tabHome'> 首页</li>
+					<li @click='tabCourse'>课程</li>
 					<li>会员</li>
 				</ul>
 			</div>
@@ -29,6 +29,24 @@
 
 <script setup>
 import { Search , ShoppingCart} from "@element-plus/icons-vue";
+
+let router = useRouter();
+
+
+//点击跳转
+const tabHome = ()=>{
+	router.push({
+		name:"home"
+	})
+}
+
+const tabCourse = ()=>{
+	router.push({
+		name:"course"
+	})
+}
+
+
 </script>
 
 <style scoped>

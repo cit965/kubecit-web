@@ -6,8 +6,5 @@ import Foot from '@/components/common/Foot.vue'
 </script>
 
 <template>
-    <Header/>
-    <NavSwiper/>
-    <NewGoodCourse/>
-    <Foot/>
+<router-view />
 </template>
