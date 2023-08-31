@@ -3,35 +3,35 @@
 		<div class='content'>
 			<div class='navigation'>
 				<ul>
-					<li>
+					<li v-for='item in getFirstList' :key='item.id' @mouseenter="mourseHover(item.id)" @mouseleave="mourseOut">
 						<router-link to='/'>
-							Node.js
+							{{ item.description }}
 							<el-icon color='#ffffff' :size='16'><arrow-right /></el-icon>
 						</router-link>
-						<div class='category-detail'>
+						<div class='category-detail' v-if="isFirst">
 							<div class='detail-main'>
 								<div class='detail-desc'>基础知识</div>
 								<div class='detail-list'>
 									<div class='list-know'>知识点：</div>
 									<div class='list-ul'>
-										<router-link to='/' class='list-item'>html</router-link>
+										<router-link to='/' v-for="item in tagsList" :key="item.id" class='list-item'>{{item.tagName}}</router-link>
 									</div>
 								</div>
 								<div class='detail-class'>
-									<div class='course-card'>
+									<div class='course-card' v-for="item in searchCourseList" :key="item.id">
 										<div class='course-image'>
-											<img src="https://oss.xuexiluxian.cn/xiaoluxian-vcr/ed4eca4ebbeb4b489de722925a34d086.jpg">
+											<img :src="item.courseCover">
 										</div>
 										<div class='right'>
-											<div class='courseName'>课程标题</div>
-											<div class="courseDegree">中级 · 584人购买</div>
+											<div class='courseName'>{{ item.courseName }}</div>
+											<div class="courseDegree">{{ item.courseLevel }} · {{item.purchaseCounter}}人购买</div>
 											<div class='buy'>
 												<div class='buy-free'>
 													<div class='coursePrice'>
 														<div class='courseMemberbg'>
 															<span class='courseMember'>会员专享</span>
 														</div>
-														<div class='price'>¥0.01</div>
+														<div class='price'>¥{{item.discountPrice}}</div>
 													</div>
 													<div class='cart'>
 														<div class='cart-image'>
@@ -51,14 +51,8 @@
 			</div>
 			<div class='sliders'>
 				<el-carousel :interval="5000" arrow="always"  height="460px">
-				    <el-carousel-item>
-				      <img src="https://oss.xuexiluxian.cn/xiaoluxian-vcr/c25b24f205c8405e9b1a6161074c6488.jpg">
-				    </el-carousel-item>
-				    <el-carousel-item>
-				      <img src="https://oss.xuexiluxian.cn/xiaoluxian-vcr/c25b24f205c8405e9b1a6161074c6488.jpg">
-				    </el-carousel-item>
-				    <el-carousel-item>
-				      <img src="https://oss.xuexiluxian.cn/xiaoluxian-vcr/c25b24f205c8405e9b1a6161074c6488.jpg">
+				    <el-carousel-item v-for="item in slidersList" :key="item.id">
+				      <img :src="item.imageUrl" :title="item.imageName">
 				    </el-carousel-item>
 				</el-carousel>
 			</div>
@@ -127,13 +121,63 @@
 <script setup>
 import { ArrowRight } from "@element-plus/icons-vue";
 
-import {getFristCategorys} from "@/utils/api/api.js";
+import {getFristCategorys,getTagsList,searchCourse,getSliders} from "@/utils/api/api.js";
 
+
+let getFirstList = ref([])
 onMounted(() => {
 	getFristCategorys().then(res=>{
-		console.log(res)
+		getFirstList.value = res.data.list.filter(element => element.description != '');
+		console.log(res.data.list)
+	})
+
+		//获取轮播图
+		getSliders().then(res=>{
+		slidersList.value = res.data.list;
 	})
 })
+
+//轮播图数据
+let slidersList = ref([]);
+//获取课程标签
+let tagsList = ref([]);
+//查询课程
+let searchCourseList = ref([]);
+//移入判断
+let isFirst = ref(false);
+//获取课程标签参数
+let tagParams = {
+	pageNum:1,
+	pageSize:20,
+	entity:{
+		firstCategory:""
+	}
+}
+
+const mourseHover = ( id )=>{
+	isFirst.value = true;
+	tagParams.entity.firstCategory = id;
+	getTagsListFn(tagParams);
+	getsearchCourse(tagParams);
+}
+
+const getTagsListFn = (params)=>{
+	getTagsList(params).then(res=>{
+		tagsList.value = res.data.pageInfo.list;
+	})
+}
+
+const getsearchCourse = (params)=>{
+	searchCourse(params).then(res=>{
+		searchCourseList.value = res.data.pageInfo.list;
+		console.log(res)
+	})
+}
+
+//鼠标移出
+const mourseOut = ()=>{
+	isFirst.value = false;
+}
 </script>
 
 <style scoped>
