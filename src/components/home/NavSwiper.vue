@@ -24,7 +24,7 @@
 										</div>
 										<div class='right'>
 											<div class='courseName'>{{ item.courseName }}</div>
-											<div class="courseDegree">{{ item.courseLevel }} · {{item.purchaseCounter}}人购买</div>
+											<div class="courseDegree">{{ courseTypeFn(item.courseLevel) }} · {{item.purchaseCounter}}人购买</div>
 											<div class='buy'>
 												<div class='buy-free'>
 													<div class='coursePrice'>
@@ -120,7 +120,8 @@
 
 <script setup>
 import { ArrowRight } from "@element-plus/icons-vue";
-
+import {courseType} from '@/utils/mixins/courseType.js'
+let { courseTypeFn } = courseType();
 import {getFristCategorys,getTagsList,searchCourse,getSliders} from "@/utils/api/api.js";
 
 
