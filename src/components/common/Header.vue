@@ -22,9 +22,17 @@
 					<el-icon color='#808080' :size='24'><shopping-cart style="width: 24px; height:24px;"/></el-icon>
 				</div>
 				<div class='content-login'>
-						<router-link to="/login">
+						<router-link to="/login" v-if="!isLogin">
 							登录 / 注册
 						</router-link>
+
+						<div v-else>
+							<button @click="logout">
+								退出登录
+							</button>
+						</div>
+
+					
 
 				</div>
 			</div>
@@ -36,7 +44,18 @@
 import { Search , ShoppingCart} from "@element-plus/icons-vue";
 
 let router = useRouter();
+//pinia
+import { useUserStore } from '@/store/user'
 
+const userStore = useUserStore()
+
+const logout = ()=>{
+	userStore.clearToken()
+}
+
+let isLogin = ref(computed(()=>{
+	return userStore.token != ""
+}))
 
 //点击跳转
 const tabHome = ()=>{
