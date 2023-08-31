@@ -27,3 +27,13 @@ export function getSliders(){
         url:'/api/slider/getSliders',
     })
 }
+
+
+//查询最新课程
+export function mostNewCourse( data ){
+	return request({
+		url:'/api/course/mostNew',
+		method:'post',
+		data
+	})
+}

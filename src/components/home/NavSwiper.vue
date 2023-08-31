@@ -1,6 +1,6 @@
 <template>
 	<div class='navSwiper'>
-		<div class='content'>
+		<div class='content' >
 			<div class='navigation'>
 				<ul>
 					<li v-for='item in getFirstList' :key='item.id' @mouseenter="mourseHover(item.id)" @mouseleave="mourseOut">
@@ -61,7 +61,7 @@
 			<div class='course-type-item'>
 				<router-link to='/'>
 					<div class='course-type-item-icon'>
-						<img src="../../assets/img/chuji.png">
+						<img src="@/assets/img/chuji.jpeg">
 					</div>
 					<div class='course-type-item-text'>
 						<div class='course-type-item-title'>初级课程</div>
@@ -72,7 +72,7 @@
 			<div class='course-type-item'>
 				<router-link to='/'>
 					<div class='course-type-item-icon'>
-						<img src="../../assets/img/zhongji.png">
+						<img src="@/assets/img/chuji.jpeg">
 					</div>
 					<div class='course-type-item-text'>
 						<div class='course-type-item-title'>中级课程</div>
@@ -83,7 +83,7 @@
 			<div class='course-type-item'>
 				<router-link to='/'>
 					<div class='course-type-item-icon'>
-						<img src="../../assets/img/gaoji.png">
+						<img src="@/assets/img/chuji.jpeg">
 					</div>
 					<div class='course-type-item-text'>
 						<div class='course-type-item-title'>高级课程</div>
@@ -94,7 +94,7 @@
 			<div class='course-type-item'>
 				<router-link to='/'>
 					<div class='course-type-item-icon'>
-						<img src="../../assets/img/xiangmu.png">
+						<img src="@/assets/img/chuji.jpeg">
 					</div>
 					<div class='course-type-item-text'>
 						<div class='course-type-item-title'>项目实战</div>
@@ -105,7 +105,7 @@
 			<div class='course-type-item'>
 				<router-link to='/'>
 					<div class='course-type-item-icon'>
-						<img src="../../assets/img/suanfa.png">
+						<img src="@/assets/img/chuji.jpeg">
 					</div>
 					<div class='course-type-item-text'>
 						<div class='course-type-item-title'>前端算法</div>
