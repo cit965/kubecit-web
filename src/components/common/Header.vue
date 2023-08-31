@@ -33,6 +33,7 @@ import { Search , ShoppingCart} from "@element-plus/icons-vue";
 
 <style scoped>
 header{
+	position: relative;
 	display: flex;
 	justify-content: center;
 	align-items: center;
