@@ -25,7 +25,7 @@
 							<img :src="item.courseCover">
 						</div>
 						<div class="courseName">{{item.courseName}}</div>
-                        <div class="courseDegree">{{item.courseLevel}} · {{item.purchaseCounter + item.purchaseCnt}}人报名</div>
+                        <div class="courseDegree">{{ courseTypeFn(item.courseLevel) }}  · {{item.purchaseCounter + item.purchaseCnt}}人报名</div>
 						<div class='coursePricePri'>¥ {{item.discountPrice}}</div>
 					</div>
 				</li>
@@ -36,6 +36,9 @@
 
 <script setup>
 import { mostNewCourse } from '@/utils/api/api.js'
+
+import {courseType} from '@/utils/mixins/courseType.js'
+let { courseTypeFn } = courseType();
 
 //新上好课的数据
 let newCourse = ref([]);
