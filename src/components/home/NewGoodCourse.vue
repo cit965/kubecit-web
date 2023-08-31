@@ -26,7 +26,21 @@
 						</div>
 						<div class="courseName">{{item.courseName}}</div>
                         <div class="courseDegree">{{ courseTypeFn(item.courseLevel) }}  · {{item.purchaseCounter + item.purchaseCnt}}人报名</div>
-						<div class='coursePricePri'>¥ {{item.discountPrice}}</div>
+                    
+
+						<div class="coursePriceZero" v-if="item.discountPrice == 0">
+                            <div class="pricefree">免费学习</div>
+                            <img src="@/assets/img/free.png" alt="">
+                        </div>
+
+                        <div class="coursePrice" v-else-if="item.isMember == 1">
+                            <div class="courseMemberbg"><span class="courseMember">会员免费</span></div>
+                            <div class="price">¥ {{item.discountPrice}}</div>
+                        </div>
+                        
+                        <div class="coursePricePri" v-else>
+                            <div class="pricePri">¥ {{item.discountPrice}}</div>
+                        </div>
 					</div>
 				</li>
 			</ul>
@@ -170,12 +184,51 @@ onBeforeMount(()=>{
     font-size: 12px;
     color: #808080;
 }
+.coursePrice {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 130px;
+    font-size: 14px;
+    margin-top: 15px;
+    padding: 0 5px;
+}
 .coursePricePri{
     width: 75px;
     font-size: 14px;
     margin-top: 18px;
     padding: 0 13px;
     color: rgba(255, 114, 127, 1);
+    font-weight: 700;
+}
+.coursePriceZero{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 75px;
+    font-size: 14px;
+    margin-top: 15px;
+    padding: 0 10px;
+    color: rgba(53, 134, 255, 1);
+}
+.courseMemberbg {
+    position: relative;
+    width: 80px;
+    height: 20px;
+    color: #ffffff;
+    background: linear-gradient(90deg, #ff928e 0%, #fe7062 99%);
+    border-radius: 24px 0px 24px 0px;
+}
+.courseMember {
+    position: absolute;
+    line-height: 20px;
+    left: 13px;
+    font-weight: 700;
+}
+.price {
+    line-height: 25px;
+    left: 100px;
+    color: #ff727f;
     font-weight: 700;
 }
 </style>
