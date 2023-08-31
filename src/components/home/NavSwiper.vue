@@ -126,6 +126,14 @@
 
 <script setup>
 import { ArrowRight } from "@element-plus/icons-vue";
+
+import {getFristCategorys} from "@/utils/api/api.js";
+
+onMounted(() => {
+	getFristCategorys().then(res=>{
+		console.log(res)
+	})
+})
 </script>
 
 <style scoped>
