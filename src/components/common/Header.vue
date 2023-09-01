@@ -26,11 +26,21 @@
 							登录 / 注册
 						</router-link>
 
-						<div v-else>
+					<div v-else>
+				      <img
+				        class="avator"
+				        :src="userInfo.avatar"
+				        alt=""
+				        v-if="userInfo.avatar"
+				      />
+				      <img v-else class="avator" src='@/assets/img/Avat62.png'/>
+				    </div>
+
+					<div v-if="isLogin">
 							<button @click="logout">
 								退出登录
 							</button>
-						</div>
+					</div>
 
 					
 
@@ -42,7 +52,10 @@
 
 <script setup>
 import { Search , ShoppingCart} from "@element-plus/icons-vue";
+import { getInfo,createToken } from '@/utils/api/api.js'
 
+//用户信息
+let userInfo = ref({});
 let router = useRouter();
 //pinia
 import { useUserStore } from '@/store/user'
@@ -51,11 +64,9 @@ const userStore = useUserStore()
 
 const logout = ()=>{
 	userStore.clearToken()
+	router.push({name:"login"})
 }
 
-let isLogin = ref(computed(()=>{
-	return userStore.token != ""
-}))
 
 //点击跳转
 const tabHome = ()=>{
@@ -70,6 +81,25 @@ const tabCourse = ()=>{
 	})
 }
 
+//用户是否是登录状态
+let isLogin = ref(false);
+
+onBeforeMount(()=>{
+	createToken().then(res=>{
+		let token = res.data.token;
+		getInfo({
+			token
+		}).then(res=>{
+			//登录的状态，获取到了用户的信息
+			if( res.meta.code =='200' ){
+				//用户信息
+				userInfo.value = res.data.data;
+				//判断是否可以获取用户信息
+				isLogin.value = true;
+			}
+		})
+	})
+})
 
 </script>
 
@@ -153,5 +183,12 @@ header{
     text-align: center;
     cursor: pointer;
 	text-decoration: none;
+}
+
+.avator {
+	height: 53px;
+	width: 53px;
+	cursor: pointer;
+	border-radius: 50%;
 }
 </style>
