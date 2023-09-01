@@ -1,11 +1,13 @@
 import request from './request'
 
+// 获取一级分类
 export function getFristCategorys(){
 	return request({
 		url:'/api/course/category/getFirstCategorys',
 	})
 }
 
+// 获取标签
 export function getTagsList(data){
     return request({
 		url:'/api/course/tags/list',
@@ -14,6 +16,7 @@ export function getTagsList(data){
 	})
 }
 
+// 获取分类下课程
 export function searchCourse(data){
     return request({
         url:'/api/course/search',
@@ -22,6 +25,7 @@ export function searchCourse(data){
     })
 }
 
+// 获取轮播图
 export function getSliders(){
     return request({
         url:'/api/slider/getSliders',
