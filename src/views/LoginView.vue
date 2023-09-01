@@ -153,6 +153,7 @@ const userBtn = (formEl) => {
 					})
 					return;
 				} 
+                console.log("登录成功")
 				userStore.setToken(res.data.accessToken);
 				router.push({name:"home"})
             
@@ -173,7 +174,7 @@ const userBtn = (formEl) => {
 	position: relative;
     width: 100vw;
     height: 100vh;
-    background: url(../assets/img/loginbg.jpeg) no-repeat center;
+    background: url(../assets/img/citlogo.jpeg) no-repeat center;
 }
 section{
 	position: absolute;
@@ -205,7 +206,7 @@ section{
     position: relative;
     width: 475px;
     height: 500px;
-    background: url(../assets/img/ybbg.jpeg) no-repeat center center;
+    background: url(../assets/img/citlogo.jpeg) no-repeat center center;
 }
 
 .nav-tabs {
