@@ -167,6 +167,9 @@ onBeforeMount(()=>{
     width: 100%;
     height: 160px;
 }
+li{
+    list-style-type: none;
+}
 .courseBg img{
 	width: 100%;
     height: 100%;
