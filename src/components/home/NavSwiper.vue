@@ -218,7 +218,7 @@ const mourseOut = ()=>{
 	padding: 0 20px;
 	color: #ffffff;
 	height: 40px;
-	line-height: 40px;
+	/* line-height: 40px; */
 	font-size: 16px;
 	font-weight: bold;
 	text-decoration: none;

@@ -127,21 +127,23 @@ onBeforeMount(()=>{
 	cursor: pointer;
     font-size: 14px;
     font-weight: 400;
-    color: #808080;
+    color: #337dff;
 }
 .newCourseContent{
 	width: 1200px;
-    margin: 15px auto 0px auto;
+    margin: 30px auto 0px auto;
 }
 .newCourseContent ul{
 	display: flex;
 	flex-wrap: wrap;
+    padding: 0;
 }
 .courseItem{
 	width: 285px;
     height: 280px;
     margin: 0 20px 20px 0;
     transition: margin-top 0.2s;
+    list-style: none;
 }
 .courseItem:hover{
     margin-top: -10px;
