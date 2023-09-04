@@ -162,6 +162,7 @@ import Foot from '@/components/common/Foot.vue'
 
 
 <style scoped>
+
 .course-main {
   padding: 20px 0;
   width: 100%;
@@ -445,5 +446,9 @@ import Foot from '@/components/common/Foot.vue'
     left: 100px;
     color: #ff727f;
     font-weight: 700;
+}
+
+li{
+    list-style-type: none;
 }
 </style>
