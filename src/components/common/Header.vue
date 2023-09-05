@@ -122,9 +122,9 @@ header{
 }
 .content-logo{
 	width: 160px;
-    height: 55px;
-    margin: 10px 0;
-    cursor: pointer;
+	height: 55px;
+	margin: 10px 0;
+	cursor: pointer;
 }
 .content-logo img{
 	height: 100%;

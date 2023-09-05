@@ -26,17 +26,17 @@
 				</div>
 			</div>
 			<div class="wx">
-                <div class="wx-bg">
-                    <img src='@/assets/img/citlogo.jpeg' />
-                </div>
-                <div class="wx-dsc">官方微信</div>
-            </div>
-            <div class="wx">
-                <div class="wx-bg">
-                    <img src='@/assets/img/citlogo.jpeg' />
-                </div>
-                <div class="wx-dsc">咨询老师微信</div>
-            </div>
+				<div class="wx-bg">
+					<img src='@/assets/img/citlogo.jpeg' />
+				</div>
+				<div class="wx-dsc">官方微信</div>
+			</div>
+			<div class="wx">
+				<div class="wx-bg">
+					<img src='@/assets/img/citlogo.jpeg' />
+				</div>
+				<div class="wx-dsc">咨询老师微信</div>
+			</div>
 		</div>
 	</footer>
 </template>
@@ -45,24 +45,24 @@
 <style scoped>
 footer{
 	width: 100%;
-    min-width: 1200px;
-    height: 150px;
-    background: #3483FF;
-    opacity: 1;
-    border-radius: 0px;
+	min-width: 1200px;
+	height: 150px;
+	background: #3483FF;
+	opacity: 1;
+	border-radius: 0px;
 }
 .footer-main{
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    width: 1200px;
-    height: 100%;
-    color: #FFFFFF;
-    margin: auto;
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
+	width: 1200px;
+	height: 100%;
+	color: #FFFFFF;
+	margin: auto;
 }
 .footer-xlx{
 	width: 110px;
-    opacity: 1;
+	opacity: 1;
 }
 .footer-xlx img{
 	width: 100%;
@@ -70,43 +70,42 @@ footer{
 }
 .footer-factory{
 	width: 130px;
-    margin: 0 20px;
+	margin: 0 20px;
 }
 .footer-factory img{
 	width: 100%;
 	height: 100%;
 }
 .copy-top{
-    display: flex;
-    font-size: 14px;
-    margin:0 10px 10px 50px;
+	display: flex;
+	font-size: 14px;
+	margin:0 10px 10px 50px;
 }
 .copy-top li{
-    margin: 0 10px;
-    color: #FFFFFF !important;
+	margin: 0 10px;
+	color: #FFFFFF !important;
 }
 .copy-bottom{
 	font-size:12px;
 }
 .copy-bottom a{
 	color: #FFFFFF;
-    text-decoration: underline;
-    padding-left: 10px;
+	text-decoration: underline;
+	padding-left: 10px;
 }
 .wx{
-    margin-left: 20px;
-    width: 80px;
-    height: 100px;
-
-    font-size: 12px;
+	margin-left: 20px;
+	width: 80px;
+	height: 100px;
+	font-size: 12px;
 }
 .wx-bg{
-    width: 80px;
-    height: 80px;
+	width: 80px;
+	height: 80px;
 }
 .wx img{
-    width: 100%;
-    height: 100%;
+	width: 100%;
+	height: 100%;
 }
 .wx-dsc{
   padding-top:5px;
