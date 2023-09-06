@@ -3,153 +3,112 @@
 	<div class='coursemain'>
 		<div class="course-main">
 			<section class="search-container">
-		        <div class="search-item">
-		          <div class="title-name">课程方向：</div>
-		          <div class="all-items">
-		            <el-tag
-		                class="category-poniter"
-		                effect="plain"
-		                type="info"
-		            >全部</el-tag>
-		            <el-tag
-		                class="category-poniter-item"
-		                effect="plain"
-		                type="info"
-		            >  Node.js
-		            </el-tag>
-		        </div>
-		        </div>
-		        <div class="search-item search-item-transition" style="top: 45px;">
-		          <div class="title-name">课程分类：</div>
-		          <div class="all-items">
-		             <el-tag
-		                class="category-poniter"
-		                effect="plain"
-		                type="info"
-		            >全部</el-tag>
-		            <el-tag
-		                class="category-poniter-item"
-		                effect="plain"
-		                type="info"
-		            >  Node.js
-		            </el-tag>
-		          </div>
-		        </div>
-		        <div class="search-item" style="top: 90px;">
-		          <div class="title-name">课程难度：</div>
-		          <div class="all-items">
-		            <el-tag
-		                class="category-poniter"
-		                effect="plain"
-		                type="info"
-		            >全部</el-tag>
-		            <el-tag
-		                class="category-poniter-item"
-		                effect="plain"
-		                type="info"
-		            >  Node.js
-		            </el-tag>
-		          </div>
-		        </div>
-     		</section>
+        <div class="search-item">
+          <div class="title-name">课程方向：</div>
+          <div class="all-items">
+            <el-tag
+              class="category-poniter"
+              effect="plain"
+              type="info"
+            >全部</el-tag>
+            <el-tag
+              class="category-poniter-item"
+              effect="plain"
+              type="info"
+              v-for="(item, index) in courseIndustry"
+              :key="index"
+            >{{ item.name }}
+            </el-tag>
+          </div>
+        </div>
+        <div class="search-item">
+          <div class="title-name">课程分类：</div>
+          <div class="all-items">
+            <el-tag
+              class="category-poniter"
+              effect="plain"
+              type="info"
+            >全部</el-tag>
+            <el-tag
+              class="category-poniter-item"
+              effect="plain"
+              type="info"
+              v-for="(item, index) in courseCategory"
+              :key="index"
+            >{{ item.name }}
+            </el-tag>
+          </div>
+        </div>
+        <div class="search-item">
+          <div class="title-name">课程难度：</div>
+          <div class="all-items">
+            <el-tag
+              class="category-poniter"
+              effect="plain"
+              type="info"
+            >全部</el-tag>
+            <el-tag
+              class="category-poniter-item"
+              effect="plain"
+              type="info"
+              v-for="(item, index) in courseIndustry"
+              :key="index"
+            >{{ item.name }}
+            </el-tag>
+          </div>
+        </div>
+      </section>
 		</div>
 		<div class='main-container'>
 			<div class="container-top">
-		        <ul class="all">
-		          <li class="item">综合</li>
-		          <li class="item split">|</li>
-		          <li class="item">最新课程</li>
-		          <li class="item split">|</li>
-		          <li class="item">最多购买 </li>
-		          <li class="item split">|</li>
-		          <li class="item-price">
-		            <span>价格</span>  
-		            <span class="arrow">
-		              <i
-		                  class="el-icon-caret-top"
-		              ></i>
-		              <i
-		                  class="el-icon-caret-bottom"
-		              ></i>
-		            </span>
-		          </li>
-		        </ul>
-		        <ul class="right">
-		          <li class="right-item">
-		            <el-radio-group>
-		              <el-radio label="1">免费课程</el-radio>
-		              <el-radio label="2">会员课程</el-radio>
-		            </el-radio-group>
-		          </li>
-		        </ul>
-		      </div>
-		      <div class="container-body">
-		        <div class="newCourseContent">
-		          <ul class="courseUl">
-		            <li class='courseItem'>
-						<div class='courseInfo'>
-							<div class='courseBg'>
-								<img src='https://oss.xuexiluxian.cn/xiaoluxian-vcr/ed4eca4ebbeb4b489de722925a34d086.jpg'>
-							</div>
-							<div class="courseName">课程标题</div>
-	                        <div class="courseDegree">高级 · 222人报名</div>
-	                        <div class="coursePricePri">
-	                            <div class="pricePri">¥ 222</div>
-	                        </div>
-						</div>
-					</li>
-					<li class='courseItem'>
-						<div class='courseInfo'>
-							<div class='courseBg'>
-								<img src='https://oss.xuexiluxian.cn/xiaoluxian-vcr/ed4eca4ebbeb4b489de722925a34d086.jpg'>
-							</div>
-							<div class="courseName">课程标题</div>
-	                        <div class="courseDegree">高级 · 222人报名</div>
-	                        <div class="coursePricePri">
-	                            <div class="pricePri">¥ 222</div>
-	                        </div>
-						</div>
-					</li>
-					<li class='courseItem'>
-						<div class='courseInfo'>
-							<div class='courseBg'>
-								<img src='https://oss.xuexiluxian.cn/xiaoluxian-vcr/ed4eca4ebbeb4b489de722925a34d086.jpg'>
-							</div>
-							<div class="courseName">课程标题</div>
-	                        <div class="courseDegree">高级 · 222人报名</div>
-	                        <div class="coursePricePri">
-	                            <div class="pricePri">¥ 222</div>
-	                        </div>
-						</div>
-					</li>
-					<li class='courseItem'>
-						<div class='courseInfo'>
-							<div class='courseBg'>
-								<img src='https://oss.xuexiluxian.cn/xiaoluxian-vcr/ed4eca4ebbeb4b489de722925a34d086.jpg'>
-							</div>
-							<div class="courseName">课程标题</div>
-	                        <div class="courseDegree">高级 · 222人报名</div>
-	                        <div class="coursePricePri">
-	                            <div class="pricePri">¥ 222</div>
-	                        </div>
-						</div>
-					</li>
-					<li class='courseItem'>
-						<div class='courseInfo'>
-							<div class='courseBg'>
-								<img src='https://oss.xuexiluxian.cn/xiaoluxian-vcr/ed4eca4ebbeb4b489de722925a34d086.jpg'>
-							</div>
-							<div class="courseName">课程标题</div>
-	                        <div class="courseDegree">高级 · 222人报名</div>
-	                        <div class="coursePricePri">
-	                            <div class="pricePri">¥ 222</div>
-	                        </div>
-						</div>
-					</li>
-		          </ul>
-		        </div>
-		      </div>
+        <ul class="all">
+          <li class="item">综合</li>
+          <li class="item split">|</li>
+          <li class="item">最新课程</li>
+          <li class="item split">|</li>
+          <li class="item">最多购买 </li>
+          <li class="item split">|</li>
+          <li class="item-price">
+            <span>价格</span>  
+            <span class="arrow">
+              <i
+                  class="el-icon-caret-top"
+              ></i>
+              <i
+                  class="el-icon-caret-bottom"
+              ></i>
+            </span>
+          </li>
+        </ul>
+        <div class="right">
+          <div class="right-item">
+            <el-radio-group>
+              <el-radio label="1">免费课程</el-radio>
+              <el-radio label="2">会员课程</el-radio>
+            </el-radio-group>
+          </div>
+        </div>
+      </div>
+      <div class="container-body">
+        <div class="newCourseContent">
+          <div class="courseUl">
+            <div class='courseItem' v-for="(courseItem, index) in courseList" :key="index">
+              <div class='courseInfo'>
+              <div class='courseBg'>
+                <img :src="courseItem.imgUrl" alt="">
+              </div>
+              <div class="courseName">{{ courseItem.title }}</div>
+                <div class="courseDegree">{{ courseItem.level }}</div>
+                <div class="coursePricePri">
+                  <div class="pricePri">{{ courseItem.price }}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 		</div>
+    <Pagination :page-count="pageCount"></Pagination>
 	</div>
 	<Foot></Foot>
 </template>
@@ -158,15 +117,36 @@
 <script setup>
 import Header from '@/components/common/Header.vue'
 import Foot from '@/components/common/Foot.vue'
+import Pagination from '@/components/common/Pagination.vue'
+import { onMounted } from 'vue'
+let courseIndustry = ref([{ name: 'HTML/CSS' }, { name: 'JavaScript' }, { name: 'Node.js' }, { name: '前端框架' }, { name: '前端工具' }, { name: '跨平台开发' }, { name: '其他课程' }])
+let courseCategory = ref([{ name: '算法' }, { name: '面试题' }, { name: '高端' }])
+let courseLevel = ref([{ level: '初级' }, { message: '中级' }, { message: '高级' }])
+let courseList = ref([])
+let pageCount = ref(10)
+const initList = () => {
+  for (let index = 0; index < 12; index++) {
+    const element = {
+      imgUrl: 'https://oss.xuexiluxian.cn/xiaoluxian-vcr/ed4eca4ebbeb4b489de722925a34d086.jpg',
+      title: '课程标题',
+      level: '中级 · 156人报名',
+      price: '¥ 222'
+    }
+    courseList.value.push(element)
+  }
+  // pageCount.value = courseList.length
+}
+onMounted(() => {
+  initList()
+  
+})
 </script>
 
 
 <style scoped>
 
 .course-main {
-  padding: 20px 0;
-  width: 100%;
-  height: 130px;
+  padding: 30px 0;
   background: #f3f5f9;
 }
 .search-container{
@@ -177,40 +157,26 @@ import Foot from '@/components/common/Foot.vue'
 }
 .search-item{
   display: flex;
-  overflow: hidden;
-  cursor: pointer;
-  position: absolute;
-  height: 45px;
   transition: all 0.5s;
-}
-.search-item-transition:hover{
-  z-index: 777;
-  height: auto;
-  box-shadow: rgb(95 101 105 / 10%) 0px 12px 20px 0px;
-  border-radius: 8px;
-  background: rgba(255,255,255);
 }
 .search-item .title-name {
   width: 100px;
-  font-size: 16px;
-  font-family: Microsoft YaHei;
-  font-weight: bold;
-  line-height: 25px;
-  text-align: justify;
+  font-size: 14px;
+  height: 45px;
+  line-height: 45px;
   color: #333333;
-  padding: 10px;
-  opacity: 1;
+  font-weight: 700;
 }
-.search-item .title-name:after {
+/* .search-item .title-name:after {
   content: '.';
   width: 100%;
   display: inline-block;
   overflow: hidden;
   height: 0;
-}
+} */
 
 .search-item .all-items{
-  width: calc(100% - 120px);
+  width: calc(100% - 100px);
   min-height: 25px;
   display: flex;
   flex-wrap: wrap;
@@ -249,19 +215,23 @@ import Foot from '@/components/common/Foot.vue'
   height: 25px;
   line-height: 25px;
   margin: 10px 5px;
+  padding: 0 10px;
   cursor: pointer;
   border: none;
   background: rgba(44, 128, 255, 0.1);
   color: #2c80ff;
+  font-size: 14px;
 }
 .category-poniter-item {
   height: 25px;
   line-height: 25px;
   margin: 10px 5px;
+  padding: 0 10px;
   cursor: pointer;
   border: none;
   background: none;
-  color: rgba(81, 87, 89, 1);
+  color: #515759;
+  font-size: 14px;
 }
 
 .main-container {
@@ -273,30 +243,32 @@ import Foot from '@/components/common/Foot.vue'
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 12px;
 }
-
+.container-body {
+  max-height: 900px;
+  overflow: hidden;
+}
 .all {
   display: flex;
-  padding-top: 20px;
-  font-size: 16px;
+  padding: 20px 0 0 0;
+  font-size: 14px;
   color: #515759;
-}
-
-.all .item:first-child {
-  margin-right: 20px;
+  margin: 0;
 }
 
 .all .item {
-  margin: 0 10px;
   cursor: pointer;
 }
-
+.all .split {
+  margin: 0 20px;
+}
 .right {
   display: flex;
-  padding-top: 20px;
+  align-items: flex-end;
   font-size: 16px;
   color: #515759;
+  padding: 0;
+  margin: 0;
 }
 
 .right .right-item {
@@ -346,18 +318,20 @@ import Foot from '@/components/common/Foot.vue'
 .newCourseContent {
   width: 1200px;
   margin: 30px auto 0px auto;
+  overflow: hidden;
 }
 
 .newCourseContent .courseUl {
   display: flex;
   flex-wrap: wrap;
+  overflow: hidden;
 }
 
 .courseItem{
 	width: 285px;
-    height: 280px;
-    margin: 0 20px 20px 0;
-    transition: margin-top 0.2s;
+  height: 280px;
+  margin: 0 20px 20px 0;
+  transition: margin-top 0.2s;
 }
 .courseItem:hover{
     margin-top: -10px;
