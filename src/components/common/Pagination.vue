@@ -1,15 +1,14 @@
 <template>
   <div class="pagination">
-    <div v-if="pageCount > 1" class="first-page">首页</div>
+    <div class="first-page">首页</div>
     <el-pagination
       background
       layout="prev, pager, next"
-      :hide-on-single-page="true"
       prev-text="上一页"
       next-text="下一页"
       :default-page-size="12"
       :page-count="pageCount" />
-    <div v-if="pageCount > 1" class="last-page">尾页</div>
+    <div class="last-page">尾页</div>
   </div>
 </template>
 
