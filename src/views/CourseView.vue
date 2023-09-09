@@ -92,7 +92,7 @@
       <div class="container-body">
         <div class="newCourseContent">
           <div class="courseUl">
-            <div class='courseItem' v-for="(courseItem, index) in courseList" :key="index">
+            <div class='courseItem' v-for="(courseItem, index) in courseList" :key="index" @click="toDetailPage">
               <div class='courseInfo'>
               <div class='courseBg'>
                 <img :src="courseItem.imgUrl" alt="">
@@ -124,6 +124,7 @@ let courseCategory = ref([{ name: '算法' }, { name: '面试题' }, { name: '�
 let courseLevel = ref([{ level: '初级' }, { message: '中级' }, { message: '高级' }])
 let courseList = ref([])
 let pageCount = ref(10)
+let router = useRouter()
 const initList = () => {
   for (let index = 0; index < 12; index++) {
     const element = {
@@ -134,7 +135,14 @@ const initList = () => {
     }
     courseList.value.push(element)
   }
-  // pageCount.value = courseList.length
+  console.log(courseList.value.length)
+  pageCount.value = Math.ceil(courseList.value.length/12)
+  console.log(pageCount)
+}
+const toDetailPage = () => {
+  router.push({
+		name: 'courseDetail'
+	})
 }
 onMounted(() => {
   initList()
@@ -201,9 +209,7 @@ onMounted(() => {
   line-height: 25px;
   margin: 0 15px;
   font-size: 16px;
-  font-family: Microsoft YaHei;
   font-weight: 400;
-  line-height: 21px;
   opacity: 1;
 }
 
@@ -245,8 +251,7 @@ onMounted(() => {
   align-items: center;
 }
 .container-body {
-  max-height: 900px;
-  overflow: hidden;
+  max-height: 920px;
 }
 .all {
   display: flex;
@@ -318,13 +323,11 @@ onMounted(() => {
 .newCourseContent {
   width: 1200px;
   margin: 30px auto 0px auto;
-  overflow: hidden;
 }
 
 .newCourseContent .courseUl {
   display: flex;
   flex-wrap: wrap;
-  overflow: hidden;
 }
 
 .courseItem{

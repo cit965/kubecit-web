@@ -7,7 +7,7 @@
       <div class="box">
         <h2 class="box_title">账号注册</h2>
         <div class="form_box">
-          <el-form label-position="right" ref="ruleFormRef" label-width="70px" :model="registerForm" style="width: 350px"
+          <el-form label-position="right" ref="ruleFormRef" label-width="100px" :model="registerForm" style="width: 350px"
             :rules="rules" require-asterisk-position="right">
             <el-form-item label="手机号" prop="phone">
               <el-input clearable placeholder="请输入手机号" type="phone" v-model="registerForm.phone" />
@@ -27,7 +27,7 @@
             <el-form-item label="密码" prop="password">
               <el-input clearable show-password placeholder="请输入密码" type="password" v-model="registerForm.password" />
             </el-form-item>
-            <el-form-item label="密码" prop="rePassword">
+            <el-form-item label="确认密码" prop="rePassword">
               <el-input clearable show-password placeholder="请再次输入密码" type="password" v-model="registerForm.rePassword" />
             </el-form-item>
           </el-form>

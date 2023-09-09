@@ -19,6 +19,7 @@
 					class='courseItem'
 					v-for='item in newCourse'
 					:key='item.id'
+                    @click="toDetailPage()"
 				>
 					<div class='courseInfo'>
 						<div class='courseBg'>
@@ -53,7 +54,7 @@ import { mostNewCourse } from '@/utils/api/api.js'
 
 import {courseType} from '@/utils/mixins/courseType.js'
 let { courseTypeFn } = courseType();
-
+let router = useRouter()
 //新上好课的数据
 let newCourse = ref([]);
 
@@ -66,6 +67,11 @@ onBeforeMount(()=>{
 		console.log( res.data.pageInfo.list )
 	})
 })
+const toDetailPage = () => {
+  router.push({
+    name: 'courseDetail'
+    })
+}
 </script>
 
 <style scoped>
