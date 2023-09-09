@@ -3,7 +3,7 @@ import request from './request'
 // 获取一级分类
 export function getFristCategorys(){
 	return request({
-		url:'/api/course/category/getFirstCategorys',
+		url:'/api/course/category/getFirstCategories',
 	})
 }
 
@@ -28,7 +28,7 @@ export function searchCourse(data){
 // 获取轮播图
 export function getSliders(){
     return request({
-        url:'/api/slider/getSliders',
+        url:'/api/sliders',
     })
 }
 

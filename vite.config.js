@@ -14,7 +14,7 @@ export default defineConfig({
   ],
   server:{
     proxy:{
-      '/api':'http://testapi.xuexiluxian.cn'
+      '/api':'http://wlb965.sandload.com'
     }
   },
   resolve: {
