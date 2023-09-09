@@ -62,7 +62,7 @@ onBeforeMount(()=>{
 		pageNum:1,
 		pageSize:8
 	}).then(res=>{
-		newCourse.value = res.data.pageInfo.list;
+		newCourse.value = res.list;
 		console.log( res.data.pageInfo.list )
 	})
 })

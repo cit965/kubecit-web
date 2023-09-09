@@ -14,7 +14,7 @@ export default defineConfig({
   ],
   server:{
     proxy:{
-      '/api':'http://testapi.xuexiluxian.cn'
+      '/api':'http://localhost:8000'
     }
   },
   resolve: {
