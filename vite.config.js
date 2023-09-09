@@ -14,7 +14,7 @@ export default defineConfig({
   ],
   server:{
     proxy:{
-      '/api':'http://localhost:8000'
+      '/api':'http://wlb965.sandload.com'
     }
   },
   resolve: {
