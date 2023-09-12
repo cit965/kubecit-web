@@ -7,9 +7,16 @@
       <div class="box">
         <h2 class="box_title">账号注册</h2>
         <div class="form_box">
-          <el-form label-position="right" ref="ruleFormRef" label-width="100px" :model="registerForm" style="width: 350px"
-            :rules="rules" require-asterisk-position="right">
-            <el-form-item label="手机号" prop="phone">
+          <el-form
+            label-position="right"
+            ref="ruleFormRef"
+            label-width="100px"
+            :model="registerForm"
+            style="width: 350px"
+            :rules="rules"
+            require-asterisk-position="right"
+          >
+            <!-- <el-form-item label="手机号" prop="phone">
               <el-input clearable placeholder="请输入手机号" type="phone" v-model="registerForm.phone" />
             </el-form-item>
             <div class="code_box">
@@ -19,28 +26,58 @@
               <el-button class="btn btn-primary sendcaptcha" type="primary" @click="postCode">{{ isShowSendCode ? '发送验证码'
                 :
                 countDown + '秒后重新发送' }}</el-button>
-            </div>
+            </div> -->
 
             <el-form-item label="用户名" prop="username">
-              <el-input clearable placeholder="请输入用户名" v-model="registerForm.username" />
+              <el-input
+                clearable
+                placeholder="请输入用户名"
+                v-model="registerForm.username"
+              />
             </el-form-item>
             <el-form-item label="密码" prop="password">
-              <el-input clearable show-password placeholder="请输入密码" type="password" v-model="registerForm.password" />
+              <el-input
+                clearable
+                show-password
+                placeholder="请输入密码"
+                type="password"
+                v-model="registerForm.password"
+              />
             </el-form-item>
             <el-form-item label="确认密码" prop="rePassword">
-              <el-input clearable show-password placeholder="请再次输入密码" type="password" v-model="registerForm.rePassword" />
+              <el-input
+                clearable
+                show-password
+                placeholder="请再次输入密码"
+                type="password"
+                v-model="registerForm.rePassword"
+              />
             </el-form-item>
           </el-form>
           <el-checkbox v-model="registerForm.cheacked">
-            注册即同意《CIT用户服务协议》《CIT隐私政策》。</el-checkbox>
+            注册即同意《CIT用户服务协议》《CIT隐私政策》。</el-checkbox
+          >
         </div>
         <div class="footer">
-          <el-button class="btn btn-primary reg-btn" type="primary" size="large"
-            @click="submitForm(ruleFormRef)">立即注册</el-button>
+          <el-button
+            class="btn btn-primary reg-btn"
+            type="primary"
+            size="large"
+            @click="submitForm(ruleFormRef)"
+            >立即注册</el-button
+          >
         </div>
         <div class="tips">
-          <label style="color: #409eff;margin-right: 10px;" @click="$router.push('/')">返回首页</label>
-          已有账号，<label style="color: #409eff" @click="$router.push('/login')">马上去登录</label>
+          <label
+            style="color: #409eff; margin-right: 10px"
+            @click="$router.push('/')"
+            >返回首页</label
+          >
+          已有账号，<label
+            style="color: #409eff"
+            @click="$router.push('/login')"
+            >马上去登录</label
+          >
         </div>
       </div>
     </div>
@@ -50,7 +87,11 @@
 <script setup lang="ts">
 import { reactive, ref } from 'vue'
 import { ElMessage } from 'element-plus'
+import { usersRegister } from '@/utils/api/api.js'
+import { Encrypt } from '@/utils/encrypt/aes'
+import { useRouter } from 'vue-router'
 
+const router = useRouter()
 const ruleFormRef = ref()
 
 //倒计时
@@ -136,12 +177,30 @@ const postCode = () => {
       isShowSendCode.value = true
     }
   }, 1000)
+}
 
+//注册api
+const register = async () => {
+  try {
+    const res = await usersRegister(registerForm)
+    console.log(res)
+    if (res.meta.success) {
+      ElMessage({
+        message: '注册成功',
+        type: 'success',
+      })
+      router.push('/login')
+    } else {
+      ElMessage({
+        message: '注册失败请重新注册',
+        type: 'warning',
+      })
+    }
+  } catch (error) {}
 }
 
 //提交表单
 const submitForm = async (formEl) => {
-
   if (!formEl) return
   await formEl.validate((valid, fields) => {
     if (valid) {
@@ -161,10 +220,11 @@ const submitForm = async (formEl) => {
         return
       }
 
-      ElMessage({
-        message: '注册成功',
-        type: 'success',
-      })
+      register()
+      // ElMessage({
+      //   message: '注册成功',
+      //   type: 'success',
+      // })
     } else {
       console.log('error submit!', fields)
     }
