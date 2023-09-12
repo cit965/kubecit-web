@@ -1,9 +1,9 @@
 import request from './request'
 
 // 获取一级分类
-export function getFristCategorys(){
+export function ListFristCategories(){
 	return request({
-		url:'/api/course/category/getFirstCategories',
+		url:'/api/categories?level=1',
 	})
 }
 

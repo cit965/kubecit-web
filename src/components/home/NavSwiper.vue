@@ -3,7 +3,7 @@
 		<div class='content' >
 			<div class='navigation'>
 				<ul>
-					<li v-for='item in getFirstList' :key='item.id' @mouseenter="mourseHover(item.id)" @mouseleave="mourseOut">
+					<li v-for='item in listFristCategories' :key='item.id' @mouseenter="mourseHover(item.id)" @mouseleave="mourseOut">
 						<router-link to='/'>
 							{{ item.categoryName }}
 							<el-icon color='#ffffff' :size='16'><arrow-right /></el-icon>
@@ -122,13 +122,13 @@
 import { ArrowRight } from "@element-plus/icons-vue";
 import {courseType} from '@/utils/mixins/courseType.js'
 let { courseTypeFn } = courseType();
-import {getFristCategorys,getTagsList,searchCourse,getSliders} from "@/utils/api/api.js";
+import {ListFristCategories,getTagsList,searchCourse,getSliders} from "@/utils/api/api.js";
 
 
-let getFirstList = ref([])
+let listFristCategories = ref([])
 onMounted(() => {
-	getFristCategorys().then(res=>{
-		getFirstList.value = res.categories
+	ListFristCategories().then(res=>{
+		listFristCategories.value = res.categories
 	})
 
 		//获取轮播图
