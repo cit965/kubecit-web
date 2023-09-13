@@ -23,24 +23,24 @@
 				>
 					<div class='courseInfo'>
 						<div class='courseBg'>
-							<img :src="item.courseCover">
+							<img :src="item.cover">
 						</div>
-						<div class="courseName">{{item.courseName}}</div>
-                        <div class="courseDegree">{{ courseTypeFn(item.courseLevel) }}  · {{item.purchaseCounter + item.purchaseCnt}}人报名</div>
+						<div class="courseName">{{item.name}}</div>
+                        <div class="courseDegree">{{ courseTypeFn(item.level) }}  · 100 人报名</div>
                     
 
-						<div class="coursePriceZero" v-if="item.discountPrice == 0">
+						<div class="coursePriceZero" v-if="item.price == 0">
                             <div class="pricefree">免费学习</div>
                             <img src="@/assets/img/free.png" alt="">
                         </div>
 
                         <div class="coursePrice" v-else-if="item.isMember == 1">
                             <div class="courseMemberbg"><span class="courseMember">会员免费</span></div>
-                            <div class="price">¥ {{item.discountPrice}}</div>
+                            <div class="price">¥ {{item.price}}</div>
                         </div>
                         
                         <div class="coursePricePri" v-else>
-                            <div class="pricePri">¥ {{item.discountPrice}}</div>
+                            <div class="pricePri">¥ {{item.price}}</div>
                         </div>
 					</div>
 				</li>
@@ -64,7 +64,7 @@ onBeforeMount(()=>{
 		pageSize:8
 	}).then(res=>{
 		newCourse.value = res.list;
-		console.log( res.data.pageInfo.list )
+		console.log( res.list )
 	})
 })
 const toDetailPage = () => {
