@@ -17,7 +17,6 @@
               @mouseenter="mouseHover(item.id)"
             >
               {{ item.categoryName }}
-
               <el-icon color="#ffffff" :size="16"><arrow-right /></el-icon>
             </router-link>
             <div
@@ -40,7 +39,6 @@
                     >
                   </div>
                 </div>
-
                 <div class="detail-class">
                   <div
                     class="course-card"
