@@ -24,7 +24,7 @@ export const useUserStore = defineStore({
     enabled: true,
     strategies: [
       {
-        key: 'xiaoluxian_user',
+        key: 'cit965_user',
         storage: localStorage,
         //paths: ['token']
       },

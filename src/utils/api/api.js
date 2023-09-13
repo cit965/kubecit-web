@@ -7,12 +7,6 @@ export function ListFristCategories() {
   })
 }
 
-export function getFristCategorys() {
-  return request({
-    url: '/api/course/category/getFirstCategories',
-  })
-}
-
 // 获取标签
 export function getTagsList(data) {
   return request({
