@@ -6,5 +6,6 @@ import Foot from '@/components/common/Foot.vue'
 </script>
 
 <template>
+  <Header></Header>
   <router-view />
 </template>

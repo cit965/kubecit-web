@@ -1,5 +1,5 @@
 <template>
-	<Header></Header>
+  <!-- <Header></Header> -->
   <div class="course-detail">
     <DetailHeader></DetailHeader>
     <Menu @clickIndex="shiftMenu"></Menu>
@@ -11,9 +11,8 @@
       <DownloadList :file-list="downloadList"></DownloadList>
     </div>
   </div>
-	<Footer></Footer>
+  <Footer></Footer>
 </template>
-
 
 <script setup>
 import Header from '@/components/common/Header.vue'
@@ -33,21 +32,20 @@ const initList = () => {
     const element = {
       title: '章节标题',
       des: '章节描述',
-      course: [ 
-        {title: '课程标题',
-        type: '视频'},{title: '课程标题',
-        type: '视频'},{title: '课程标题',
-        type: '视频'},{title: '课程标题',
-        type: '视频'},{title: '课程标题',
-        type: '视频'}
-      ]
+      course: [
+        { title: '课程标题', type: '视频' },
+        { title: '课程标题', type: '视频' },
+        { title: '课程标题', type: '视频' },
+        { title: '课程标题', type: '视频' },
+        { title: '课程标题', type: '视频' },
+      ],
     }
     chapterList.value.push(element)
   }
   for (let index = 0; index < 12; index++) {
     const element = {
       title: '下载标题',
-      url: 'https://www.baidu.com'
+      url: 'https://www.baidu.com',
     }
     downloadList.value.push(element)
   }
@@ -59,7 +57,6 @@ onMounted(() => {
   initList()
 })
 </script>
-
 
 <style scoped lang="scss">
 .course-detail {

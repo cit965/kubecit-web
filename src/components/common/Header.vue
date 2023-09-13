@@ -1,21 +1,41 @@
 <template>
   <header>
     <div class="header-content">
-      <h1 class="content-logo">
-        <img src="@/assets/img/citlogo.jpeg" />
-      </h1>
-      <div class="content-nav">
-        <ul>
-          <li @click="tabHome">首页</li>
-          <li @click="tabCourse">课程</li>
-          <li>会员</li>
-        </ul>
+      <div class="left">
+        <h1 class="content-logo">
+          <img src="@/assets/img/citlogo.jpeg" />
+        </h1>
+        <div class="content-nav">
+          <div class="nav-list">
+            <div
+              @click="tabHome"
+              class="nav-item"
+              :class="{ 'is-active': currentTabIndex === 1 }"
+            >
+              首页
+            </div>
+            <div
+              @click="tabCourse"
+              class="nav-item"
+              :class="{ 'is-active': currentTabIndex === 2 }"
+            >
+              课程
+            </div>
+            <div
+              class="nav-item"
+              @click="handleClickVIP"
+              :class="{ 'is-active': currentTabIndex === 3 }"
+            >
+              会员
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="search-buy-login">
+      <div class="search-buy-login right">
         <div class="content-search">
           <input type="" placeholder="请输入要搜索的课程" />
-          <el-icon color="#808080" :size="22">
-            <search style="width: 22px; height: 22px" />
+          <el-icon color="#808080" :size="22" class="content-search-icon">
+            <search style="width: 24px; height: 24px" />
           </el-icon>
         </div>
         <div class="content-shopping">
@@ -48,12 +68,13 @@
 <script setup>
 import { Search, ShoppingCart } from '@element-plus/icons-vue'
 import { getInfo } from '@/utils/api/api.js'
+import { useUserStore } from '@/store/user'
 
 //用户信息
 let userInfo = ref({})
+let currentTabIndex = ref(1)
 let router = useRouter()
 //pinia
-import { useUserStore } from '@/store/user'
 
 const userStore = useUserStore()
 
@@ -67,12 +88,19 @@ const tabHome = () => {
   router.push({
     name: 'home',
   })
+  currentTabIndex.value = 1
 }
 
 const tabCourse = () => {
   router.push({
     name: 'course',
   })
+  currentTabIndex.value = 2
+}
+
+// 点击 vip tab
+const handleClickVIP = () => {
+  currentTabIndex.value = 3
 }
 
 //用户是否是登录状态
@@ -87,38 +115,84 @@ onMounted(() => {
 })
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 header {
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 80px;
+  height: 100px;
   background: white;
   box-shadow: 0px 5px 6px rgba(0, 0, 0, 0.16);
   opacity: 1;
 }
+
 .header-content {
   display: flex;
-  justify-content: space-around;
-  width: 1200px;
+  justify-content: space-between;
+  align-items: center;
+  // width: 1200px;
+  max-width: 1140px;
+  width: 1140px;
+  height: 100px;
+  color: gray;
+  font-size: 16px;
+  margin: 0 auto;
 }
+
+.nav-item.is-active {
+  &::after {
+    position: absolute;
+    left: 20%;
+    bottom: 0;
+    content: '';
+    width: 60%;
+    height: 4px;
+    background: #388fff;
+  }
+}
+
+.left {
+  display: flex;
+  align-items: center;
+}
+
+.right {
+  display: flex;
+  align-items: center;
+}
+
+.nav-item {
+  width: 100px;
+  height: 100px;
+  position: relative;
+  line-height: 100px;
+  text-align: center;
+  display: block;
+  cursor: pointer;
+
+  &.is-active {
+    color: #388fff !important;
+    font-weight: 700;
+  }
+}
+
 .content-logo {
-  width: 160px;
+  width: 55px;
   height: 55px;
-  margin: 10px 0;
+  margin: 10px 30px 10px 0;
   cursor: pointer;
 }
 .content-logo img {
   height: 100%;
 }
+
 .content-nav {
   width: 300px;
-  height: 75px;
-  float: left;
+  height: 100%;
 }
-.content-nav ul {
+.content-nav .nav-list {
   margin: 0;
   display: flex;
   justify-content: center;
@@ -126,47 +200,53 @@ header {
   width: 100%;
   height: 100%;
 }
-.content-nav ul li {
-  width: 80px;
-  height: 100%;
-  position: relative;
-  line-height: 100px;
-  text-align: center;
-  display: block;
-  color: #808080;
-}
+
 .search-buy-login {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
-  width: 650px;
+  // min-width: 600px;
 }
+
 .content-search {
   display: flex;
   align-items: center;
-  padding: 5px 10px;
-  width: 350px;
+  width: 200px;
   height: 35px;
   border-radius: 8px;
   background: #f0f2f4;
+  margin-right: 50px;
+  position: relative;
 }
 .content-search input {
-  padding: 0 10px;
-  width: 430px;
+  position: relative;
+  padding: 0 40px 0 10px;
   height: 40px;
   border: 0;
   border-radius: 8px;
-  color: #808080;
+  color: #333333;
   background: #f0f2f4;
-  font-size: 16px;
+  font-size: 14px;
   outline: none;
 }
+
+.content-search-icon {
+  position: absolute;
+  right: -10px;
+  top: 6px;
+}
+
 .content-login a {
-  font-size: 18px;
+  font-size: 16px;
   color: #808080;
   text-align: center;
   cursor: pointer;
   text-decoration: none;
+}
+
+.content-shopping {
+  line-height: 10px;
+  margin-right: 20px;
 }
 
 .avator {
