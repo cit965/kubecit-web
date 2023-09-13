@@ -11,7 +11,7 @@
 						
 					</li>
 				</ul>
-                <div class='category-detail' v-if="isFirst" @mouseenter.stop="detailHover()" @mouseleave.stop="detailOut()">
+                <div class='category-detail' v-if="isShowDetailPanel" @mouseenter.stop="detailHover()" @mouseleave.stop="detailOut()">
                     <div class='detail-main'>
                         <div class='detail-desc'>基础知识</div>
                         <div class='detail-list'>
@@ -143,30 +143,31 @@ onMounted(() => {
 })
 
 //轮播图数据
-let slidersList = ref([]);
+const slidersList = ref([]);
 //获取子分类
-let subCategoryList = ref([]);
+const subCategoryList = ref([]);
 //查询课程
-let searchCourseList = ref([]);
-//移入判断
-let isFirst = ref(false);
+const searchCourseList = ref([]);
+// 判断是否显示二级详情面板
+const isShowDetailPanel = ref(false);
 //获取课子类参数
-let subCategoryParams = reactive({
+const subCategoryParams = reactive({
 	category: 0,
 })
 
 const mourseHover = (id) => {
-	isFirst.value = true;
+	isShowDetailPanel.value = true;
 	subCategoryParams.category = id;
 	SubCategoriesFn(subCategoryParams);
 	getsearchCourse(subCategoryParams);
 }
+
 //鼠标移出
 const mourseOut = () => {
     const curId = subCategoryParams.category
     setTimeout(() => {
-        if(isInDetail.value || curId !== subCategoryParams.category) return
-        isFirst.value = false;
+        if(isInDetailPanel.value || curId !== subCategoryParams.category) return
+        isShowDetailPanel.value = false;
         subCategoryParams.category = 0
     })
 }
@@ -182,13 +183,14 @@ const getsearchCourse = (params)=>{
 		searchCourseList.value = res.list;
 	})
 }
-const isInDetail = ref(false)
+
+const isInDetailPanel = ref(false) // 鼠标是否在详情面板
 const detailHover = () => {
-    isInDetail.value = true
+    isInDetailPanel.value = true
 }
 const detailOut = () => {
-    isInDetail.value = false
-    isFirst.value = false;
+    isInDetailPanel.value = false
+    isShowDetailPanel.value = false;
     subCategoryParams.category = 0
 }
 
