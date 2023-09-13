@@ -6,18 +6,25 @@
           <li
             v-for="(item, index) in getFirstList"
             :key="item.id"
-            @mouseenter="mouseHover(item.id, index)"
+            :class="{
+              'is-hover':
+                item.id === category && category === subCategoryParams.category,
+            }"
           >
-            <router-link to="/" :class="{ 'is-hover': index == selectIndex }">
+            <router-link
+              to="/"
+              @mouseleave="mouseOut"
+              @mouseenter="mouseHover(item.id)"
+            >
               {{ item.categoryName }}
-              {{ selectIndex }}
-              {{ index }}
+
               <el-icon color="#ffffff" :size="16"><arrow-right /></el-icon>
             </router-link>
             <div
               class="category-detail"
               v-show="isFirst"
-              @mouseleave="mouseOut"
+              @mouseleave="mouseOutNavContent"
+              @mouseenter="detailMouseHover(item.id)"
             >
               <div class="detail-main">
                 <div class="detail-desc">基础知识</div>
@@ -26,13 +33,14 @@
                   <div class="list-ul">
                     <router-link
                       to="/"
-                      v-for="item in tagsList"
-                      :key="item.id"
+                      v-for="subItem in subCategoryList"
+                      :key="subItem.id"
                       class="list-item"
-                      >{{ item.name }}</router-link
+                      >{{ subItem.categoryName }}</router-link
                     >
                   </div>
                 </div>
+
                 <div class="detail-class">
                   <div
                     class="course-card"
@@ -40,13 +48,12 @@
                     :key="item.id"
                   >
                     <div class="course-image">
-                      <img :src="item.courseCover" />
+                      <img :src="item.cover" />
                     </div>
                     <div class="right">
                       <div class="courseName">{{ item.courseName }}</div>
                       <div class="courseDegree">
-                        {{ courseTypeFn(item.courseLevel) }} ·
-                        {{ item.purchaseCounter }}人购买
+                        {{ courseTypeFn(item.level) }} · 100 人购买
                       </div>
                       <div class="buy">
                         <div class="buy-free">
@@ -54,7 +61,7 @@
                             <div class="courseMemberbg">
                               <span class="courseMember">会员专享</span>
                             </div>
-                            <div class="price">¥{{ item.discountPrice }}</div>
+                            <div class="price">¥{{ item.price }}</div>
                           </div>
                           <div class="cart">
                             <div class="cart-image">
@@ -84,7 +91,7 @@
       <div class="course-type-item">
         <router-link to="/">
           <div class="course-type-item-icon">
-            <img src="@/assets/img/chuji.jpeg" />
+            <img src="@/assets/img/golang.png" />
           </div>
           <div class="course-type-item-text">
             <div class="course-type-item-title">初级课程</div>
@@ -95,7 +102,7 @@
       <div class="course-type-item">
         <router-link to="/">
           <div class="course-type-item-icon">
-            <img src="@/assets/img/chuji.jpeg" />
+            <img src="@/assets/img/vue3.png" />
           </div>
           <div class="course-type-item-text">
             <div class="course-type-item-title">中级课程</div>
@@ -106,7 +113,7 @@
       <div class="course-type-item">
         <router-link to="/">
           <div class="course-type-item-icon">
-            <img src="@/assets/img/chuji.jpeg" />
+            <img src="@/assets/img/ai.png" />
           </div>
           <div class="course-type-item-text">
             <div class="course-type-item-title">高级课程</div>
@@ -117,7 +124,7 @@
       <div class="course-type-item">
         <router-link to="/">
           <div class="course-type-item-icon">
-            <img src="@/assets/img/chuji.jpeg" />
+            <img src="@/assets/img/k8s.png" />
           </div>
           <div class="course-type-item-text">
             <div class="course-type-item-title">项目实战</div>
@@ -128,7 +135,7 @@
       <div class="course-type-item">
         <router-link to="/">
           <div class="course-type-item-icon">
-            <img src="@/assets/img/chuji.jpeg" />
+            <img src="@/assets/img/devops.png" />
           </div>
           <div class="course-type-item-text">
             <div class="course-type-item-title">前端算法</div>
@@ -144,17 +151,15 @@
 import { ArrowRight } from '@element-plus/icons-vue'
 import { courseType } from '@/utils/mixins/courseType.js'
 import {
-  getFristCategorys,
-  getTagsList,
+  ListFristCategories,
   searchCourse,
   getSliders,
 } from '@/utils/api/api.js'
-
 let { courseTypeFn } = courseType()
 
 let getFirstList = ref([])
 onMounted(() => {
-  getFristCategorys().then((res) => {
+  ListFristCategories().then((res) => {
     getFirstList.value = res.categories
   })
 
@@ -172,49 +177,56 @@ let tagsList = ref([])
 let searchCourseList = ref([])
 //移入判断
 let isFirst = ref(false)
-let selectIndex = ref(-1)
-//获取课程标签参数
-let tagParams = {
-  pageNum: 1,
-  pageSize: 20,
+//获取课子类参数
+let subCategoryParams = {
   category: 0,
 }
-//
+const category = ref(-1)
+// 上一次分类
+let oldCategory = -1
 
-const mouseHover = (id, index) => {
+const mouseHover = (id) => {
+  console.log('mouseHover-id', id)
   isFirst.value = true
-  selectIndex.value = index
-  tagParams.category = id
-  getTagsListFn(tagParams)
-  getsearchCourse(tagParams)
+  subCategoryParams.category = id
+  category.value = id
+  SubCategoriesFn(subCategoryParams)
+  getsearchCourse(subCategoryParams)
 }
 
-const mouseOut = () => {
-  selectIndex.value = -1
-  isFirst.value = false
+// 分类具体内容移入
+const detailMouseHover = (id) => {
+  isFirst.value = true
+  category.value = oldCategory
+  console.log(subCategoryParams, 'fff')
+  console.log(id, 'idffff')
 }
 
-const mourseHover1 = (selectIndex1) => {
-  console.log('mourseHover1', selectIndex, selectIndex1)
-  selectIndex.value = selectIndex1
-}
-
-const getTagsListFn = (params) => {
-  getTagsList(params).then((res) => {
-    tagsList.value = res.tags
-  })
+const SubCategoriesFn = (params) => {
+  // ListSubCategories(params).then(res=>{
+  // 	console.log(res,"子分类",params)
+  // 	subCategoryList.value = res.categories;
+  // })
 }
 
 const getsearchCourse = (params) => {
   searchCourse(params).then((res) => {
-    searchCourseList.value = res.data.list
-    console.log(res)
+    searchCourseList.value = res.list
+    console.log(searchCourseList.value, 'ffff')
   })
 }
 
-//鼠标移出
-const mourseOut = () => {
+//鼠标移出分类 nav
+const mouseOut = () => {
   isFirst.value = false
+  oldCategory = category.value
+  category.value = -1
+}
+
+// 鼠标移出分类内容区域
+const mouseOutNavContent = () => {
+  category.value = -1;
+  isFirst.value = false;
 }
 </script>
 
@@ -260,11 +272,11 @@ const mourseOut = () => {
   font-weight: bold;
   text-decoration: none;
 }
-.navigation ul li a:hover {
+/* .navigation ul li:hover {
   background: linear-gradient(90deg, rgb(63, 229, 255), transparent);
-}
+} */
 
-.navigation ul li a.is-hover {
+.navigation ul li.is-hover {
   background: linear-gradient(90deg, rgb(63, 229, 255), transparent);
 }
 
