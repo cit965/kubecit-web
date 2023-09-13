@@ -61,7 +61,7 @@
 			<div class='course-type-item'>
 				<router-link to='/'>
 					<div class='course-type-item-icon'>
-						<img src="@/assets/img/chuji.jpeg">
+						<img src="@/assets/img/golang.png">
 					</div>
 					<div class='course-type-item-text'>
 						<div class='course-type-item-title'>初级课程</div>
@@ -72,7 +72,7 @@
 			<div class='course-type-item'>
 				<router-link to='/'>
 					<div class='course-type-item-icon'>
-						<img src="@/assets/img/chuji.jpeg">
+						<img src="@/assets/img/vue3.png">
 					</div>
 					<div class='course-type-item-text'>
 						<div class='course-type-item-title'>中级课程</div>
@@ -83,7 +83,7 @@
 			<div class='course-type-item'>
 				<router-link to='/'>
 					<div class='course-type-item-icon'>
-						<img src="@/assets/img/chuji.jpeg">
+						<img src="@/assets/img/ai.png">
 					</div>
 					<div class='course-type-item-text'>
 						<div class='course-type-item-title'>高级课程</div>
@@ -94,7 +94,7 @@
 			<div class='course-type-item'>
 				<router-link to='/'>
 					<div class='course-type-item-icon'>
-						<img src="@/assets/img/chuji.jpeg">
+						<img src="@/assets/img/k8s.png">
 					</div>
 					<div class='course-type-item-text'>
 						<div class='course-type-item-title'>项目实战</div>
@@ -105,7 +105,7 @@
 			<div class='course-type-item'>
 				<router-link to='/'>
 					<div class='course-type-item-icon'>
-						<img src="@/assets/img/chuji.jpeg">
+						<img src="@/assets/img/devops.png">
 					</div>
 					<div class='course-type-item-text'>
 						<div class='course-type-item-title'>前端算法</div>

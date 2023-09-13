@@ -2,10 +2,10 @@
 	<footer>
 		<div class='footer-main'>
 			<div class='footer-xlx'>
-				<img src="@/assets/img/citlogo.jpeg">
+				<img src="@/assets/img/logo-2-small-f.png">
 			</div>
 			<div class='footer-factory'>
-				<img src="@/assets/img/citlogo.jpeg">
+				<img src="@/assets/img/foot-factory.png">
 			</div>
 			<div class="copytight">
 				<ul class='copy-top'>
@@ -18,25 +18,27 @@
 					<li>版权声明</li>
 				</ul>
 				<div class='copy-bottom'>
-					<span>Copyrignt© 2023 cit865.cn </span>	
-					<a data-v-d94f43e2="" href="https://beian.miit.gov.cn/" target="_blank" class="go">京ICP备 xxx号</a>
-					<p class='copy-user'>
-						<a href="">《CIT社区用户条约》</a>
-					</p>
+					<div style="text-align: center;margin-top: 5px">Copyright © 2018~2038 </div>
+
+					<p style="text-align: center;margin-top: 5px">
+                    <a href="/#" style="color: #FFF" title="wlb965用户服务协议">wlb965用户服务协议</a>
+                    <a href="/#" style="color: #FFF" title="wlb965隐私政策">wlb965隐私政策</a>
+                    <!-- <a class="go" href="#" target="_blank" title="京ICP备xxxxxx">京ICP备xxxxxx</a> -->
+                </p>
 				</div>
 			</div>
 			<div class="wx">
 				<div class="wx-bg">
-					<img src='@/assets/img/citlogo.jpeg' />
+					<img src='@/assets/img/weichat.jpg' />
 				</div>
 				<div class="wx-dsc">官方微信</div>
 			</div>
-			<div class="wx">
+			<!-- <div class="wx">
 				<div class="wx-bg">
 					<img src='@/assets/img/citlogo.jpeg' />
 				</div>
 				<div class="wx-dsc">咨询老师微信</div>
-			</div>
+			</div> -->
 		</div>
 	</footer>
 </template>
@@ -77,9 +79,9 @@ footer{
 	height: 100%;
 }
 .copy-top{
-	display: flex;
-	font-size: 14px;
-	margin:0 10px 10px 50px;
+    font-size: 14px;
+    margin: 0 0 10px 0;
+    display: flex;
 }
 .copy-top li{
 	margin: 0 10px;
@@ -118,5 +120,9 @@ footer{
 .copy-user a{
 	text-decoration: none;
 	color:#FFFFFF;
+}
+
+li{
+    list-style-type: none;
 }
 </style>

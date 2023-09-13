@@ -1,10 +1,11 @@
 FROM node:latest as build-stage
 WORKDIR /app
-ENV NODE_ENV dev
-COPY package*.json ./
-RUN npm install
+# ENV NODE_ENV production
+# COPY package*.json ./
+# RUN npm install
+# RUN npm run build:pro
 COPY . .
-RUN npm run build
+
 
 FROM nginx:stable-alpine
 COPY --from=build-stage /app/dist /usr/share/nginx/html
