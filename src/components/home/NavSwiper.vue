@@ -3,53 +3,54 @@
 		<div class='content' >
 			<div class='navigation'>
 				<ul>
-					<li v-for='item in listFristCategories' :key='item.id' @mouseenter="mourseHover(item.id)" @mouseleave="mourseOut">
+					<li v-for='item in listFristCategories' :key='item.id' :class="{ 'list-item-active': item.id === subCategoryParams.category }" @mouseenter.stop="mourseHover(item.id)" @mouseleave="mourseOut">
 						<router-link to='/'>
 							{{ item.categoryName }}
 							<el-icon color='#ffffff' :size='16'><arrow-right /></el-icon>
 						</router-link>
-						<div class='category-detail' v-if="isFirst">
-							<div class='detail-main'>
-								<div class='detail-desc'>基础知识</div>
-								<div class='detail-list'>
-									<div class='list-know'>知识点：</div>
-									<div class='list-ul'>
-										<router-link to='/' v-for="item in subCategoryList" :key="item.id" class='list-item'>{{item.categoryName}}</router-link>
-									</div>
-								</div>
-
-
-								<div class='detail-class'>
-									<div class='course-card' v-for="item in searchCourseList" :key="item.id">
-										<div class='course-image'>
-											<img :src="item.cover">
-										</div>
-										<div class='right'>
-											<div class='courseName'>{{ item.courseName }}</div>
-											<div class="courseDegree">{{ courseTypeFn(item.level) }} · 100 人购买</div>
-											<div class='buy'>
-												<div class='buy-free'>
-													<div class='coursePrice'>
-														<div class='courseMemberbg'>
-															<span class='courseMember'>会员专享</span>
-														</div>
-														<div class='price'>¥{{item.price}}</div>
-													</div>
-													<div class='cart'>
-														<div class='cart-image'>
-															<img src="@/assets/img/free.png">
-														</div>
-														<span class='addcart'>加入购物车</span>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
+						
 					</li>
 				</ul>
+                <div class='category-detail' v-if="isFirst" @mouseenter.stop="detailHover()" @mouseleave.stop="detailOut()">
+                    <div class='detail-main'>
+                        <div class='detail-desc'>基础知识</div>
+                        <div class='detail-list'>
+                            <div class='list-know'>知识点：</div>
+                            <div class='list-ul'>
+                                <router-link to='/' v-for="item in subCategoryList" :key="item.id" class='list-item'>{{item.categoryName}}</router-link>
+                            </div>
+                        </div>
+
+
+                        <div class='detail-class'>
+                            <div class='course-card' v-for="item in searchCourseList" :key="item.id">
+                                <div class='course-image'>
+                                    <img :src="item.cover">
+                                </div>
+                                <div class='right'>
+                                    <div class='courseName'>{{ item.courseName }}</div>
+                                    <div class="courseDegree">{{ courseTypeFn(item.level) }} · 100 人购买</div>
+                                    <div class='buy'>
+                                        <div class='buy-free'>
+                                            <div class='coursePrice'>
+                                                <div class='courseMemberbg'>
+                                                    <span class='courseMember'>会员专享</span>
+                                                </div>
+                                                <div class='price'>¥{{item.price}}</div>
+                                            </div>
+                                            <div class='cart'>
+                                                <div class='cart-image'>
+                                                    <img src="@/assets/img/free.png">
+                                                </div>
+                                                <span class='addcart'>加入购物车</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 			</div>
 			<div class='sliders'>
 				<el-carousel :interval="5000" arrow="always"  height="460px">
@@ -123,14 +124,16 @@
 <script setup>
 import { ArrowRight } from "@element-plus/icons-vue";
 import {courseType} from '@/utils/mixins/courseType.js'
+import { ListFristCategories, ListSubCategories, searchCourse, getSliders } from "@/utils/api/api.js";
+import { reactive } from 'vue';
+
 let { courseTypeFn } = courseType();
-import {ListFristCategories,ListSubCategories,searchCourse,getSliders} from "@/utils/api/api.js";
 
 
 let listFristCategories = ref([])
 onMounted(() => {
 	ListFristCategories().then(res=>{
-		listFristCategories.value = res.categories
+        listFristCategories.value = res.categories
 	})
 
 		//获取轮播图
@@ -148,20 +151,28 @@ let searchCourseList = ref([]);
 //移入判断
 let isFirst = ref(false);
 //获取课子类参数
-let subCategoryParams = {
+let subCategoryParams = reactive({
 	category: 0,
-}
+})
 
-const mourseHover = ( id )=>{
+const mourseHover = (id) => {
 	isFirst.value = true;
 	subCategoryParams.category = id;
 	SubCategoriesFn(subCategoryParams);
 	getsearchCourse(subCategoryParams);
 }
+//鼠标移出
+const mourseOut = () => {
+    const curId = subCategoryParams.category
+    setTimeout(() => {
+        if(isInDetail.value || curId !== subCategoryParams.category) return
+        isFirst.value = false;
+        subCategoryParams.category = 0
+    })
+}
 
 const SubCategoriesFn = (params)=>{
 	ListSubCategories(params).then(res=>{
-		console.log(res,"子分类",params)
 		subCategoryList.value = res.categories;
 	})
 }
@@ -169,14 +180,18 @@ const SubCategoriesFn = (params)=>{
 const getsearchCourse = (params)=>{
 	searchCourse(params).then(res=>{
 		searchCourseList.value = res.list;
-		console.log(res)
 	})
 }
-
-//鼠标移出
-const mourseOut = ()=>{
-	isFirst.value = false;
+const isInDetail = ref(false)
+const detailHover = () => {
+    isInDetail.value = true
 }
+const detailOut = () => {
+    isInDetail.value = false
+    isFirst.value = false;
+    subCategoryParams.category = 0
+}
+
 </script>
 
 <style scoped>
@@ -207,7 +222,7 @@ const mourseOut = ()=>{
 .navigation ul li{
 	height: 40px;
     list-style: none;
-    margin-bottom: 5px;
+    padding-bottom: 5px;
 }
 .navigation ul li a {
 	display: flex;
@@ -221,8 +236,9 @@ const mourseOut = ()=>{
 	font-weight: bold;
 	text-decoration: none;
 }
-.navigation ul li a:hover {
-	background: linear-gradient(to right, #3fe5ff, transparent);
+
+.list-item-active {
+    background: linear-gradient(to right, #3fe5ff, transparent);
 }
 .sliders{
 	width: 1060px;
@@ -289,6 +305,7 @@ const mourseOut = ()=>{
   background: unset !important;
   color: #00ffff;
 }
+
 .detail-class {
   position: absolute;
   bottom: 0;
