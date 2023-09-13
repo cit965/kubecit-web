@@ -22,6 +22,14 @@ export function getTagsList(data) {
   })
 }
 
+// 获取子分类
+
+export function ListSubCategories(data) {
+  return request({
+    url: '/api/categories?parentID=' + data.category,
+  })
+}
+
 // 获取分类下课程
 export function searchCourse(data) {
   return request({
@@ -71,12 +79,5 @@ export function getInfo(params) {
   return request({
     url: '/api/member/getInfo',
     params,
-  })
-}
-
-//创建Token
-export function createToken() {
-  return request({
-    url: '/api/token/createToken',
   })
 }

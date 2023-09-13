@@ -14,24 +14,26 @@
 								<div class='detail-list'>
 									<div class='list-know'>知识点：</div>
 									<div class='list-ul'>
-										<router-link to='/' v-for="item in tagsList" :key="item.id" class='list-item'>{{item.name}}</router-link>
+										<router-link to='/' v-for="item in subCategoryList" :key="item.id" class='list-item'>{{item.categoryName}}</router-link>
 									</div>
 								</div>
+
+
 								<div class='detail-class'>
 									<div class='course-card' v-for="item in searchCourseList" :key="item.id">
 										<div class='course-image'>
-											<img :src="item.courseCover">
+											<img :src="item.cover">
 										</div>
 										<div class='right'>
 											<div class='courseName'>{{ item.courseName }}</div>
-											<div class="courseDegree">{{ courseTypeFn(item.courseLevel) }} · {{item.purchaseCounter}}人购买</div>
+											<div class="courseDegree">{{ courseTypeFn(item.level) }} · 100 人购买</div>
 											<div class='buy'>
 												<div class='buy-free'>
 													<div class='coursePrice'>
 														<div class='courseMemberbg'>
 															<span class='courseMember'>会员专享</span>
 														</div>
-														<div class='price'>¥{{item.discountPrice}}</div>
+														<div class='price'>¥{{item.price}}</div>
 													</div>
 													<div class='cart'>
 														<div class='cart-image'>
@@ -61,7 +63,7 @@
 			<div class='course-type-item'>
 				<router-link to='/'>
 					<div class='course-type-item-icon'>
-						<img src="@/assets/img/chuji.jpeg">
+						<img src="@/assets/img/golang.png">
 					</div>
 					<div class='course-type-item-text'>
 						<div class='course-type-item-title'>初级课程</div>
@@ -72,7 +74,7 @@
 			<div class='course-type-item'>
 				<router-link to='/'>
 					<div class='course-type-item-icon'>
-						<img src="@/assets/img/chuji.jpeg">
+						<img src="@/assets/img/vue3.png">
 					</div>
 					<div class='course-type-item-text'>
 						<div class='course-type-item-title'>中级课程</div>
@@ -83,7 +85,7 @@
 			<div class='course-type-item'>
 				<router-link to='/'>
 					<div class='course-type-item-icon'>
-						<img src="@/assets/img/chuji.jpeg">
+						<img src="@/assets/img/ai.png">
 					</div>
 					<div class='course-type-item-text'>
 						<div class='course-type-item-title'>高级课程</div>
@@ -94,7 +96,7 @@
 			<div class='course-type-item'>
 				<router-link to='/'>
 					<div class='course-type-item-icon'>
-						<img src="@/assets/img/chuji.jpeg">
+						<img src="@/assets/img/k8s.png">
 					</div>
 					<div class='course-type-item-text'>
 						<div class='course-type-item-title'>项目实战</div>
@@ -105,7 +107,7 @@
 			<div class='course-type-item'>
 				<router-link to='/'>
 					<div class='course-type-item-icon'>
-						<img src="@/assets/img/chuji.jpeg">
+						<img src="@/assets/img/devops.png">
 					</div>
 					<div class='course-type-item-text'>
 						<div class='course-type-item-title'>前端算法</div>
@@ -122,7 +124,7 @@
 import { ArrowRight } from "@element-plus/icons-vue";
 import {courseType} from '@/utils/mixins/courseType.js'
 let { courseTypeFn } = courseType();
-import {ListFristCategories,getTagsList,searchCourse,getSliders} from "@/utils/api/api.js";
+import {ListFristCategories,ListSubCategories,searchCourse,getSliders} from "@/utils/api/api.js";
 
 
 let listFristCategories = ref([])
@@ -139,35 +141,34 @@ onMounted(() => {
 
 //轮播图数据
 let slidersList = ref([]);
-//获取课程标签
-let tagsList = ref([]);
+//获取子分类
+let subCategoryList = ref([]);
 //查询课程
 let searchCourseList = ref([]);
 //移入判断
 let isFirst = ref(false);
-//获取课程标签参数
-let tagParams = {
-	pageNum:1,
-	pageSize:20,
+//获取课子类参数
+let subCategoryParams = {
 	category: 0,
 }
 
 const mourseHover = ( id )=>{
 	isFirst.value = true;
-	tagParams.category = id;
-	getTagsListFn(tagParams);
-	getsearchCourse(tagParams);
+	subCategoryParams.category = id;
+	SubCategoriesFn(subCategoryParams);
+	getsearchCourse(subCategoryParams);
 }
 
-const getTagsListFn = (params)=>{
-	getTagsList(params).then(res=>{
-		tagsList.value = res.tags;
+const SubCategoriesFn = (params)=>{
+	ListSubCategories(params).then(res=>{
+		console.log(res,"子分类",params)
+		subCategoryList.value = res.categories;
 	})
 }
 
 const getsearchCourse = (params)=>{
 	searchCourse(params).then(res=>{
-		searchCourseList.value = res.data.list;
+		searchCourseList.value = res.list;
 		console.log(res)
 	})
 }
