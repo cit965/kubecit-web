@@ -88,7 +88,6 @@
 import { reactive, ref } from 'vue'
 import { ElMessage } from 'element-plus'
 import { usersRegister } from '@/utils/api/api.js'
-import { Encrypt } from '@/utils/encrypt/aes'
 import { useRouter } from 'vue-router'
 
 const router = useRouter()
@@ -221,10 +220,6 @@ const submitForm = async (formEl) => {
       }
 
       register()
-      // ElMessage({
-      //   message: '注册成功',
-      //   type: 'success',
-      // })
     } else {
       console.log('error submit!', fields)
     }
