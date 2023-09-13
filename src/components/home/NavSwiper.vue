@@ -184,7 +184,6 @@ const category = ref(-1)
 let oldCategory = -1
 
 const mouseHover = (id) => {
-  console.log('mouseHover-id', id)
   isFirst.value = true
   subCategoryParams.category = id
   category.value = id
@@ -196,8 +195,6 @@ const mouseHover = (id) => {
 const detailMouseHover = (id) => {
   isFirst.value = true
   category.value = oldCategory
-  console.log(subCategoryParams, 'fff')
-  console.log(id, 'idffff')
 }
 
 const SubCategoriesFn = (params) => {
@@ -210,7 +207,6 @@ const SubCategoriesFn = (params) => {
 const getsearchCourse = (params) => {
   searchCourse(params).then((res) => {
     searchCourseList.value = res.list
-    console.log(searchCourseList.value, 'ffff')
   })
 }
 
