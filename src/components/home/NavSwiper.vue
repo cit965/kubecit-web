@@ -20,18 +20,18 @@
 								<div class='detail-class'>
 									<div class='course-card' v-for="item in searchCourseList" :key="item.id">
 										<div class='course-image'>
-											<img :src="item.courseCover">
+											<img :src="item.cover">
 										</div>
 										<div class='right'>
 											<div class='courseName'>{{ item.courseName }}</div>
-											<div class="courseDegree">{{ courseTypeFn(item.courseLevel) }} · {{item.purchaseCounter}}人购买</div>
+											<div class="courseDegree">{{ courseTypeFn(item.level) }} · 100 人购买</div>
 											<div class='buy'>
 												<div class='buy-free'>
 													<div class='coursePrice'>
 														<div class='courseMemberbg'>
 															<span class='courseMember'>会员专享</span>
 														</div>
-														<div class='price'>¥{{item.discountPrice}}</div>
+														<div class='price'>¥{{item.price}}</div>
 													</div>
 													<div class='cart'>
 														<div class='cart-image'>
