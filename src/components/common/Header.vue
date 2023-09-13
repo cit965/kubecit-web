@@ -47,7 +47,7 @@
 
 <script setup>
 import { Search, ShoppingCart } from '@element-plus/icons-vue'
-import { getInfo, createToken } from '@/utils/api/api.js'
+import { getInfo } from '@/utils/api/api.js'
 
 //用户信息
 let userInfo = ref({})
@@ -79,20 +79,20 @@ const tabCourse = () => {
 let isLogin = ref(false)
 
 onBeforeMount(() => {
-  createToken().then((res) => {
-    let token = res.data.token
-    getInfo({
-      token,
-    }).then((res) => {
-      //登录的状态，获取到了用户的信息
-      if (res.meta.code == '200') {
-        //用户信息
-        userInfo.value = res.data.data
-        //判断是否可以获取用户信息
-        isLogin.value = true
-      }
-    })
-  })
+  // createToken().then((res) => {
+  //   let token = res.data.token
+  //   getInfo({
+  //     token,
+  //   }).then((res) => {
+  //     //登录的状态，获取到了用户的信息
+  //     if (res.meta.code == '200') {
+  //       //用户信息
+  //       userInfo.value = res.data.data
+  //       //判断是否可以获取用户信息
+  //       isLogin.value = true
+  //     }
+  //   })
+  // })
 })
 </script>
 
