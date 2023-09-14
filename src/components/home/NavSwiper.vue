@@ -251,17 +251,16 @@ const mouseOutNavContent = () => {
   margin: 20px 0;
 }
 .navigation ul li {
-  height: 40px;
+  height: 45px;
   list-style: none;
-  margin-bottom: 5px;
 }
 .navigation ul li a {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 20px;
+  padding: 0 20px 5px;
   color: #ffffff;
-  height: 40px;
+  height: 45px;
   /* line-height: 40px; */
   font-size: 16px;
   font-weight: bold;
