@@ -6,48 +6,63 @@
         <div class="search-item">
           <div class="title-name">课程方向：</div>
           <div class="all-items">
-            <el-tag class="category-poniter" effect="plain" type="info"
-              >全部</el-tag
-            >
+            <el-tag
+              class="category-poniter"
+              effect="plain"
+              type="info"
+              @click="allFirstCategory()"
+            >全部</el-tag>
             <el-tag
               class="category-poniter-item"
               effect="plain"
               type="info"
               v-for="(item, index) in courseIndustry"
               :key="index"
-              >{{ item.name }}
+              :class="{active: item.categoryName == currentFirstCategory}"
+              @click="selectFirstCategory(item)"
+            >{{ item.categoryName || ''}} 
             </el-tag>
           </div>
         </div>
         <div class="search-item">
           <div class="title-name">课程分类：</div>
           <div class="all-items">
-            <el-tag class="category-poniter" effect="plain" type="info"
-              >全部</el-tag
-            >
+            <el-tag
+              class="category-poniter"
+              effect="plain"
+              type="info"
+              @click="allSecCategory()"
+            >全部</el-tag>
             <el-tag
               class="category-poniter-item"
               effect="plain"
               type="info"
               v-for="(item, index) in courseCategory"
               :key="index"
-              >{{ item.name }}
+              :class="{active: item.categoryName == currentSecCategory}"
+              @click="selectCategory(item)"
+            >{{ item.categoryName }}
             </el-tag>
           </div>
         </div>
         <div class="search-item">
           <div class="title-name">课程难度：</div>
           <div class="all-items">
-            <el-tag class="category-poniter" effect="plain" type="info"
-              >全部</el-tag
-            >
+            <el-tag
+              class="category-poniter"
+              effect="plain"
+              type="info"
+              @click="allLevel()"
+            >全部</el-tag>
             <el-tag
               class="category-poniter-item"
               effect="plain"
               type="info"
-              v-for="(item, index) in courseIndustry"
+              v-for="(item, index) in courseLevel"
               :key="index"
-              >{{ item.name }}
+              :class="{active: item.level == currentLevel}"
+              @click="selectLevel(item)"
+            >{{ item.level }}
             </el-tag>
           </div>
         </div>
@@ -82,20 +97,15 @@
       <div class="container-body">
         <div class="newCourseContent">
           <div class="courseUl">
-            <div
-              class="courseItem"
-              v-for="(courseItem, index) in courseList"
-              :key="index"
-              @click="toDetailPage"
-            >
-              <div class="courseInfo">
-                <div class="courseBg">
-                  <img :src="courseItem.imgUrl" alt="" />
-                </div>
-                <div class="courseName">{{ courseItem.title }}</div>
-                <div class="courseDegree">{{ courseItem.level }}</div>
+            <div class='courseItem' v-for="(courseItem, index) in courseList" :key="index" @click="toDetailPage">
+              <div class='courseInfo'>
+              <div class='courseBg'>
+                <img :src="courseItem.cover" alt="">
+              </div>
+              <div class="courseName">{{ courseItem.name }}</div>
+                <div class="courseDegree">{{ levelMap[courseItem.level] }}</div>
                 <div class="coursePricePri">
-                  <div class="pricePri">{{ courseItem.price }}</div>
+                  <div class="pricePri">¥ {{ courseItem.price }}</div>
                 </div>
               </div>
             </div>
@@ -113,50 +123,96 @@ import Header from '@/components/common/Header.vue'
 import Foot from '@/components/common/Foot.vue'
 import Pagination from '@/components/common/Pagination.vue'
 import { onMounted } from 'vue'
-let courseIndustry = ref([
-  { name: 'HTML/CSS' },
-  { name: 'JavaScript' },
-  { name: 'Node.js' },
-  { name: '前端框架' },
-  { name: '前端工具' },
-  { name: '跨平台开发' },
-  { name: '其他课程' },
-])
-let courseCategory = ref([
-  { name: '算法' },
-  { name: '面试题' },
-  { name: '高端' },
-])
-let courseLevel = ref([
-  { level: '初级' },
-  { message: '中级' },
-  { message: '高级' },
-])
-let courseList = ref([])
-let pageCount = ref(10)
+import { searchCourse } from '@/utils/api/api.js'
+import { queryCategoryList } from '@/utils/api/course.js'
+let courseIndustry = ref([]) // 课程方向
+let courseCategory = ref([]) // 所有课程分类
+let currentSecCategory = ref('') // 当前选中的课程二级分类
+let currentFirstCategory = ref('') // 当前选中的课程一级分类
+let currentLevel = ref('') // 当前选中的课程一级分类
+let courseLevel = ref([{ level: '初级' }, { level: '中级' }, { level: '高级' }]) // 课程难度
+const levelMap = ref({1:'初级', 2:'中级', 3:'高级'})
+let courseList = ref([]) // 筛选出的课程列表
+let pageCount = ref(10) // 分页数据
 let router = useRouter()
-const initList = () => {
-  for (let index = 0; index < 12; index++) {
-    const element = {
-      imgUrl:
-        'https://oss.xuexiluxian.cn/xiaoluxian-vcr/ed4eca4ebbeb4b489de722925a34d086.jpg',
-      title: '课程标题',
-      level: '中级 · 156人报名',
-      price: '¥ 222',
-    }
-    courseList.value.push(element)
-  }
-  console.log(courseList.value.length)
-  pageCount.value = Math.ceil(courseList.value.length / 12)
-  console.log(pageCount)
+// 查询课程列表
+const queryCourseList = () => {
+  searchCourse({
+		pageNum: 1,
+    pageSize: 12
+	}).then(res=>{
+		courseList.value = res.list
+    pageCount.value = Math.ceil(res.list.length/12)
+	})
 }
+// 获取课程分类
+const categoryList = (params) => {
+  queryCategoryList({
+    level: params.level,
+    parentId: params.parentId ? params.parentId : 0
+	}).then(res=>{
+    if (params.level === 1) {
+      courseIndustry.value = res.categories
+    } else {
+      courseCategory.value = res.categories
+    }
+	})
+}
+// 跳转课程详情
 const toDetailPage = () => {
   router.push({
     name: 'courseDetail',
   })
 }
+// 切换一级分类
+const selectFirstCategory = (item) => {
+  currentFirstCategory.value = item.categoryName
+  const params = {
+    level: 2,
+    parentId: item.parentId ? item.parentId : 0
+  }
+  categoryList(params)
+  queryCourseList()
+}
+// 切换二级分类
+const selectCategory = (item) => {
+  currentSecCategory.value = item.categoryName
+  console.log(currentSecCategory)
+  const params = {
+    level: item.level ? item.level : 1,
+    parentId: item.parentId ? item.parentId : 0
+  }
+  queryCourseList(params)
+}
+// 切换难易程度
+const selectLevel = (item) => {
+  currentLevel.value = item.level
+}
+// 全部一级分类
+const allFirstCategory = () => {
+  currentFirstCategory.value = ''
+  currentSecCategory.value = ''
+  currentLevel.value = ''
+  console.log('全部一级分类')
+}
+// 全部二级级分类
+const allSecCategory = () => {
+  currentSecCategory.value = ''
+  currentLevel.value = ''
+  console.log('全部二级分类')
+}
+// 全部难易程度
+const allLevel = () => {
+  currentLevel.value = ''
+  console.log('全部难易程度')
+}
 onMounted(() => {
-  initList()
+  // 获取一级分类，二级分类的数据
+  const params = [{level: 1 },{level: 2 }]
+  params.forEach (item => {
+    categoryList(item)
+  })
+  queryCourseList()
 })
 </script>
 
@@ -246,6 +302,10 @@ onMounted(() => {
   background: none;
   color: #515759;
   font-size: 14px;
+}
+.all-items .active {
+  background: rgba(44, 128, 255, 0.1);
+  color: #2c80ff;
 }
 
 .main-container {
