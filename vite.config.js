@@ -9,17 +9,20 @@ export default defineConfig({
   plugins: [
     vue(),
     AutoImport({
-      imports:['vue','vue-router']//自动导入vue和vue-router相关函数
-    })
+      imports: ['vue', 'vue-router'], //自动导入vue和vue-router相关函数
+    }),
   ],
-  server:{
-    proxy:{
-      '/api':'http://localhost:8000'
-    }
+  server: {
+    host: '0.0.0.0',
+    port: 8080,
+    open: true,
+    proxy: {
+      '/api': 'http://wlb965.sandload.com',
+    },
   },
   resolve: {
     alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url))
-    }
-  }
+      '@': fileURLToPath(new URL('./src', import.meta.url)),
+    },
+  },
 })
