@@ -206,7 +206,7 @@ const userBtn = (formEl) => {
   position: relative;
   width: 100vw;
   height: 100vh;
-  background: url(../assets/img/citlogo.jpeg) no-repeat center;
+  /* background: url(../assets/img/citlogo.jpeg) no-repeat center; */
 }
 section {
   position: absolute;
