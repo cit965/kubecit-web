@@ -39,6 +39,16 @@ const router = createRouter({
       path: '/communicate',
       name: 'communicate',
       component: () => import('@/views/Communicate.vue')
+    },
+    {
+      path: '/policyUserService',
+      name: 'policyUserService',
+      component: () => import('@/views/PolicyUserService.vue')
+    },
+    {
+      path: '/policyUserPrivate',
+      name: 'policyUserPrivate',
+      component: () => import('@/views/PolicyUserPrivate.vue')
     }
   ]
 })

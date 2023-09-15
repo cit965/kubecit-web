@@ -20,11 +20,12 @@
 				<div class='copy-bottom'>
 					<div style="text-align: center;margin-top: 5px">Copyright © 2018~2038 </div>
 
-					<p style="text-align: center;margin-top: 5px">
-                    <a href="/#" style="color: #FFF" title="wlb965用户服务协议">wlb965用户服务协议</a>
-                    <a href="/#" style="color: #FFF" title="wlb965隐私政策">wlb965隐私政策</a>
-                    <!-- <a class="go" href="#" target="_blank" title="京ICP备xxxxxx">京ICP备xxxxxx</a> -->
-                </p>
+			        <p style="text-align: center;margin-top: 5px">
+                    <!-- <router-link> wlb965用户服务协议</router-link> -->
+					<router-link to="policyUserService">wlb965用户服务协议</router-link>
+					<router-link to="policyUserPrivate">wlb965隐私政策</router-link>
+                    <!-- <a class="go" href="#" target="_blank" title="京ICP备xxxxxx">京ICP备xxxxxx</a>  -->
+                    </p>
 				</div>
 			</div>
 			<div class="wx">
@@ -43,7 +44,9 @@
 	</footer>
 </template>
 
+<script setup>
 
+</script>
 <style scoped>
 footer{
 	width: 100%;
