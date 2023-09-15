@@ -23,8 +23,24 @@
                 <div class="choose">
                     <h3>支付方式 <span class="pay">{{payment.description}}</span></h3>
                     <div class="choosebg">
-                        <span @click="payModClick('支付宝')">支付宝</span>
-                        <span @click="payModClick('微信')">微信</span>
+                        <div @click="payModClick('微信支付')" :class="{'active':payment.description === '微信支付'}" rel="payModes" pay-mode-code="wxpayment" >
+                        <img src="@/assets/img/wxpay.png" title="微信支付">
+                        <span>微信支付</span>
+                        </div>
+                 
+
+
+                        <div  @click="payModClick('支付宝支付')" :class="{'active':payment.description === '支付宝支付'}" rel="payModes" pay-mode-code="wxpayment">
+                        <img src="@/assets/img/zfbpay.png" title="支付宝支付">
+                        <span>支付宝支付</span>
+                        </div>
+           
+
+                  
+                        <div  @click="payModClick('金叶子支付')" :class="{'active':payment.description === '金叶子支付'}" rel="payModes" pay-mode-code="wxpayment">
+                        <img src="@/assets/img/jinyezi.png" title="金叶子支付">
+                        <span>金叶子支付</span>
+                        </div>
                     </div>
                 </div>
                 <ul class="foot">
@@ -60,6 +76,8 @@ const conformOrder = ()=>{
 }
 
 let payment = ref({description:"微信支付"})
+
+let payMods = ref([{img:"@/assets/img/wxpay.png",description:"微信支付"},{img:"@/assets/img/zfbpay.png",description:"支付宝支付"},{img:"@/assets/img/jinyezi.png",description:"金叶子支付"}])
 
 // 选择支付方式
 const payModClick = (item) =>{
@@ -230,14 +248,12 @@ const payModClick = (item) =>{
     font-weight: 400;
     padding: 0 20px;
 }
+
 .choosebg{
     display: flex;
     margin: 20px;
 }
-.choosebg span{
-  margin-top: 60px;
-  margin-right:40px;  
-}
+
 .payment{
     width: 130px;
     height: 50px;
@@ -327,8 +343,31 @@ const payModClick = (item) =>{
     width: 150px;
     height: 150px;
 }
-.codeimg img{
-    width: 100%;
-    height: 100%;
+
+
+.choosebg div span {
+    line-height: 50px;
+    color: #222;
+    font-weight: 700;
+}
+
+.choosebg div img {
+    width: 34px;
+    height: 34px;
+}
+
+.choosebg div {
+    width: 150px;
+    border: 2px solid #fff;
+    margin-right: 10px;
+    border-radius: 8px;
+    /* padding: 0 14px; */
+    cursor: pointer;
+    background: #fff;
+    font-size: 10px;
+}
+
+.choosebg .active {
+    border: 2px solid #388fff;
 }
 </style>
