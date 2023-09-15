@@ -48,7 +48,7 @@
 </template>
 
 <script setup>
-import { Search, ShoppingCart } from '@element-plus/icons-vue'
+import { Search } from '@element-plus/icons-vue'
 import { useUserStore } from '@/store/user'
 
 //用户信息

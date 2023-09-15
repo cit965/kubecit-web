@@ -4,7 +4,7 @@
       <div class="navigation">
         <ul>
           <li
-            v-for="(item, index) in getFirstList"
+            v-for="(item) in getFirstList"
             :key="item.id"
             :class="{
               'is-hover':
@@ -12,7 +12,7 @@
             }"
           >
             <router-link
-              to="/"
+              to=""
               @mouseleave="mouseOut"
               @mouseenter="mouseHover(item.id)"
             >
@@ -31,7 +31,7 @@
                   <div class="list-know">知识点：</div>
                   <div class="list-ul">
                     <router-link
-                      to="/"
+                      to="course"
                       v-for="subItem in subCategoryList"
                       :key="subItem.id"
                       class="list-item"
@@ -41,6 +41,7 @@
                 </div>
                 <div class="detail-class">
                   <div
+                    @click="router.push({ name: 'course' })"
                     class="course-card"
                     v-for="item in searchCourseList"
                     :key="item.id"
@@ -79,7 +80,7 @@
       </div>
       <div class="sliders">
         <el-carousel :interval="5000" arrow="always" height="460px">
-          <el-carousel-item v-for="item in slidersList" :key="item.id">
+          <el-carousel-item v-for="item in slidersList" :key="item.id" @click="router.push({ name: 'course' })" style="cursor: pointer;">
             <img :src="item.imageLink" :title="item.title" />
           </el-carousel-item>
         </el-carousel>
@@ -156,6 +157,8 @@ import {
 } from '@/utils/api/api.js'
 let { courseTypeFn } = courseType()
 
+
+let router = useRouter()
 let getFirstList = ref([])
 onMounted(() => {
   ListFristCategories().then((res) => {
