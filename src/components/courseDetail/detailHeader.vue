@@ -6,11 +6,11 @@
         <el-breadcrumb-item>免费课</el-breadcrumb-item>
         <el-breadcrumb-item>课程标题</el-breadcrumb-item>
       </el-breadcrumb>
-      <div class="course-title">课程标题</div>
+      <div class="course-title">{{courseData.name}}</div>
       <div class="course-profile">
         <div class="course-teacher">
-          <el-avatar :size="60" src="https://empty" @error="errorHandler">
-            <img src="https://oss.xuexiluxian.cn/xiaoluxian-vcr/4820e28844b04e9391cba571b5e1c7ae.png" alt=""/>
+          <el-avatar :size="60" @error="errorHandler">
+            <img :src="courseData.cover" alt=""/>
           </el-avatar>
           <div class="avatar-right">
             <div class="name">张老师</div>
@@ -19,16 +19,16 @@
         </div>
         <div class="course-tag">
           <div>难度</div>
-          <div class="tag">中级</div>
+          <div class="tag">{{levelMap[courseData.level]}}</div>
           <div class="dot">·</div>
           <div>时长</div>
-          <div class="tag">6.00</div>
+          <div class="tag">{{courseData.duration || 6.00}}</div>
           <div class="dot">·</div>
           <div>学习人数</div>
-          <div class="tag">300</div>
+          <div class="tag">{{courseData.people}}</div>
           <div class="dot">·</div>
           <div>综合评分</div>
-          <div class="tag">100</div>
+          <div class="tag">{{ courseData.score || 99 }}</div>
         </div>
       </div>
     </div>
@@ -37,7 +37,18 @@
 
 <script setup>
 import { ArrowRight } from '@element-plus/icons-vue'
+import { onMounted, ref, defineProps } from 'vue'
+const levelMap = ref({1:'初级', 2:'中级', 3:'高级'})
 const errorHandler = () => true
+const props = defineProps({
+  courseData: {
+    cover: String,
+    name: String
+  }
+})
+onMounted(() => {
+  console.log('父组件',props.courseData)
+})
 </script>
 <style scoped lang="scss">
 .course-header {

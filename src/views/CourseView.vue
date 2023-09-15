@@ -1,5 +1,4 @@
 <template>
-  <!-- <Header></Header> -->
   <div class="coursemain">
     <div class="course-main">
       <section class="search-container">
@@ -16,9 +15,9 @@
               class="category-poniter-item"
               effect="plain"
               type="info"
-              v-for="(item, index) in courseIndustry"
+              v-for="(item, index) in courseDirection"
               :key="index"
-              :class="{active: item.categoryName == currentFirstCategory}"
+              :class="{active: item.categoryName == currentDirection}"
               @click="selectFirstCategory(item)"
             >{{ item.categoryName || ''}} 
             </el-tag>
@@ -39,7 +38,7 @@
               type="info"
               v-for="(item, index) in courseCategory"
               :key="index"
-              :class="{active: item.categoryName == currentSecCategory}"
+              :class="{active: item.categoryName == currentCategory}"
               @click="selectCategory(item)"
             >{{ item.categoryName }}
             </el-tag>
@@ -74,30 +73,12 @@
           <li class="item">综合</li>
           <li class="item split">|</li>
           <li class="item">最新课程</li>
-          <li class="item split">|</li>
-          <li class="item">最多购买</li>
-          <li class="item split">|</li>
-          <li class="item-price">
-            <span>价格</span>
-            <span class="arrow">
-              <i class="el-icon-caret-top"></i>
-              <i class="el-icon-caret-bottom"></i>
-            </span>
-          </li>
         </ul>
-        <div class="right">
-          <div class="right-item">
-            <el-radio-group>
-              <el-radio label="1">免费课程</el-radio>
-              <el-radio label="2">会员课程</el-radio>
-            </el-radio-group>
-          </div>
-        </div>
       </div>
       <div class="container-body">
         <div class="newCourseContent">
-          <div class="courseUl">
-            <div class='courseItem' v-for="(courseItem, index) in courseList" :key="index" @click="toDetailPage">
+          <div class="courseUl" v-if="courseList.length > 0">
+            <div class='courseItem' v-for="(courseItem, index) in courseList" :key="index" @click="toDetailPage(courseItem)">
               <div class='courseInfo'>
               <div class='courseBg'>
                 <img :src="courseItem.cover" alt="">
@@ -110,6 +91,9 @@
               </div>
             </div>
           </div>
+          <div v-else class="no-course-info">
+            暂无课程信息
+          </div>
         </div>
       </div>
     </div>
@@ -119,96 +103,109 @@
 
 <script setup>
 import Pagination from '@/components/common/Pagination.vue'
-import { onMounted } from 'vue'
+import { onMounted, ref } from 'vue'
 import { searchCourse } from '@/utils/api/api.js'
 import { queryCategoryList } from '@/utils/api/course.js'
-let courseIndustry = ref([]) // 课程方向
+let courseDirection = ref([]) // 课程方向
 let courseCategory = ref([]) // 所有课程分类
-let currentSecCategory = ref('') // 当前选中的课程二级分类
-let currentFirstCategory = ref('') // 当前选中的课程一级分类
-let currentLevel = ref('') // 当前选中的课程一级分类
-let courseLevel = ref([{ level: '初级' }, { level: '中级' }, { level: '高级' }]) // 课程难度
+let currentCategory = ref('') // 当前选中的课程分类名称
+let currentDirection = ref('') // 当前选中的课程方向名称
+let currentLevel = ref('') // 当前选中的课程难度名称
+let currentDirectionId = ref(0) // 当前选中方向的id
+let currentCategoryId = ref(0) // 当前选中分类的id
+let currentLevelId = ref(0) // 当前选中难度的id
+let courseLevel = ref([{ level: '初级', id: 1 }, { level: '中级', id: 2 }, { level: '高级', id:3 }]) // 课程难度
 const levelMap = ref({1:'初级', 2:'中级', 3:'高级'})
 let courseList = ref([]) // 筛选出的课程列表
 let pageCount = ref(10) // 分页数据
 let router = useRouter()
 // 查询课程列表
-const queryCourseList = () => {
-  searchCourse({
-		pageNum: 1,
+const queryCourseList = (params) => {
+  let courseP = {
+    pageNum: 1,
     pageSize: 12
-	}).then(res=>{
+  }
+  if (currentDirectionId.value !== 0) {
+    courseP.firstCategory = currentDirectionId.value
+  }
+  if (currentCategoryId.value !== 0) {
+    courseP.secondCategory = currentCategoryId.value
+  }
+  if (currentLevelId.value !== 0) {
+    courseP.level = currentLevelId.value
+  }
+  searchCourse(courseP).then(res=>{
 		courseList.value = res.list
-    pageCount.value = Math.ceil(res.list.length/12)
+    pageCount.value = Math.ceil(res.total/12)
 	})
 }
 // 获取课程分类
-const categoryList = (params) => {
-  queryCategoryList({
-    level: params.level,
-    parentId: params.parentId ? params.parentId : 0
-	}).then(res=>{
-    if (params.level === 1) {
-      courseIndustry.value = res.categories
-    } else {
-      courseCategory.value = res.categories
-    }
+const categoryList = () => {
+  queryCategoryList().then(res=>{
+    const categories = res.categories
+    // 课程方向
+    courseDirection.value = categories
+    // 课程分类
+    courseCategory.value = []
+    categories.forEach(item => {
+      courseCategory.value = courseCategory.value.concat(item.children)
+    })
 	})
 }
 // 跳转课程详情
-const toDetailPage = () => {
+const toDetailPage = (item) => {
   router.push({
-    name: 'courseDetail',
+    path: '/course/detail',
+    query: {
+      id: item.id
+    }
   })
 }
 // 切换一级分类
 const selectFirstCategory = (item) => {
-  currentFirstCategory.value = item.categoryName
-  const params = {
-    level: 2,
-    parentId: item.parentId ? item.parentId : 0
-  }
-  categoryList(params)
+  // 当前选中的背景变色
+  currentDirection.value = item.categoryName
+  currentDirectionId.value = item.id
+  // 查询课程列表
   queryCourseList()
 }
 // 切换二级分类
 const selectCategory = (item) => {
-  currentSecCategory.value = item.categoryName
-  console.log(currentSecCategory)
-  const params = {
-    level: item.level ? item.level : 1,
-    parentId: item.parentId ? item.parentId : 0
-  }
-  queryCourseList(params)
+  currentCategory.value = item.categoryName
+  currentCategoryId.value = item.id
+  // 查询课程列表
+  queryCourseList()
 }
 // 切换难易程度
 const selectLevel = (item) => {
   currentLevel.value = item.level
+  currentLevelId.value = item.id
+  queryCourseList()
 }
 // 全部一级分类
 const allFirstCategory = () => {
-  currentFirstCategory.value = ''
-  currentSecCategory.value = ''
+  currentDirection.value = ''
+  currentCategory.value = ''
   currentLevel.value = ''
-  console.log('全部一级分类')
+  currentDirectionId.value = 0
+  currentCategoryId.value = 0
+  queryCourseList()
 }
 // 全部二级级分类
 const allSecCategory = () => {
-  currentSecCategory.value = ''
+  currentCategory.value = ''
   currentLevel.value = ''
-  console.log('全部二级分类')
+  currentCategoryId.value = 0
+  queryCourseList()
 }
 // 全部难易程度
 const allLevel = () => {
   currentLevel.value = ''
-  console.log('全部难易程度')
+  currentLevelId.value = 0
+  queryCourseList()
 }
 onMounted(() => {
-  // 获取一级分类，二级分类的数据
-  const params = [{level: 1 },{level: 2 }]
-  params.forEach (item => {
-    categoryList(item)
-  })
+  categoryList()
   queryCourseList()
 })
 </script>
@@ -332,64 +329,19 @@ onMounted(() => {
 .all .split {
   margin: 0 20px;
 }
-.right {
-  display: flex;
-  align-items: flex-end;
-  font-size: 16px;
-  color: #515759;
-  padding: 0;
-  margin: 0;
-}
 
-.right .right-item {
-  margin-left: 10px;
-}
-
-.right .right-items {
-  margin-right: 0px;
-}
-
-.arrow {
-  position: relative;
-}
-
-.arrow i:first-child {
-  position: absolute;
-  top: -1px;
-}
-
-.arrow i:last-child {
-  position: absolute;
-  top: 7px;
-}
-
-.check {
-  width: 15px;
-  height: 15px;
-  cursor: pointer;
-}
-
-.up {
-  position: absolute;
-  top: 5px;
-  left: 2px;
-}
-
-.down {
-  position: absolute;
-  top: 15px;
-  left: 2px;
-  transform: rotate(180deg);
-  -ms-transform: rotate(180deg); /* IE 9 */
-  -moz-transform: rotate(180deg); /* Firefox */
-  -webkit-transform: rotate(180deg); /* Safari 和 Chrome */
-  -o-transform: rotate(180deg); /* Opera */
-}
 .newCourseContent {
   width: 1200px;
   margin: 30px auto 0px auto;
+  min-height: 300px;
 }
-
+.newCourseContent .no-course-info {
+  text-align: center;
+  line-height: 40px;
+  color: #999999;
+  font-size: 14px;
+  padding-top: 110px;
+}
 .newCourseContent .courseUl {
   display: flex;
   flex-wrap: wrap;
