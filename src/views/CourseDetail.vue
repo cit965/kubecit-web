@@ -1,7 +1,7 @@
 <template>
   <!-- <Header></Header> -->
   <div class="course-detail">
-    <DetailHeader></DetailHeader>
+    <DetailHeader :course-data="courseData"></DetailHeader>
     <Menu @clickIndex="shiftMenu"></Menu>
     <div class="course-content" v-if="currentIndex === 0">
       <DetailCart></DetailCart>
@@ -20,9 +20,13 @@ import DetailCart from '@/components/courseDetail/detailCart.vue'
 import ChapterView from '@/components/courseDetail/chapterList.vue'
 import DownloadList from '@/components/courseDetail/downloadList.vue'
 import { onMounted, ref } from 'vue'
+import { useRoute } from 'vue-router'
+import { courseDetail } from '@/utils/api/course.js'
 let chapterList = ref([])
 let downloadList = ref([])
 let currentIndex = ref(0)
+const route = useRoute()
+let courseData = ref({})
 
 const initList = () => {
   for (let index = 0; index < 2; index++) {
@@ -50,8 +54,18 @@ const initList = () => {
 const shiftMenu = (args) => {
   currentIndex.value = args
 }
+// 获取课程详细
+const courseInfo = (courseId) => {
+  courseDetail(courseId).then(res=>{
+    courseData = res.data
+	})
+}
 onMounted(() => {
   initList()
+  const courseId = route.query.id
+  if (courseId) {
+    courseInfo(courseId)
+  }
 })
 </script>
 
