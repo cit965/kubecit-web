@@ -42,7 +42,7 @@
         <el-dialog v-model='dialogVisible' class="pay-dialog" width="500px">
             <div class="dialogPrice">支付：<span class="prices">299元</span></div>
             <div class="">
-                <img src="qrCode" />
+                <img src="" />
             </div>
             <div class="alert">请您及时付款，已便订单尽快处理！</div>
             <div class="finish">
