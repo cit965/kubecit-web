@@ -7,13 +7,8 @@
         </h1>
         <div class="content-nav">
           <div class="nav-list">
-            <div 
-              v-for="item in tabs"
-              @click="tabClick(item.router)"
-              class="nav-item"
-              :class="{ 'is-active': currentTabRouter === item.router }"
-            >
-            {{item.name}}
+            <div v-for="item in tabs" @click="tabClick(item.router)" class="nav-item" :class="{ 'is-active': currentTabRouter === item.router }">
+              {{ item.name }}
             </div>
           </div>
         </div>
@@ -26,16 +21,11 @@
           </el-icon>
         </div>
         <div class="content-login">
-          <router-link to="/login" v-if="!isLogin"> 登录 / </router-link>
+          <router-link to="/login" v-if="!isLogin"> 登录 `/ </router-link>
           <router-link to="/register" v-if="!isLogin"> 注册 </router-link>
           <div v-else>
-            <img
-              class="avator"
-              :src="userInfo.avatar"
-              alt=""
-              v-if="userInfo.avatar"
-            />
-            <img v-else class="avator" src="@/assets/img/Avat62.png" />
+            <img class="avator" :src="userInfo.avatar" alt="" v-if="userInfo.avatar" />
+            <img v-else class="avator" @click="tabClick('vip')" src="@/assets/img/Avat62.png" />
           </div>
 
           <div v-if="isLogin">
@@ -48,43 +38,45 @@
 </template>
 
 <script setup>
-import { Search } from '@element-plus/icons-vue'
-import { useUserStore } from '@/store/user'
+import { Search } from '@element-plus/icons-vue';
+import { useUserStore } from '@/store/user';
 
 //用户信息
-let userInfo = ref({})
-let currentTabRouter = ref("home")
-let router = useRouter()
-let tabs = [{name:"首页",router:"home"},{name:"课程",router:"course"},{name:"试炼",router:"challenge"},{name:"交流",router:"communicate"}]
+let userInfo = ref({});
+let currentTabRouter = ref('home');
+let router = useRouter();
+let tabs = [
+  { name: '首页', router: 'home' },
+  { name: '课程', router: 'course' },
+  { name: '试炼', router: 'challenge' },
+  { name: '交流', router: 'communicate' },
+];
 //pinia
-const userStore = useUserStore()
+const userStore = useUserStore();
 
 const logout = () => {
-  userStore.clearToken()
-  router.push({ name: 'login' })
-}
-
+  userStore.clearToken();
+  router.push({ name: 'login' });
+};
 
 // tab 跳转页面
-const tabClick = (name)=>{
+const tabClick = (name) => {
   router.push({
     name: name,
-  })
-  currentTabRouter.value = name
-}
-
-
+  });
+  currentTabRouter.value = name;
+};
 
 //用户是否是登录状态
-let isLogin = ref(false)
+let isLogin = ref(false);
 
 onMounted(() => {
-  console.log('mounted', userStore.token)
-  const token = userStore.token
+  console.log('mounted', userStore.token);
+  const token = userStore.token;
   if (token) {
-    isLogin.value = true
+    isLogin.value = true;
   }
-})
+});
 </script>
 
 <style scoped lang="scss">
