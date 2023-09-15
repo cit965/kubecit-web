@@ -23,24 +23,11 @@
                 <div class="choose">
                     <h3>支付方式 <span class="pay">{{payment.description}}</span></h3>
                     <div class="choosebg">
-                        <div @click="payModClick('微信支付')" :class="{'active':payment.description === '微信支付'}" rel="payModes" pay-mode-code="wxpayment" >
-                        <img src="@/assets/img/wxpay.png" title="微信支付">
-                        <span>微信支付</span>
+                        <div v-for="item in payMods" @click="payModClick(item.description)" :class="{'active':payment.description === item.description}" rel="payModes" pay-mode-code="wxpayment" >
+                        <img :src="item.img" title="item.description">
+                        <span>{{ item.description }}</span>
                         </div>
-                 
-
-
-                        <div  @click="payModClick('支付宝支付')" :class="{'active':payment.description === '支付宝支付'}" rel="payModes" pay-mode-code="wxpayment">
-                        <img src="@/assets/img/zfbpay.png" title="支付宝支付">
-                        <span>支付宝支付</span>
-                        </div>
-           
-
-                  
-                        <div  @click="payModClick('金叶子支付')" :class="{'active':payment.description === '金叶子支付'}" rel="payModes" pay-mode-code="wxpayment">
-                        <img src="@/assets/img/jinyezi.png" title="金叶子支付">
-                        <span>金叶子支付</span>
-                        </div>
+                
                     </div>
                 </div>
                 <ul class="foot">
@@ -77,7 +64,7 @@ const conformOrder = ()=>{
 
 let payment = ref({description:"微信支付"})
 
-let payMods = ref([{img:"@/assets/img/wxpay.png",description:"微信支付"},{img:"@/assets/img/zfbpay.png",description:"支付宝支付"},{img:"@/assets/img/jinyezi.png",description:"金叶子支付"}])
+let payMods = ref([{img:"/wxpay.png",description:"微信支付"},{img:"/zfbpay.png",description:"支付宝支付"},{img:"/jinyezi.png",description:"金叶子支付"}])
 
 // 选择支付方式
 const payModClick = (item) =>{
