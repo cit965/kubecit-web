@@ -1,5 +1,5 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '@/views/HomeView.vue'
+import { createRouter, createWebHistory } from 'vue-router';
+import HomeView from '@/views/HomeView.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -27,34 +27,39 @@ const router = createRouter({
     {
       path: '/course/detail',
       name: 'courseDetail',
-      component: () => import('@/views/CourseDetail.vue')
+      component: () => import('@/views/CourseDetail.vue'),
     },
     {
       path: '/challenge',
       name: 'challenge',
-      component: () => import('@/views/Challenge.vue')
+      component: () => import('@/views/Challenge.vue'),
     },
     {
       path: '/order',
       name: 'order',
-      component: () => import('@/views/Order.vue')
+      component: () => import('@/views/Order.vue'),
     },
     {
       path: '/communicate',
       name: 'communicate',
-      component: () => import('@/views/Communicate.vue')
+      component: () => import('@/views/Communicate.vue'),
     },
     {
       path: '/policyUserService',
       name: 'policyUserService',
-      component: () => import('@/views/PolicyUserService.vue')
+      component: () => import('@/views/PolicyUserService.vue'),
     },
     {
       path: '/policyUserPrivate',
       name: 'policyUserPrivate',
-      component: () => import('@/views/PolicyUserPrivate.vue')
-    }
-  ]
-})
+      component: () => import('@/views/PolicyUserPrivate.vue'),
+    },
+    {
+      path: '/vip',
+      name: 'vip',
+      component: () => import('@/views/VipView.vue'),
+    },
+  ],
+});
 
-export default router
+export default router;
