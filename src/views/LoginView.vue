@@ -5,7 +5,7 @@
         <!-- 登录框左侧 -->
         <div class="login-left">
           <a href="/" title="CIT" class="logo">
-            <img src="@/assets/img/citlogo.jpeg" alt="CIT" title="CIT" />
+            <img src="@/assets/img/foot-factory.png" alt="CIT" title="CIT" />
           </a>
           <div class="left-qrcode">
             <div id="qrcode" title="CIT">
