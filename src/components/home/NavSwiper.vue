@@ -65,7 +65,7 @@
                             <div class="cart-image">
                               <img src="@/assets/img/free.png" />
                             </div>
-                            <span class="addcart">加入购物车</span>
+                        
                           </div>
                         </div>
                       </div>
