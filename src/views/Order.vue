@@ -41,7 +41,7 @@
         <!-- 二维码对话框 -->
         <el-dialog v-model='dialogVisible' class="pay-dialog" width="500px">
             <div class="dialogPrice">支付：<span class="prices">299元</span></div>
-            <div class="">
+            <div class="codeimg">
                 <img src="" />
             </div>
             <div class="alert">请您及时付款，已便订单尽快处理！</div>
