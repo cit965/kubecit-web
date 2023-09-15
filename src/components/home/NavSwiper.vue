@@ -152,6 +152,7 @@ import {
   ListFristCategories,
   searchCourse,
   getSliders,
+  ListSubCategories,
 } from '@/utils/api/api.js'
 let { courseTypeFn } = courseType()
 
@@ -167,6 +168,7 @@ onMounted(() => {
   })
 })
 
+let subCategoryList = ref([])
 //轮播图数据
 let slidersList = ref([])
 //获取课程标签
@@ -198,10 +200,10 @@ const detailMouseHover = (id) => {
 }
 
 const SubCategoriesFn = (params) => {
-  // ListSubCategories(params).then(res=>{
-  // 	console.log(res,"子分类",params)
-  // 	subCategoryList.value = res.categories;
-  // })
+  ListSubCategories(params).then(res=>{
+  	console.log(res,"子分类",params)
+  	subCategoryList.value = res.categories;
+  })
 }
 
 const getsearchCourse = (params) => {

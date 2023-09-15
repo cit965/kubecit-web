@@ -7,14 +7,6 @@ export function ListFristCategories() {
   })
 }
 
-// 获取标签
-export function getTagsList(data) {
-  return request({
-    url: '/api/course/tags/list',
-    method: 'post',
-    data,
-  })
-}
 
 // 获取子分类
 

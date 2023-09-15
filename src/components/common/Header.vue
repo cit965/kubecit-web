@@ -7,26 +7,13 @@
         </h1>
         <div class="content-nav">
           <div class="nav-list">
-            <div
-              @click="tabHome"
+            <div 
+              v-for="item in tabs"
+              @click="tabClick(item.router)"
               class="nav-item"
-              :class="{ 'is-active': currentTabIndex === 1 }"
+              :class="{ 'is-active': currentTabRouter === item.router }"
             >
-              首页
-            </div>
-            <div
-              @click="tabCourse"
-              class="nav-item"
-              :class="{ 'is-active': currentTabIndex === 2 }"
-            >
-              课程
-            </div>
-            <div
-              class="nav-item"
-              @click="handleClickVIP"
-              :class="{ 'is-active': currentTabIndex === 3 }"
-            >
-              会员
+            {{item.name}}
             </div>
           </div>
         </div>
@@ -67,15 +54,14 @@
 
 <script setup>
 import { Search, ShoppingCart } from '@element-plus/icons-vue'
-import { getInfo } from '@/utils/api/api.js'
 import { useUserStore } from '@/store/user'
 
 //用户信息
 let userInfo = ref({})
-let currentTabIndex = ref(1)
+let currentTabRouter = ref("home")
 let router = useRouter()
+let tabs = [{name:"首页",router:"home"},{name:"课程",router:"course"},{name:"试炼",router:"challenge"},{name:"交流",router:"communicate"}]
 //pinia
-
 const userStore = useUserStore()
 
 const logout = () => {
@@ -83,25 +69,16 @@ const logout = () => {
   router.push({ name: 'login' })
 }
 
-//点击跳转
-const tabHome = () => {
+
+// tab 跳转页面
+const tabClick = (name)=>{
   router.push({
-    name: 'home',
+    name: name,
   })
-  currentTabIndex.value = 1
+  currentTabRouter.value = name
 }
 
-const tabCourse = () => {
-  router.push({
-    name: 'course',
-  })
-  currentTabIndex.value = 2
-}
 
-// 点击 vip tab
-const handleClickVIP = () => {
-  currentTabIndex.value = 3
-}
 
 //用户是否是登录状态
 let isLogin = ref(false)
