@@ -25,11 +25,6 @@
             <search style="width: 24px; height: 24px" />
           </el-icon>
         </div>
-        <div class="content-shopping">
-          <el-icon color="#808080" :size="24"
-            ><shopping-cart style="width: 24px; height: 24px"
-          /></el-icon>
-        </div>
         <div class="content-login">
           <router-link to="/login" v-if="!isLogin"> 登录 / </router-link>
           <router-link to="/register" v-if="!isLogin"> 注册 </router-link>

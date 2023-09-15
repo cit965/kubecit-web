@@ -129,8 +129,6 @@ import { Avatar, Lock, Iphone } from '@element-plus/icons-vue'
 import { ElMessage } from 'element-plus'
 //api
 import { loginByJson } from '@/utils/api/api.js'
-//加密
-import { Encrypt } from '@/utils/encrypt/aes'
 //pinia
 import { useUserStore } from '@/store/user'
 import router from '../router'

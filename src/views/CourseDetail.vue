@@ -11,12 +11,9 @@
       <DownloadList :file-list="downloadList"></DownloadList>
     </div>
   </div>
-  <Footer></Footer>
 </template>
 
 <script setup>
-import Header from '@/components/common/Header.vue'
-import Footer from '@/components/common/Foot.vue'
 import DetailHeader from '@/components/courseDetail/detailHeader.vue'
 import Menu from '@/components/courseDetail/detailMenu.vue'
 import DetailCart from '@/components/courseDetail/detailCart.vue'

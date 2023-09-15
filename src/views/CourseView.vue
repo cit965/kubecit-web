@@ -118,8 +118,6 @@
 </template>
 
 <script setup>
-import Header from '@/components/common/Header.vue'
-import Foot from '@/components/common/Foot.vue'
 import Pagination from '@/components/common/Pagination.vue'
 import { onMounted } from 'vue'
 import { searchCourse } from '@/utils/api/api.js'
