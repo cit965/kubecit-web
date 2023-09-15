@@ -3,18 +3,18 @@
     <div class="course-title">Vue2 + Nuxt2 + Vue3 + 项目</div>
     <div class="cart-container">
       <div class="common-btn buy" @click="buyInstance">立即购买</div>
-      <div class="common-btn add" @click="addToCart">加入购物车</div>
     </div>
   </div>
 </template>
 
 <script setup>
 
+let router = useRouter()
+
+
 const buyInstance = () => {
   console.log('立即购买')
-}
-const addToCart = () => {
-  console.log('加入购物车')
+  router.push({ name: 'order' })
 }
 </script>
 <style scoped lang="scss">

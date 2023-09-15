@@ -33,8 +33,12 @@ const router = createRouter({
       path: '/challenge',
       name: 'challenge',
       component: () => import('@/views/Challenge.vue')
-    }
-    ,
+    },
+    {
+      path: '/order',
+      name: 'order',
+      component: () => import('@/views/Order.vue')
+    },
     {
       path: '/communicate',
       name: 'communicate',

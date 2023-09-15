@@ -115,7 +115,6 @@
     </div>
     <Pagination :page-count="pageCount"></Pagination>
   </div>
-  <Foot></Foot>
 </template>
 
 <script setup>
