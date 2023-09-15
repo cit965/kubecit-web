@@ -60,7 +60,7 @@ import { useUserStore } from '@/store/user'
 let userInfo = ref({})
 let currentTabRouter = ref("home")
 let router = useRouter()
-let tabs = [{name:"首页",router:"home"},{name:"课程",router:"course"},{name:"课程",router:"challenge"},{name:"交流",router:"communicate"}]
+let tabs = [{name:"首页",router:"home"},{name:"课程",router:"course"},{name:"试炼",router:"challenge"},{name:"交流",router:"communicate"}]
 //pinia
 const userStore = useUserStore()
 
