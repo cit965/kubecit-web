@@ -1,19 +1,30 @@
 <template>
   <div class="pagination">
-    <div class="first-page">首页</div>
+    <div class="first-page" v-if="pageCount > 1" @click="clickFirstPage">首页</div>
     <el-pagination
       background
       layout="prev, pager, next"
       prev-text="上一页"
       next-text="下一页"
       :default-page-size="12"
-      :page-count="pageCount" />
-    <div class="last-page">尾页</div>
+      :page-count="pageCount"
+      @current-change="clickSomePage"/>
+    <div class="last-page" v-if="pageCount > 1" @click="clickLastPage">尾页</div>
   </div>
 </template>
 
 <script setup>
 const props = defineProps(['pageCount'])
+const emit = defineEmits(['page-number'])
+const clickSomePage = (pageNumber) => {
+  emit('page-number', pageNumber)
+}
+const clickFirstPage = () => {
+  emit('page-number', 1)
+}
+const clickLastPage = () => {
+  emit('page-number', props.pageCount)
+}
 </script>
 
 <style scoped>
