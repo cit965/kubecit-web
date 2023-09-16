@@ -21,7 +21,7 @@
           </el-icon>
         </div>
         <div class="content-login">
-          <router-link to="/login" v-if="!isLogin"> 登录 `/ </router-link>
+          <router-link to="/login" v-if="!isLogin"> 登录 </router-link>
           <router-link to="/register" v-if="!isLogin"> 注册 </router-link>
           <div v-else>
             <img class="avator" :src="userInfo.avatar" alt="" v-if="userInfo.avatar" />
