@@ -17,7 +17,7 @@
               type="info"
               v-for="(item, index) in courseDirection"
               :key="index"
-              :class="{active: item.categoryName == currentDirection}"
+              :class="{active: item.id == currentDirectionId}"
               @click="selectFirstCategory(item)"
             >{{ item.categoryName || ''}} 
             </el-tag>
@@ -38,7 +38,7 @@
               type="info"
               v-for="(item, index) in courseCategory"
               :key="index"
-              :class="{active: item.categoryName == currentCategory}"
+              :class="{active: item.id == currentCategoryId}"
               @click="selectCategory(item)"
             >{{ item.categoryName }}
             </el-tag>
@@ -59,7 +59,7 @@
               type="info"
               v-for="(item, index) in courseLevel"
               :key="index"
-              :class="{active: item.level == currentLevel}"
+              :class="{active: item.id == currentLevelId}"
               @click="selectLevel(item)"
             >{{ item.level }}
             </el-tag>
@@ -97,7 +97,7 @@
         </div>
       </div>
     </div>
-    <Pagination :page-count="pageCount"></Pagination>
+    <Pagination :page-count="pageCount" @page-number="clickPageNumber"></Pagination>
   </div>
 </template>
 
@@ -108,9 +108,6 @@ import { searchCourse } from '@/utils/api/api.js'
 import { queryCategoryList } from '@/utils/api/course.js'
 let courseDirection = ref([]) // 课程方向
 let courseCategory = ref([]) // 所有课程分类
-let currentCategory = ref('') // 当前选中的课程分类名称
-let currentDirection = ref('') // 当前选中的课程方向名称
-let currentLevel = ref('') // 当前选中的课程难度名称
 let currentDirectionId = ref(0) // 当前选中方向的id
 let currentCategoryId = ref(0) // 当前选中分类的id
 let currentLevelId = ref(0) // 当前选中难度的id
@@ -120,9 +117,9 @@ let courseList = ref([]) // 筛选出的课程列表
 let pageCount = ref(10) // 分页数据
 let router = useRouter()
 // 查询课程列表
-const queryCourseList = (params) => {
+const queryCourseList = (pageNumParam) => {
   let courseP = {
-    pageNum: 1,
+    pageNum: pageNumParam || 1,
     pageSize: 12
   }
   if (currentDirectionId.value !== 0) {
@@ -164,45 +161,57 @@ const toDetailPage = (item) => {
 // 切换一级分类
 const selectFirstCategory = (item) => {
   // 当前选中的背景变色
-  currentDirection.value = item.categoryName
   currentDirectionId.value = item.id
+  currentCategoryId.value = 0
+  // 过滤出相应的课程分类
+  let tempCate = courseDirection.value
+  courseCategory.value = []
+  tempCate.forEach(temp => {
+    if (temp.id === item.id) {
+      courseCategory.value = courseCategory.value.concat(temp.children)
+    }
+  })
   // 查询课程列表
   queryCourseList()
 }
 // 切换二级分类
 const selectCategory = (item) => {
-  currentCategory.value = item.categoryName
   currentCategoryId.value = item.id
   // 查询课程列表
   queryCourseList()
 }
 // 切换难易程度
 const selectLevel = (item) => {
-  currentLevel.value = item.level
   currentLevelId.value = item.id
   queryCourseList()
 }
 // 全部一级分类
 const allFirstCategory = () => {
-  currentDirection.value = ''
-  currentCategory.value = ''
-  currentLevel.value = ''
   currentDirectionId.value = 0
   currentCategoryId.value = 0
+  // 课程分类
+  let tempCate = courseDirection.value
+  courseCategory.value = []
+  tempCate.forEach(item => {
+    courseCategory.value = courseCategory.value.concat(item.children)
+  })
   queryCourseList()
 }
 // 全部二级级分类
 const allSecCategory = () => {
-  currentCategory.value = ''
-  currentLevel.value = ''
   currentCategoryId.value = 0
   queryCourseList()
 }
 // 全部难易程度
 const allLevel = () => {
-  currentLevel.value = ''
   currentLevelId.value = 0
   queryCourseList()
+}
+// 切换分页
+const clickPageNumber = (p) => {
+  if (p) {
+    queryCourseList(p)
+  }
 }
 onMounted(() => {
   categoryList()
