@@ -7,6 +7,7 @@
           <div class="all-items">
             <el-tag
               class="category-poniter"
+              :class="{inactive: currentDirectionId !== 0}"
               effect="plain"
               type="info"
               @click="allFirstCategory()"
@@ -28,6 +29,7 @@
           <div class="all-items">
             <el-tag
               class="category-poniter"
+              :class="{inactive: currentCategoryId !== 0}"
               effect="plain"
               type="info"
               @click="allSecCategory()"
@@ -49,6 +51,7 @@
           <div class="all-items">
             <el-tag
               class="category-poniter"
+              :class="{inactive: currentLevelId !== 0}"
               effect="plain"
               type="info"
               @click="allLevel()"
@@ -294,6 +297,10 @@ onMounted(() => {
   background: rgba(44, 128, 255, 0.1);
   color: #2c80ff;
   font-size: 14px;
+}
+.inactive {
+  background: none;
+  color: #515759;
 }
 .category-poniter-item {
   height: 25px;

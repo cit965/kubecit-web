@@ -1,6 +1,6 @@
 <template>
   <div class="course-cart">
-    <div class="course-title">Vue2 + Nuxt2 + Vue3 + 项目</div>
+    <div class="course-title">{{ courseData.name }}</div>
     <div class="cart-container">
       <div class="common-btn buy" @click="buyInstance">立即购买</div>
     </div>
@@ -8,13 +8,15 @@
 </template>
 
 <script setup>
-
-let router = useRouter()
-
-
+import { defineProps } from 'vue'
+const props = defineProps({
+  courseData: {
+    type: Object
+  }
+})
+const emit = defineEmits(['buy-instance'])
 const buyInstance = () => {
-  console.log('立即购买')
-  router.push({ name: 'order' })
+  emit('buy-instance', props.courseData)
 }
 </script>
 <style scoped lang="scss">

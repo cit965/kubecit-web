@@ -19,7 +19,7 @@
 					class='courseItem'
 					v-for='item in newCourse'
 					:key='item.id'
-                    @click="toDetailPage()"
+                    @click="toDetailPage(item)"
 				>
 					<div class='courseInfo'>
 						<div class='courseBg'>
@@ -67,9 +67,12 @@ onBeforeMount(()=>{
 		console.log( res.list )
 	})
 })
-const toDetailPage = () => {
-  router.push({
-    name: 'courseDetail'
+const toDetailPage = (item) => {
+    router.push({
+        path: '/course/detail',
+        query: {
+        id: item.id
+        }
     })
 }
 </script>
