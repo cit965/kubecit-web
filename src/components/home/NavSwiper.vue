@@ -204,7 +204,6 @@ const detailMouseHover = (id) => {
 
 const SubCategoriesFn = (params) => {
   ListSubCategories(params).then(res=>{
-  	console.log(res,"子分类",params)
   	subCategoryList.value = res.categories;
   })
 }
