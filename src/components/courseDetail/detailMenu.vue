@@ -2,13 +2,13 @@
   <div class="course-menu">
     <div class="menu-container">
       <div class="menu-item" :class="{'is-active': currentIndex === 0}" @click="showSelectedList(0)">课程章节</div>
-      <div class="menu-item" :class="{'is-active': currentIndex === 1}" @click="showSelectedList(1)">资料下载</div>
+      <!-- <div class="menu-item" :class="{'is-active': currentIndex === 1}" @click="showSelectedList(1)">资料下载</div> -->
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref } from "vue"
+import { ref, defineEmits } from "vue"
 const emit = defineEmits(['clickIndex'])
 let currentIndex = ref(0)
 const showSelectedList = (index) => {

@@ -63,8 +63,7 @@ onBeforeMount(()=>{
 		pageNum:1,
 		pageSize:8
 	}).then(res=>{
-		newCourse.value = res.list;
-		console.log( res.list )
+		newCourse.value = res.list
 	})
 })
 const toDetailPage = (item) => {

@@ -1,20 +1,22 @@
 <template>
   <div class="chapter-container" v-for="(chItem, chIndex) in chapterList" :key="chIndex">
-    <div class="chapter-title">{{ chItem.title }}</div>
-    <div class="chapter-des">{{ chItem.des }}</div>
-    <div v-for="(courseItem, courseIndex) in chItem.course" :key="courseIndex" class="course-item">
-      <img alt=""/>
-      <div class="course-type">{{ courseItem.type }}：</div>
-      <div class="course-name">{{ courseItem.title }}</div>
-      <div class="learn" @click.stop="toPlayPage">开始学习</div>
+    <div class="chapter-title">{{ chItem.chapter.name }}</div>
+    <div class="chapter-des">{{ chItem.chapter.description }}</div>
+    <div v-for="(courseItem, courseIndex) in chItem.lessons" :key="courseIndex" class="course-item">
+      <img v-if="courseItem.type === 1" class="video" src="@/assets/img/video.png" alt=""/>
+      <img v-if="courseItem.type === 2" class="video audio" src="@/assets/img/audio.png" alt=""/>
+      <div class="course-name">{{ courseItem.name }}</div>
+      <div class="learn" @click.stop="toPlayPage(courseItem)">开始学习</div>
     </div>
   </div>
 </template>
 
 <script setup>
+import { defineProps, defineEmits } from 'vue'
 const props = defineProps(['chapterList'])
-const toPlayPage = () => {
-  console.log('开始学习')
+const emit = defineEmits(['startLearn'])
+const toPlayPage = (lesson) => {
+  emit('startLearn', lesson.id)
 }
 </script>
 <style scoped lang="scss">
@@ -51,11 +53,14 @@ const toPlayPage = () => {
       margin-top: 5px;
       color: #388fff !important;
     }
-    img {
+    .video {
       width: 24px;
-      height: 24px;
+      height: 18px;
       margin-right: 10px;
       margin-left: 10px;
+    }
+    .audio {
+      height: 24px;
     }
     .course-type {
       color: #333333;
