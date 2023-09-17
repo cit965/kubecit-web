@@ -63,10 +63,10 @@ onMounted(() => {
   color: #ffffff;
   padding-top: 20px;
 }
-::v-deep(.el-breadcrumb__inner) {
+:deep(.el-breadcrumb__inner) {
   color: #fff !important; 
 }
-::v-deep(.el-breadcrumb__separator) {
+:deep(.el-breadcrumb__separator) {
   color: #fff;
 }
 .course-header .course-title {
