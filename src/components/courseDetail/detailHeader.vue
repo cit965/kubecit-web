@@ -2,9 +2,9 @@
   <div class="course-header">
     <div class="course-container">
       <el-breadcrumb :separator-icon="ArrowRight">
-        <el-breadcrumb-item :to="{ path: '/' }">课程</el-breadcrumb-item>
-        <el-breadcrumb-item>免费课</el-breadcrumb-item>
-        <el-breadcrumb-item>课程标题</el-breadcrumb-item>
+        <el-breadcrumb-item :to="{ path: '/course' }">课程</el-breadcrumb-item>
+        <!-- <el-breadcrumb-item>免费课</el-breadcrumb-item> -->
+        <el-breadcrumb-item>{{courseData.name}}</el-breadcrumb-item>
       </el-breadcrumb>
       <div class="course-title">{{courseData.name}}</div>
       <div class="course-profile">
@@ -42,8 +42,10 @@ const levelMap = ref({1:'初级', 2:'中级', 3:'高级'})
 const errorHandler = () => true
 const props = defineProps({
   courseData: {
-    cover: String,
-    name: String
+    type: Object,
+    default(rawProps) {
+      return { }
+    }
   }
 })
 onMounted(() => {

@@ -4,11 +4,11 @@
     <DetailHeader :course-data="courseData"></DetailHeader>
     <Menu @clickIndex="shiftMenu"></Menu>
     <div class="course-content" v-if="currentIndex === 0">
-      <DetailCart></DetailCart>
-      <ChapterView :chapter-list="chapterList"></ChapterView>
+      <DetailCart :course-data="courseData" @buy-instance="buyInstance"></DetailCart>
+      <ChapterView v-if="courseData.chapterList" :chapter-list="chapterList"></ChapterView>
     </div>
     <div class="course-content" v-else>
-      <DownloadList :file-list="downloadList"></DownloadList>
+      <DownloadList v-if="courseData.downloadList" :file-list="downloadList"></DownloadList>
     </div>
   </div>
 </template>
@@ -26,6 +26,7 @@ let chapterList = ref([])
 let downloadList = ref([])
 let currentIndex = ref(0)
 const route = useRoute()
+const router = useRouter()
 let courseData = ref({})
 
 const initList = () => {
@@ -57,8 +58,20 @@ const shiftMenu = (args) => {
 // 获取课程详细
 const courseInfo = (courseId) => {
   courseDetail(courseId).then(res=>{
-    courseData = res.data
+    courseData.value = res.data
 	})
+}
+const buyInstance = () => {
+  router.push({
+    path: '/order',
+    query: {
+      courseImg: courseData.value.cover,
+      courseId: courseData.value.id,
+      courseName: courseData.value.name,
+      price: courseData.value.price,
+      salePrice: courseData.value.salePrice || courseData.value.price
+    }
+  })
 }
 onMounted(() => {
   initList()
@@ -76,6 +89,7 @@ onMounted(() => {
   .course-content {
     padding: 40px 0;
     border: none;
+    min-height: 500px;
   }
 }
 </style>

@@ -9,14 +9,14 @@
                 <div class="info-main">
                     <div class="courseInfo">
                         <div class="coursebg">
-                            <img src="@/assets/img/logo-2-small-f.png">
+                            <img :src="courseOrder.courseImg" alt="">
                         </div>
                         <div class="courseName">
-                           课程名称
+                           {{ courseOrder.courseName }}
                         </div>
                         <div class="coursePrice">
-                            <span class="nowprice">￥item.discountPrice</span>
-                            <span class="oldprice">￥item.salePrice</span>
+                            <span class="nowprice">￥{{courseOrder.price}}</span>
+                            <span class="oldprice">￥{{courseOrder.salePrice}}</span>
                         </div>
                     </div>
                 </div>
@@ -24,14 +24,14 @@
                     <h3>支付方式 <span class="pay">{{payment.description}}</span></h3>
                     <div class="choosebg">
                         <div v-for="item in payMods" @click="payModClick(item.description)" :class="{'active':payment.description === item.description}" rel="payModes" pay-mode-code="wxpayment" >
-                        <img :src="item.img" title="item.description">
+                        <img :src="item.img" title="item.description" alt="">
                         <span>{{ item.description }}</span>
                         </div>
                 
                     </div>
                 </div>
                 <ul class="foot">
-                    <li class="foot-item">应付<span class="unique">￥299</span></li>
+                    <li class="foot-item">应付<span class="unique">￥{{courseOrder.price}}</span></li>
                     <li>
                         <button class="btn" @click="conformOrder">确认订单</button>
                     </li>
@@ -42,7 +42,7 @@
         <el-dialog v-model='dialogVisible' class="pay-dialog" width="500px">
             <div class="dialogPrice">支付：<span class="prices">299元</span></div>
             <div class="codeimg">
-                <img src="" />
+                <img src="" alt=""/>
             </div>
             <div class="alert">请您及时付款，已便订单尽快处理！</div>
             <div class="finish">
@@ -54,9 +54,11 @@
 </template>
 
 <script setup>
-
+import { onMounted, ref } from 'vue'
 //dialog
 const dialogVisible = ref(false);
+let courseOrder = ref({})
+const route = useRoute()
 
 const conformOrder = ()=>{
     dialogVisible.value = true
@@ -71,6 +73,10 @@ const payModClick = (item) =>{
     payment.value.description = item
     console.log(item)
 }
+onMounted(() => {
+    const queryInfo = route.query
+    Object.assign(courseOrder.value, queryInfo)
+})
 </script>
 
 <style scoped>
