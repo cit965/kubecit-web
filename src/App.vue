@@ -4,7 +4,9 @@ import Footer from '@/components/common/Foot.vue'
 </script>
 
 <template>
-  <Header></Header>
-  <router-view />
-  <Footer></Footer>
+  <div ref="scrollArea">
+    <Header></Header>
+    <router-view />
+    <Footer></Footer>
+  </div>
 </template>
