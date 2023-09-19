@@ -167,6 +167,14 @@ onMounted(() => {
   })
   console.log(userInfo)
 });
+// 监听路由变化
+watch(() => router.currentRoute.value.path,(toPath) => {
+  // console.log('toPath', toPath)
+  // tab要切换到course
+  if (toPath.indexOf('/course') !== -1) {
+    currentTabRouter.value = 'course'
+  }
+},{immediate: true,deep: true})
 </script>
 
 <style scoped lang="scss">

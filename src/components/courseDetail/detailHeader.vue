@@ -48,9 +48,6 @@ const props = defineProps({
     }
   }
 })
-onMounted(() => {
-  console.log('父组件',props.courseData)
-})
 </script>
 <style scoped lang="scss">
 .course-header {

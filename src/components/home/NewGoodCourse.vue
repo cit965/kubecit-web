@@ -11,7 +11,7 @@
 					<div class='txt-bottom'></div>
 				</div>
 			</div>
-			<div class='more'>更 多</div>
+			<div class='more' @click="moreCourse()">更多</div>
 		</div>
 		<div class='newCourseContent'>
 			<ul>
@@ -63,8 +63,7 @@ onBeforeMount(()=>{
 		pageNum:1,
 		pageSize:8
 	}).then(res=>{
-		newCourse.value = res.list;
-		console.log( res.list )
+		newCourse.value = res.list
 	})
 })
 const toDetailPage = (item) => {
@@ -74,6 +73,9 @@ const toDetailPage = (item) => {
         id: item.id
         }
     })
+}
+const moreCourse = () => {
+    router.push('/course')
 }
 </script>
 
