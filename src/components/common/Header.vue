@@ -144,13 +144,20 @@
 <script setup>
 import { Search } from '@element-plus/icons-vue'
 import { useUserStore } from '@/store/user'
+import { useRenderState } from '@/store/renderState'
 import { getInfo } from '@/utils/api/api.js'
 
 //用户信息
 let userInfo = ref({})
 // 滚动距离高度
 let scrollTop = ref(0)
-let currentTabRouter = ref('home')
+
+const renderState = useRenderState()
+console.log('init tab', renderState.currentTabRouter)
+const currentTabRouter = computed(() => {
+  return renderState.currentTabRouter
+})
+
 let router = useRouter()
 let vipInfo = ref(true)
 //显示用户更多数据
@@ -174,7 +181,7 @@ const tabClick = (name) => {
   router.push({
     name: name,
   })
-  currentTabRouter.value = name
+  renderState.currentTabRouter = name
 }
 
 const handleScroll = () => {
