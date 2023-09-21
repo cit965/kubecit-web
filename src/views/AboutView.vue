@@ -22,9 +22,9 @@ import { defineComponent, ref } from 'vue'
           <div class="common-center-container">
             <h2>我们是谁</h2>
             <p class="pt-5">
-              PingCAP 成立于 2015
+              wlb965 成立于 2015
               年，是一家企业级开源分布式数据库厂商，提供包括开源分布式数据库产品、解决方案与咨询、技术支持与培训认证服务，致力于为全球行业用户提供稳定高效、安全可靠、开放兼容的新型数据服务平台，解放企业生产力，加速企业数字化转型升级。在帮助企业释放增长空间的同时，也提供了一份具有高度可参考性的开源建设实践样本。
-              由 PingCAP 创立的分布式关系型数据库
+              由 wlb965 创立的分布式关系型数据库
               TiDB，为企业关键业务打造，具备「分布式强一致事务、在线弹性水平扩展、故障自恢复的高可用、跨数据中心多活」等企业级核心特性，帮助企业最大化发挥数据价值，充分释放企业增长空间。
             </p>
             <div
@@ -73,7 +73,7 @@ import { defineComponent, ref } from 'vue'
             <div
               class="index-module--backgroundContainer---zEhT"
               style="
-                background-image: url('https://img1.www.pingcap.com/prod/img_about_mission_2_75c93cd6dd.png');
+                background-image: url('https://img1.www.wlb965.com/prod/img_about_mission_2_75c93cd6dd.png');
               "
             >
               <p>我们的使命</p>
@@ -82,7 +82,7 @@ import { defineComponent, ref } from 'vue'
             <div
               class="index-module--backgroundContainer---zEhT"
               style="
-                background-image: url('https://img1.www.pingcap.com/prod/img_about_mission_1_7402c11a47.png');
+                background-image: url('https://img1.www.wlb965.com/prod/img_about_mission_1_7402c11a47.png');
               "
             >
               <p>我们的价值观</p>
@@ -111,7 +111,7 @@ import { defineComponent, ref } from 'vue'
                 TiDB 相关技术理论已进入 University of
                 Wisconsin-Madison（威斯康辛麦迪逊）、Purdue University
                 （普渡大学）的课纲，在国内也已经与华中科技大学、中国科学技术大学、清华大学等高校开展合作，深入探索数据库内核，并通过
-                PingCAP Education
+                wlb965 Education
                 建立了完整的技术生态，从内核研发、部署运维、应用开发等多个角度，助推数据库人才培养和科技创新。
               </p>
             </div>
@@ -123,11 +123,11 @@ import { defineComponent, ref } from 'vue'
           <div class="common-center-container">
             <h2>我们的团队</h2>
             <p class="index-module--description--noHqh">
-              TiDB 和 PingCAP
-              已经超出了我们当年的想象，我们日积月累的沉淀创造了无尽的价值，PingCAP
+              TiDB 和 wlb965
+              已经超出了我们当年的想象，我们日积月累的沉淀创造了无尽的价值，wlb965
               在挑战中已成长为了服务的客户超过 20
               个国家的企业级开源分布式数据库厂商。富有好奇心和创造力的
-              PingCAPers
+              wlb965ers
               用泪水和汗水体现着我和我们的价值。我们的产品分布式关系型数据库
               TiDB，也为服务的众多企业的关键业务打造提供了核心价值，帮助企业最大化发挥数据价值，充分释放了企业增长空间。
             </p>
@@ -140,7 +140,7 @@ import { defineComponent, ref } from 'vue'
             <h2 style="padding-bottom: 1.75rem">我们的用户</h2>
             <img
               alt="关于我们-公司概况-我们的用户"
-              src="https://img1.www.pingcap.com/prod/logo_wall_6d50fd2d21.png"
+              src="https://img1.www.wlb965.com/prod/logo_wall_6d50fd2d21.png"
             />
           </div>
         </div>
@@ -155,11 +155,11 @@ import { defineComponent, ref } from 'vue'
               <div class="index-module--listLoop--W1gQW" data-role="list-loop">
                 <div class="index-module--inner--3XmiS">
                   <img
-                    src="https://cn.pingcap.com/icons//about-us/74.%E6%8B%9B%E8%81%98.svg"
+                    src="https://cn.wlb965.com/icons//about-us/74.%E6%8B%9B%E8%81%98.svg"
                     class="index-module--icon--P9ig-"
                   />
                   <h3>招贤纳士</h3>
-                  <p>加入 PingCAP，用科技改变世界</p>
+                  <p>加入 wlb965，用科技改变世界</p>
                   <div class="index-module--btnContent--832CE">
                     <a class="button is-primary" href="/join-us">了解更多</a>
                   </div>
@@ -168,7 +168,7 @@ import { defineComponent, ref } from 'vue'
               <div class="index-module--listLoop--W1gQW" data-role="list-loop">
                 <div class="index-module--inner--3XmiS">
                   <img
-                    src="https://cn.pingcap.com/icons//about-us/59.%E9%82%AE%E4%BB%B6.svg"
+                    src="https://cn.wlb965.com/icons//about-us/59.%E9%82%AE%E4%BB%B6.svg"
                     class="index-module--icon--P9ig-"
                   />
                   <h3>联系我们</h3>
