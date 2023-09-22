@@ -4,9 +4,19 @@ import Footer from '@/components/common/Foot.vue'
 </script>
 
 <template>
-  <div ref="scrollArea">
+  <div ref="scrollArea" class="fullh">
     <Header></Header>
-    <router-view />
+    <div class="pageRouter">
+      <router-view />
+    </div>
     <Footer></Footer>
   </div>
 </template>
+
+<style scoped>
+  .fullh {
+    min-height: 100vh;
+  }
+
+  
+</style>

@@ -11,9 +11,9 @@
 				<ul class='copy-top'>
 					<li @click="clickAbout">关于我们</li>
 					<li>|</li>
-					<li>联系我们</li>
+					<li class="csp" @click="contactUs">联系我们</li>
 					<li>|</li>
-					<li>意见反馈</li>
+					<li>讲师招募</li>
 					<li>|</li>
 					<li>版权声明</li>
 				</ul>
@@ -21,7 +21,6 @@
 					<div style="text-align: center;margin-top: 5px">Copyright © 2018~2038 </div>
 
 			        <p style="text-align: center;margin-top: 5px">
-                    <!-- <router-link> wlb965用户服务协议</router-link> -->
 					<router-link to="policyUserService">wlb965用户服务协议</router-link>
 					<router-link to="policyUserPrivate">wlb965隐私政策</router-link>
                     <!-- <a class="go" href="#" target="_blank" title="京ICP备xxxxxx">京ICP备xxxxxx</a>  -->
@@ -51,6 +50,10 @@ const router = useRouter()
 const clickAbout = () => {
   router.push('/about');
 }
+
+function  contactUs() {
+		router.push({name: 'contactUs'})
+	}
 </script>
 <style scoped>
 footer{
@@ -133,4 +136,5 @@ footer{
 li{
     list-style-type: none;
 }
+
 </style>
