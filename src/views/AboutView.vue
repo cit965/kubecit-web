@@ -2,7 +2,7 @@
 import Header from '@/components/common/Header.vue'
 import Foot from '@/components/common/Foot.vue'
 import { defineComponent, ref } from 'vue'
-const tabList = [
+let tabs = [
   {
     tab_name: '公司概况',
     tab_key: 'company_situation',
@@ -16,7 +16,7 @@ const tabList = [
     tab_name: '团队成员',
     tab_key: 'members',
   },
-]
+];
 const tabKey = ref('company_situation')
 </script>
 
@@ -26,7 +26,10 @@ const tabKey = ref('company_situation')
     <div class="container px-4">
       <div class="common-center-container">
         <div class="index-module--aboutUs">
-          <a class="index-module" v-for="item in tabList">{{ item.tab_name }}</a>
+          <a class="index-module">公司介绍</a>
+          <!-- <a class="index-module" v-for="item in tabs">{{
+            item.tab_name
+          }}</a> -->
         </div>
       </div>
     </div>
@@ -49,7 +52,7 @@ const tabKey = ref('company_situation')
               >
                 <p class="index-module--value--ovF-L">33000 *</p>
                 <p class="index-module--description--F8RZ3">
-                  TiDB 项目在 GitHub 上已总计获得超过 33000 颗星
+                  wlb965 项目在 GitHub 上已总计获得超过 33000 颗星
                 </p>
               </div>
               <div
@@ -95,7 +98,7 @@ const tabKey = ref('company_situation')
             <div class="index-module--responsibility--CtULx">
               <h4>人才培养与科技创新</h4>
               <p>
-                TiDB 相关技术理论已进入 University of
+                wlb965 相关技术理论已进入 University of
                 Wisconsin-Madison（威斯康辛麦迪逊）、Purdue University
                 （普渡大学）的课纲，在国内也已经与华中科技大学、中国科学技术大学、清华大学等高校开展合作，深入探索数据库内核，并通过
                 wlb965 Education
@@ -110,7 +113,7 @@ const tabKey = ref('company_situation')
           <div class="common-center-container">
             <h2>我们的团队</h2>
             <p class="index-module--description--noHqh">
-              TiDB 和 wlb965
+              wlb965 和 wlb965
               已经超出了我们当年的想象，我们日积月累的沉淀创造了无尽的价值，wlb965
               在挑战中已成长为了服务的客户超过 20
               个国家的企业级开源分布式数据库厂商。富有好奇心和创造力的 wlb965ers
@@ -159,7 +162,7 @@ const tabKey = ref('company_situation')
                   />
                   <h3>联系我们</h3>
                   <p>
-                    对 TiDB
+                    对 wlb965
                     产品、技术支持、合作等有任何问题，请通过这些渠道跟我们联系
                   </p>
                   <div class="index-module--btnContent--832CE">
@@ -179,7 +182,7 @@ const tabKey = ref('company_situation')
   border-bottom: 1px solid rgba(44, 44, 44, 0.15);
   display: flex;
   justify-content: center;
-  margin-top: 50px;
+  margin-top: 20px;
 }
 .common-center-container {
   margin: 0 auto;
