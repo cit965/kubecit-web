@@ -3,6 +3,7 @@ import { fileURLToPath, URL } from 'node:url'
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import AutoImport from 'unplugin-auto-import/vite'
+import { autoClassPlugin } from 'vite-plugin-autoclass'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -11,6 +12,7 @@ export default defineConfig({
     AutoImport({
       imports: ['vue', 'vue-router'], //自动导入vue和vue-router相关函数
     }),
+    autoClassPlugin()
   ],
   server: {
     host: '0.0.0.0',
@@ -24,5 +26,14 @@ export default defineConfig({
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),
     },
+  },
+  css: {
+    preprocessorOptions: {
+      // 全局样式引入
+      scss: {
+        additionalData: '@import "src/assets/scss/variables.scss";',
+        javascriptEnabled: true
+      }
+    }
   },
 })

@@ -12,7 +12,6 @@
 </template>
 
 <script setup>
-import { defineProps, defineEmits } from 'vue'
 const props = defineProps(['chapterList'])
 const emit = defineEmits(['startLearn'])
 const toPlayPage = (lesson) => {

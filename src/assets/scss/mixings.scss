@@ -1,0 +1,271 @@
+
+
+@import './variables.scss';
+
+//由于添加了whClass vite插件，这部分会产生大量冗余class的代码就暂时不用了
+// $whs:1, 10, 16, 20, 30, 45, 55, 60, 80, 120, 130, 150, 180, 200, 300, 350, 400, 460, 500;//一些较大的尺寸，用于设定width,height等
+// $classBg:(w:width,h:height,lh:line-height, maxh:max-height, maxw: max-width,);
+// @each $i in $whs {
+//   @each $key,$val in $classBg{
+//     .#{$key}#{$i}{
+//      #{$val}:#{$i}#{$unit};
+//     }
+//   }
+// }
+
+// $mps:1,2,3,4,5,8,10,12, 15, 16,20,30,40,50,60, 80,100, 130;//中等尺寸，用于设定margin,padding等
+// $classMd:(bdr:border-radius,bdrtl:border-top-left-radius,bdrtr:border-top-right-radius,bdrbl:border-bottom-left-radius,bdrbr:border-bottom-right-radius,p:padding,pl:padding-left,pr:padding-right,pt:padding-top,pb:padding-bottom,m:margin,ml:margin-left,mr:margin-right,mt:margin-top,mb:margin-bottom,zi:z-index,gp:gap);
+// @each $i in $mps {
+//   @each $key,$val in $classMd{
+//     .#{$key}#{$i}{
+//      #{$val}:#{$i}#{$unit}
+//     }
+//   }
+// }
+
+// $fs:9,10,12,14,15,16,18,20,24,28,30,32,36,48,50,60,80,150;
+// $fsClass:(fs:font-size);
+//font-sizes
+// @each $i in $fs {
+//   @each $key,$val in $fsClass{
+//     .#{$key}#{$i}{
+//       #{$val}:#{$i}#{$unit};
+//     }
+//   }
+// }
+
+$unit:px;//单位，可设定自己习惯使用的单位，如em
+
+$per:0,5,10,20,30,40,50,60,70,80,90,100;//百分比，记得在写mixin时除以100
+// $perClass:(op:opacity);//透明度
+// @each $i in $per {
+  
+//   @each $key,$val in $perClass{
+//     .#{$key}#{$i}{
+//       #{$val}:percentage($i*0.01);
+//     }
+//   }
+// }
+$degs:90,180,270;
+
+$justifys:(C:center,SA:space-around,SE:space-evenly,SB:space-between,S:flex-start,E:flex-end);//flex布局中的对齐方式
+
+
+$bds:1,2,3,4,5;//小尺寸，用于设定border等
+$classSm:(b:border,bl:border-left,br:border-right,bt:border-top,bb:border-bottom);
+
+
+
+$aligns: (
+  L: left,
+  R: right,
+  C: center
+);
+
+
+//颜色类
+@each $key,$val in $colors{
+  @each $key1,$val1 in $classColor{
+    .#{$key1}#{""+$key}{
+      #{$val1}: $val
+    }
+  }
+}
+
+//宽高类
+.wfull{
+  width: 100%;
+}
+.hfull{
+  height: 100%;
+}
+
+//paddings margins
+.pa{
+  padding: auto;
+}
+.ma{
+  margin: auto;
+}
+
+.bbox{
+  box-sizing: border-box;
+}
+
+//border
+@each $i in $bds {
+  @each $key,$val in $classSm{
+    .#{$key}#{$i}{
+     #{$val}:#{$i}#{$unit} solid $border-color;
+    }
+  }
+}
+
+//n行超出显示...
+@each $i in $bds {
+  .line#{$i}{
+    text-overflow: -o-ellipsis-lastline;
+    overflow: hidden;				//溢出内容隐藏
+    text-overflow: ellipsis;		//文本溢出部分用省略号表示
+    display: -webkit-box;			//特别显示模式
+    -webkit-line-clamp: $i;			//行数
+    line-clamp: $i;					
+    -webkit-box-orient: vertical;	//盒子中内容竖直排列
+  }
+}
+
+//z-index
+// @each $i in $bds {
+//   .z#{$i}{
+//     z-index: $i;
+//   }
+// }
+
+
+
+
+
+//font-weight
+.fwb{
+  font-weight: bold;
+}
+.fwl{
+  font-weight: lighter;
+}
+
+//布局类
+.flxR{
+  display: flex;
+  flex-direction: row;
+}
+.flxRR{
+  display: flex;
+  flex-direction: row-reverse;
+}
+.flxC{
+  display: flex;
+  flex-direction: column;
+}
+.flxCR{
+  display: flex;
+  flex-direction: column-reverse;
+}
+.fla {
+  flex:auto;
+}
+@each $key,$val in $justifys {
+  .ai#{$key} {
+    align-items: $val;
+  }
+  .jc#{$key} {
+    justify-content: $val;
+  }
+}
+
+.noShrink{
+  flex-shrink: 0;
+}
+.noGrow{
+  flex-grow: 0;
+}
+
+//flex值
+// @each $i in $bds{ //借用一下小尺寸$bds
+//   .fl#{$i}{
+//     flex:$i;
+//   }
+// 	.z#{$i}{
+// 		z-index:$i
+// 	}
+//   .fsrk#{$i}{
+//     flex-shrink: $i;
+//   }
+// }
+
+
+//scale
+@each $p in $per {
+  .sc#{$p} {
+    transform: scale($p*0.01);
+  }
+}
+
+//rotate
+@each $d in $degs {
+	.rot#{$d} {
+		transform: rotate(#{$d}deg);
+	}
+}
+//text-align
+@each $key,$align in $aligns {
+  .ta#{$key} {
+    text-align: $align;
+  }
+}
+
+.psr{
+  position: relative;
+}
+.psa{
+  position: absolute;
+}
+.psf{
+  position: fixed;
+}
+.pss{
+  position: sticky;
+}
+
+.bgImg{
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.noWrap {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  // word-break: break-all;
+  word-wrap: break-word;
+}
+
+.ova{
+  overflow: auto;
+}
+
+.ovs{
+  overflow: scroll;
+}
+
+.ovh{
+  overflow: hidden;
+}
+.ovv{
+  overflow: visible;
+}
+.csp{
+  cursor: pointer;
+}
+
+.csn {
+  cursor:not-allowed;
+}
+
+.csh {
+  cursor: help;
+}
+
+.wdbrk{
+  word-break: break-all;
+}
+
+.line2 {
+  word-break: break-all;
+  text-overflow: ellipsis;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2; /* 超出几行省略 */
+  line-clamp: 2;
+  overflow: hidden;
+}
+
+

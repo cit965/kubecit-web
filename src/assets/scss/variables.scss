@@ -1,0 +1,17 @@
+$border-color:#d9d9d9;
+$mainBG:#f4f5f9;
+
+$colors:(
+  white: #ffffff,
+  dark: #000000,
+  gray: #333333,
+  gray1: #666666,
+  gray2: #999999,
+  warning: #ff9900,
+  bg: #f7f7f7,
+);
+$classColor:(bc:background-color,tc:color,bdc:border-color);
+
+@function colors($ckey) {
+  @return map-get($colors, $ckey);
+}

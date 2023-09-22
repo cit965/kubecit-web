@@ -19,7 +19,6 @@ import Menu from '@/components/courseDetail/detailMenu.vue'
 import DetailCart from '@/components/courseDetail/detailCart.vue'
 import ChapterView from '@/components/courseDetail/chapterList.vue'
 import DownloadList from '@/components/courseDetail/downloadList.vue'
-import { onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
 import { courseDetail, courseChapters } from '@/utils/api/course.js'
 let chapterList = ref([])
