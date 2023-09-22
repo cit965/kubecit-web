@@ -11,7 +11,7 @@
 				<ul class='copy-top'>
 					<li>关于我们</li>
 					<li>|</li>
-					<li>联系我们</li>
+					<li class="csp" @click="contactUs">联系我们</li>
 					<li>|</li>
 					<li>意见反馈</li>
 					<li>|</li>
@@ -45,7 +45,11 @@
 </template>
 
 <script setup>
-
+	import { useRouter } from 'vue-router';
+	const router = useRouter()
+	function  contactUs() {
+		router.push({name: 'contactUs'})
+	}
 </script>
 <style scoped>
 footer{
@@ -128,4 +132,5 @@ footer{
 li{
     list-style-type: none;
 }
+
 </style>

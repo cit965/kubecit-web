@@ -59,6 +59,11 @@ const router = createRouter({
       name: 'vip',
       component: () => import('@/views/VipView.vue'),
     },
+    {
+      path: '/contactUs',
+      name: 'contactUs',
+      component: () => import('@/views/ContactUs.vue')
+    }
   ],
 });
 
