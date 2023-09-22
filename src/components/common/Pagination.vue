@@ -15,7 +15,6 @@
 </template>
 
 <script setup>
-import { defineProps, defineEmits, ref } from 'vue'
 const props = defineProps(['pageCount'])
 const emit = defineEmits(['page-number'])
 let currentPage = ref(1)

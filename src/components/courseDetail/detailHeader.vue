@@ -37,7 +37,6 @@
 
 <script setup>
 import { ArrowRight } from '@element-plus/icons-vue'
-import { onMounted, ref, defineProps } from 'vue'
 const levelMap = ref({1:'初级', 2:'中级', 3:'高级'})
 const errorHandler = () => true
 const props = defineProps({
