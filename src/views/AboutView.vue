@@ -1,7 +1,23 @@
-<script>
+<script setup>
 import Header from '@/components/common/Header.vue'
 import Foot from '@/components/common/Foot.vue'
 import { defineComponent, ref } from 'vue'
+const tabList = [
+  {
+    tab_name: '公司概况',
+    tab_key: 'company_situation',
+  },
+  {
+    tab_name: '发展历程',
+    tab_key: 'development',
+  },
+  ,
+  {
+    tab_name: '团队成员',
+    tab_key: 'members',
+  },
+]
+const tabKey = ref('company_situation')
 </script>
 
 <template>
@@ -10,9 +26,7 @@ import { defineComponent, ref } from 'vue'
     <div class="container px-4">
       <div class="common-center-container">
         <div class="index-module--aboutUs">
-          <a class="index-module--active">公司概况</a><a class="">发展历程</a
-          ><a class="">新闻中心</a
-          ><a target="_blank" rel="noopener" class="">活动</a>
+          <a class="index-module" v-for="item in tabList">{{ item.tab_name }}</a>
         </div>
       </div>
     </div>
@@ -67,33 +81,6 @@ import { defineComponent, ref } from 'vue'
         </div>
       </div>
       <div class="container px-4">
-        <div class="index-module--valueAndMission--xp9ig">
-          <div class="common-center-container">
-            <h2 style="padding-top:3.75rem;">我们的使命和价值观</h2>
-            <div
-              class="index-module--backgroundContainer---zEhT"
-              style="
-                background-image: url('https://img1.www.wlb965.com/prod/img_about_mission_2_75c93cd6dd.png');
-              "
-            >
-              <p>我们的使命</p>
-              <h2>为开发者和企业赋能，以速度、敏捷、增长之道创新</h2>
-            </div>
-            <div
-              class="index-module--backgroundContainer---zEhT"
-              style="
-                background-image: url('https://img1.www.wlb965.com/prod/img_about_mission_1_7402c11a47.png');
-              "
-            >
-              <p>我们的价值观</p>
-              <h2>
-                客户成功；达成结果，追求卓越；开放；勇于担当；彼此尊重，成就他人；理想远大，不同凡响
-              </h2>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="container px-4">
         <div class="index-module--socialResponsibilities--NYVNZ">
           <div class="common-center-container">
             <h2>我们的社会责任</h2>
@@ -126,8 +113,7 @@ import { defineComponent, ref } from 'vue'
               TiDB 和 wlb965
               已经超出了我们当年的想象，我们日积月累的沉淀创造了无尽的价值，wlb965
               在挑战中已成长为了服务的客户超过 20
-              个国家的企业级开源分布式数据库厂商。富有好奇心和创造力的
-              wlb965ers
+              个国家的企业级开源分布式数据库厂商。富有好奇心和创造力的 wlb965ers
               用泪水和汗水体现着我和我们的价值。我们的产品分布式关系型数据库
               TiDB，也为服务的众多企业的关键业务打造提供了核心价值，帮助企业最大化发挥数据价值，充分释放了企业增长空间。
             </p>
@@ -140,7 +126,7 @@ import { defineComponent, ref } from 'vue'
             <h2 style="padding-bottom: 1.75rem">我们的用户</h2>
             <img
               alt="关于我们-公司概况-我们的用户"
-              src="https://img1.www.wlb965.com/prod/logo_wall_6d50fd2d21.png"
+              src="@/assets/img/logo_wall.png"
             />
           </div>
         </div>
@@ -155,7 +141,7 @@ import { defineComponent, ref } from 'vue'
               <div class="index-module--listLoop--W1gQW" data-role="list-loop">
                 <div class="index-module--inner--3XmiS">
                   <img
-                    src="https://cn.wlb965.com/icons//about-us/74.%E6%8B%9B%E8%81%98.svg"
+                    src="@/assets/img/recruit.svg"
                     class="index-module--icon--P9ig-"
                   />
                   <h3>招贤纳士</h3>
@@ -168,7 +154,7 @@ import { defineComponent, ref } from 'vue'
               <div class="index-module--listLoop--W1gQW" data-role="list-loop">
                 <div class="index-module--inner--3XmiS">
                   <img
-                    src="https://cn.wlb965.com/icons//about-us/59.%E9%82%AE%E4%BB%B6.svg"
+                    src="@/assets/img/email.svg"
                     class="index-module--icon--P9ig-"
                   />
                   <h3>联系我们</h3>
@@ -188,16 +174,16 @@ import { defineComponent, ref } from 'vue'
     </div>
   </div>
 </template>
-<script setup></script>
 <style scoped lang="scss">
 .index-module--aboutUs {
   border-bottom: 1px solid rgba(44, 44, 44, 0.15);
   display: flex;
   justify-content: center;
+  margin-top: 50px;
 }
 .common-center-container {
   margin: 0 auto;
-  max-width: 54rem;
+  max-width: 59rem;
 }
 
 .index-module--aboutUs a {
@@ -403,7 +389,7 @@ img {
   flex: 1 1;
   margin-top: 2rem;
   max-width: 50%;
-  padding: 0 1rem;
+  // padding: 0 1rem;
 }
 
 .index-module--inner--3XmiS .index-module--icon--P9ig- {
@@ -429,9 +415,9 @@ img {
 }
 
 .index-module--contactUsMore--8Jskc {
-  background: #f7f8f9;
+  // background: #f7f8f9;
   color: #2c2c2c;
-  padding: 5rem 0;
+  padding: 1.5rem 0;
 }
 
 .index-module--inner--3XmiS p {
