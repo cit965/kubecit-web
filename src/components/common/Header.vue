@@ -144,19 +144,16 @@
 <script setup>
 import { Search } from '@element-plus/icons-vue'
 import { useUserStore } from '@/store/user'
-import { useRenderState } from '@/store/renderState'
 import { getInfo } from '@/utils/api/api.js'
+import { useRoute } from 'vue-router'
 
 //用户信息
 let userInfo = ref({})
 // 滚动距离高度
 let scrollTop = ref(0)
 
-const renderState = useRenderState()
-console.log('init tab', renderState.currentTabRouter)
-const currentTabRouter = computed(() => {
-  return renderState.currentTabRouter
-})
+const route = useRoute()
+const currentTabRouter = ref('home')
 
 let router = useRouter()
 let vipInfo = ref(true)
@@ -181,7 +178,7 @@ const tabClick = (name) => {
   router.push({
     name: name,
   })
-  renderState.currentTabRouter = name
+  // currentTabRouter.value = name
 }
 
 const handleScroll = () => {
@@ -190,7 +187,7 @@ const handleScroll = () => {
     document.documentElement.scrollTop ||
     document.body.scrollTop
   scrollTop.value = Number(calcScrollTop)
-  console.log(calcScrollTop, 'scrollTop') // 输出滚动条高度
+  // console.log(calcScrollTop, 'scrollTop') // 输出滚动条高度
 }
 
 //用户是否是登录状态
@@ -222,15 +219,20 @@ onUnmounted(() => {
 })
 // 监听路由变化
 watch(
-  () => router.currentRoute.value.path,
-  (toPath) => {
-    // console.log('toPath', toPath)
-    // tab要切换到course
-    if (toPath.indexOf('/course') !== -1) {
-      currentTabRouter.value = 'course'
-    }
-  },
-  { immediate: true, deep: true }
+  // () => router.currentRoute.value.path,
+  // (toPath) => {
+  //   // console.log('toPath', toPath)
+  //   // tab要切换到course
+  //   if (toPath.indexOf('/course') !== -1) {
+  //     currentTabRouter.value = 'course'
+  //   }
+  // },
+  // { immediate: true, deep: true }
+  () => route.name,
+  (name) => {
+    if (name.includes('courseDetail')) currentTabRouter.value = 'course'
+    else currentTabRouter.value = name
+  }
 )
 </script>
 

@@ -46,12 +46,9 @@
 
 <script setup>
 	import { useRouter } from 'vue-router';
-	import { useRenderState } from '../../store/renderState';
 	const router = useRouter()
-	const renderState = useRenderState()
 	function  contactUs() {
 		router.push({name: 'contactUs'})
-		renderState.currentTabRouter = 'contactUs'
 	}
 </script>
 <style scoped>
