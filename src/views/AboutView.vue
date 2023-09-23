@@ -12,7 +12,7 @@
         </div>
       </div>
     </div>
-    <div>
+    <div v-show="tabKey === 'company_situation'">
       <div class="container px-4">
         <div class="index-module--whoAreWe--imKed">
           <div class="common-center-container">
@@ -132,6 +132,8 @@
         </div>
       </div>
     </div>
+    <div v-show="tabKey === 'development'">发展历程</div>
+    <div v-show="tabKey === 'members'">团队成员</div>
   </div>
 </template>
 <script setup>
