@@ -1,5 +1,5 @@
-import { createRouter, createWebHistory } from 'vue-router';
-import HomeView from '@/views/HomeView.vue';
+import { createRouter, createWebHistory } from 'vue-router'
+import HomeView from '@/views/HomeView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -59,7 +59,12 @@ const router = createRouter({
       name: 'vip',
       component: () => import('@/views/VipView.vue'),
     },
+    {
+      path: '/PersonCenter',
+      name: 'PersonCenter',
+      component: () => import('@/views/PersonCenter.vue'),
+    },
   ],
-});
+})
 
-export default router;
+export default router
