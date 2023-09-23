@@ -5,7 +5,7 @@ import Footer from '@/components/common/Foot.vue'
 
 <template>
   <div ref="scrollArea" class="fullh">
-    <Header class="st5"></Header>
+    <Header class="st"></Header>
     <div class="pageRouter">
       <router-view />
     </div>
@@ -17,7 +17,7 @@ import Footer from '@/components/common/Foot.vue'
   .fullh {
     min-height: 100vh;
   }
-  .st5 {
+  .st {
     z-index: 10;
     position: sticky; top:0;
   }

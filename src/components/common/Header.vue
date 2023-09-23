@@ -146,7 +146,6 @@ import { Search } from '@element-plus/icons-vue'
 import { useUserStore } from '@/store/user'
 import { getInfo } from '@/utils/api/api.js'
 import { useRoute } from 'vue-router'
-import { nextTick } from 'vue';
 
 //用户信息
 let userInfo = ref({})
@@ -209,11 +208,6 @@ onMounted(() => {
   })
   console.log(userInfo)
 
-   // 定义变量用于存储 DOM 元素
-  let scrollAreaRef = null
-  // 获取 DOM 元素
-  scrollAreaRef = document.querySelector('[ref="scrollArea"]')
-
   // 监听滚动事件
   window.addEventListener('scroll', handleScroll)
 })
@@ -257,7 +251,7 @@ header {
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 95px;
+  height: 100px;
   background: white;
   box-shadow: 0px 5px 6px rgba(0, 0, 0, 0.16);
   opacity: 1;
