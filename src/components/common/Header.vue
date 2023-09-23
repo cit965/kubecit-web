@@ -1,5 +1,5 @@
 <template>
-  <header @mouseleave='isShow=false'>
+  <header @mouseleave="isShow = false">
     <div class="header-content">
       <div class="left">
         <h1 class="content-logo">
@@ -24,91 +24,84 @@
           <router-link to="/login" v-if="!isLogin"> 登录 </router-link>
           <router-link to="/register" v-if="!isLogin"> 注册 </router-link>
           <div v-else>
-            <div @mouseenter='isShow=true'>
-            <img class="avator" :src="userInfo.avatar" alt="" v-if="userInfo.avatar" />
-            <img v-else class="avator" @click="tabClick('vip')" src="@/assets/img/Avat62.png" />
-          </div>
+            <div @mouseenter="isShow = true">
+              <img class="avator" :src="userInfo.avatar" alt="" v-if="userInfo.avatar" />
+              <img v-else class="avator" @click="tabClick('PersonCenter')" src="@/assets/img/Avat62.png" />
+            </div>
           </div>
         </div>
 
-
-
-        <div class="user-info" v-if='isShow'>
+        <div class="user-info" v-if="isShow">
           <div class="user-info-top">
-				    <div class="u-i-t-top">
-				      <img
-				        class="avator"
-				        :src="userInfo.avatar"
-				        alt=""
-				        v-if="userInfo.avatar"
-				      />
-				      <img class="avator" src='@/assets/img/Avat62.png' v-else />
-				      <div class="avator-info">
-				        <p>{{userInfo.username}}</p>
-				      </div>
-				      <div class="vip" v-if="vipInfo">
-				        <div class="vipImg">
-				          <img src="https://www.xuexiluxian.cn/resources/images/index/info-member.png" :class="vipEndtime < 0 ? 'gray':''">
-				        </div>
-				        <div class="vipName">{{vipInfo.vipName}}</div>
-				        <div class="endTime" v-if="vipInfo.isExpired === 0 ">{{endTimeVip}}天到期</div>
-				        <div class="endTime" v-else>已过期{{Math.abs(endTimeVip)}}天</div>
-				      </div>
-				    </div>
+            <div class="u-i-t-top">
+              <img class="avator" :src="userInfo.avatar" alt="" v-if="userInfo.avatar" />
+              <img class="avator" src="@/assets/img/Avat62.png" v-else />
+              <div class="avator-info">
+                <p>{{ userInfo.username }}</p>
+              </div>
+              <div class="vip" v-if="vipInfo">
+                <div class="vipImg">
+                  <img src="https://www.xuexiluxian.cn/resources/images/index/info-member.png" :class="vipEndtime < 0 ? 'gray' : ''" />
+                </div>
+                <div class="vipName">{{ vipInfo.vipName }}</div>
+                <div class="endTime" v-if="vipInfo.isExpired === 0">{{ endTimeVip }}天到期</div>
+                <div class="endTime" v-else>已过期{{ Math.abs(endTimeVip) }}天</div>
+              </div>
+            </div>
 
             <div class="u-i-i-bottom">
-				      <div>
-				        <router-link to="/">
-				          <div class="info-item">
-				            <img src="@/assets/img/course.png"/>
-				            <p>我的课程</p>
-				          </div>
-				        </router-link>
-				      </div>
-				      <div>
-				        <router-link to="/">
-				          <div class="info-item">
-				            <img src="../../assets/img/order.png" />
-				            <p>我的试炼</p>
-				          </div>
-				        </router-link>
-				      </div>
               <div>
-				        <router-link to="/">
-				          <div class="info-item">
-				            <img src="../../assets/img/setting.png"/>
-				            <p>个人设置</p>
-				          </div>
-				        </router-link>
-				      </div>
+                <router-link to="/">
+                  <div class="info-item">
+                    <img src="@/assets/img/course.png" />
+                    <p>我的课程</p>
+                  </div>
+                </router-link>
+              </div>
               <div>
-				        <router-link to="/">
-				          <div class="info-item">
-				            <img src="../../assets/img/setting.png"/>
-				            <p>我的钱包</p>
-				          </div>
-				        </router-link>
-				      </div>
+                <router-link to="/">
+                  <div class="info-item">
+                    <img src="../../assets/img/order.png" />
+                    <p>我的试炼</p>
+                  </div>
+                </router-link>
+              </div>
               <div>
-				        <router-link to="vip">
-				          <div class="info-item">
-				            <img src="../../assets/img/setting.png"/>
-				            <p>会员中心</p>
-				          </div>
-				        </router-link>
-				      </div>
+                <router-link to="/">
+                  <div class="info-item">
+                    <img src="../../assets/img/setting.png" />
+                    <p>个人设置</p>
+                  </div>
+                </router-link>
+              </div>
               <div>
-				        <router-link to="/">
-				          <div class="info-item">
-				            <img src="../../assets/img/setting.png"/>
-				            <p>我的帖子</p>
-				          </div>
-				        </router-link>
-				      </div>
+                <router-link to="/">
+                  <div class="info-item">
+                    <img src="../../assets/img/setting.png" />
+                    <p>我的钱包</p>
+                  </div>
+                </router-link>
+              </div>
+              <div>
+                <router-link to="vip">
+                  <div class="info-item">
+                    <img src="../../assets/img/setting.png" />
+                    <p>会员中心</p>
+                  </div>
+                </router-link>
+              </div>
+              <div>
+                <router-link to="/">
+                  <div class="info-item">
+                    <img src="../../assets/img/setting.png" />
+                    <p>我的帖子</p>
+                  </div>
+                </router-link>
+              </div>
             </div>
             <div class="user-info-bottom">
-				    <div class="logout" @click="logout">退出登录</div>
-				  </div>
+              <div class="logout" @click="logout">退出登录</div>
+            </div>
           </div>
         </div>
       </div>
@@ -117,56 +110,54 @@
 </template>
 
 <script setup>
-import { Search } from '@element-plus/icons-vue';
-import { useUserStore } from '@/store/user';
-import {
-  getInfo
-} from '@/utils/api/api.js'
-
+import { Search } from '@element-plus/icons-vue'
+import { useUserStore } from '@/store/user'
+import { getInfo } from '@/utils/api/api.js'
 
 //用户信息
-let userInfo = ref({});
-let currentTabRouter = ref('home');
-let router = useRouter();
+let userInfo = ref({})
+let currentTabRouter = ref('home')
+let router = useRouter()
 let vipInfo = ref(true)
 //显示用户更多数据
-let isShow = ref(false);
+let isShow = ref(false)
 let tabs = [
   { name: '首页', router: 'home' },
   { name: '课程', router: 'course' },
   { name: '试炼', router: 'challenge' },
   { name: '交流', router: 'communicate' },
-];
+]
 //pinia
-const userStore = useUserStore();
+const userStore = useUserStore()
 
 const logout = () => {
-  userStore.clearToken();
-  router.push({ name: 'login' });
-};
+  userStore.clearToken()
+  router.push({ name: 'login' })
+}
 
 // tab 跳转页面
 const tabClick = (name) => {
+  // vip   页面切换调准啊
   router.push({
     name: name,
-  });
-  currentTabRouter.value = name;
-};
+  })
+  currentTabRouter.value = name
+}
 
 //用户是否是登录状态
-let isLogin = ref(false);
+let isLogin = ref(false)
 
 onMounted(() => {
-  console.log('mounted', userStore.token);
-  const token = userStore.token;
+  console.log('mounted', userStore.token)
+  const token = userStore.token
   if (token) {
-    isLogin.value = true;
+    isLogin.value = true
   }
-  getInfo().then((res)=>{
+  getInfo().then((res) => {
     userInfo.value = res
   })
   console.log(userInfo)
-});
+})
 </script>
 
 <style scoped lang="scss">
@@ -311,106 +302,106 @@ header {
 }
 
 .user-info {
-	width: 200px;
-	height: 194px;
-	background-color: #fff;
-	border: 1px solid rgba(248, 250, 252, 1);
-	box-shadow: 0px 5px 15px 3px #888888;
-	position: absolute;
-	top: 75px;
-	right: 80px;
-	z-index: 999;
-	display: block;
-	border-radius: 10px;
+  width: 200px;
+  height: 194px;
+  background-color: #fff;
+  border: 1px solid rgba(248, 250, 252, 1);
+  box-shadow: 0px 5px 15px 3px #888888;
+  position: absolute;
+  top: 75px;
+  right: 80px;
+  z-index: 999;
+  display: block;
+  border-radius: 10px;
 }
 
 .user-info-top {
-	display: flex;
-	width: 100%;
-	height: 160px;
-	border-bottom: 1px solid rgba(248, 250, 252, 1);
-	flex-direction: column;
+  display: flex;
+  width: 100%;
+  height: 160px;
+  border-bottom: 1px solid rgba(248, 250, 252, 1);
+  flex-direction: column;
 }
 
 .u-i-t-top {
-	display: flex;
-	height: 80px;
-	width: 100%;
-	align-items: center;
+  display: flex;
+  height: 80px;
+  width: 100%;
+  align-items: center;
 }
 .u-i-t-top img {
-	width: 40px;
-	height: 40px;
-	margin: 0 10px;
-	cursor: pointer;
+  width: 40px;
+  height: 40px;
+  margin: 0 10px;
+  cursor: pointer;
 }
 .avator-info {
-	width: 120px;
-	height: 60px;
-	font-size: 14px;
-	font-family: Microsoft YaHei;
-	font-weight: 400;
-	color: #333333;
-	display: flex;
-	flex-direction: column;
-	/*align-items: center;*/
+  width: 120px;
+  height: 60px;
+  font-size: 14px;
+  font-family: Microsoft YaHei;
+  font-weight: 400;
+  color: #333333;
+  display: flex;
+  flex-direction: column;
+  /*align-items: center;*/
 }
 
 /*有会员了之后高度微调*/
 .avator-info p {
-	height: 40px;
-	line-height: 40px;
-	cursor: pointer;
+  height: 40px;
+  line-height: 40px;
+  cursor: pointer;
 }
 .u-i-i-bottom {
-	display: flex;
-	height: 100px;
-	width: 200px;
-	margin-top: 10px;
-	flex-wrap: wrap;
-	justify-content: space-around;
+  display: flex;
+  height: 100px;
+  width: 200px;
+  margin-top: 10px;
+  flex-wrap: wrap;
+  justify-content: space-around;
 }
-.u-i-i-bottom a{
-	text-decoration: none;
+.u-i-i-bottom a {
+  text-decoration: none;
 }
 .info-item {
-	width: 90px;
-	height: 30px;
-	display: flex;
-	justify-content: space-around;
-	align-items: center;
-	font-size: 12px;
-	font-family: Microsoft YaHei;
-	font-weight: 400;
-	color: #333333;
-	border-radius: 3px;
-	cursor: pointer;
-	background-color: rgba(0, 0, 0, 0.1) !important;
+  width: 90px;
+  height: 30px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  font-size: 12px;
+  font-family: Microsoft YaHei;
+  font-weight: 400;
+  color: #333333;
+  border-radius: 3px;
+  cursor: pointer;
+  background-color: rgba(0, 0, 0, 0.1) !important;
 }
 .info-item img {
-	width: 14px;
-	height: 16px;
+  width: 14px;
+  height: 16px;
 }
 
 .user-info-bottom {
-	position: relative;
-	width: 100%;
-	height: 30px;
+  position: relative;
+  width: 100%;
+  height: 30px;
 }
 .logout {
-	line-height: 30px;
-	position: absolute;
-	top: 0;
-	right: 10px;
-	font-size: 12px;
-	font-family: Microsoft YaHei;
-	font-weight: 400;
-	color: #93999f;
-	cursor: pointer;
+  line-height: 30px;
+  position: absolute;
+  top: 0;
+  right: 10px;
+  font-size: 12px;
+  font-family: Microsoft YaHei;
+  font-weight: 400;
+  color: #93999f;
+  cursor: pointer;
 }
 
 /*vip开始*/
-.vip{
+.vip {
   display: flex;
   flex-direction: row;
   /*flex-wrap: wrap;*/
@@ -419,23 +410,23 @@ header {
   margin-left: -105px;
   margin-top: 18px;
   font-size: 12px;
-  line-height:30px;
+  line-height: 30px;
 }
-.vipImg{
+.vipImg {
   width: 15px;
   height: 15px;
   margin-right: 12px;
 }
-.vipImg img{
+.vipImg img {
   width: 100% !important;
   height: 100% !important;
 }
-.vipName{
-  color: #93999F;
+.vipName {
+  color: #93999f;
 }
-.endTime{
+.endTime {
   padding-left: 2px;
-  color:#FF0000 ;
+  color: #ff0000;
   position: absolute;
   top: 45px;
   left: 73px;
