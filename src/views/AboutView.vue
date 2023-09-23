@@ -1,35 +1,14 @@
-<script setup>
-import Header from '@/components/common/Header.vue'
-import Foot from '@/components/common/Foot.vue'
-import { defineComponent, ref } from 'vue'
-let tabs = [
-  {
-    tab_name: '公司概况',
-    tab_key: 'company_situation',
-  },
-  {
-    tab_name: '发展历程',
-    tab_key: 'development',
-  },
-  ,
-  {
-    tab_name: '团队成员',
-    tab_key: 'members',
-  },
-];
-const tabKey = ref('company_situation')
-</script>
-
 <template>
   <div class="Vip">
     <!-- 头部介绍 -->
     <div class="container px-4">
       <div class="common-center-container">
         <div class="index-module--aboutUs">
-          <a class="index-module">公司介绍</a>
-          <!-- <a class="index-module" v-for="item in tabs">{{
-            item.tab_name
-          }}</a> -->
+          <a class="index-module-item"
+          v-for="item in tabs"
+          @click="handleClickTabItem(item)"
+          :class="{ 'index-module-item-active': item.tab_key === tabKey }"
+          >{{item?.tab_name}}</a>
         </div>
       </div>
     </div>
@@ -44,36 +23,26 @@ const tabKey = ref('company_situation')
               由 wlb965 创立的分布式关系型数据库
               TiDB，为企业关键业务打造，具备「分布式强一致事务、在线弹性水平扩展、故障自恢复的高可用、跨数据中心多活」等企业级核心特性，帮助企业最大化发挥数据价值，充分释放企业增长空间。
             </p>
-            <div
-              class="index-module--keyNumber--4xZ4D is-flex is-flex-wrap-wrap"
-            >
-              <div
-                class="column is-half is-full-mobile has-text-centered px-4 py-0"
-              >
+            <div class="index-module--keyNumber--4xZ4D is-flex is-flex-wrap-wrap">
+              <div class="column is-half is-full-mobile has-text-centered px-4 py-0">
                 <p class="index-module--value--ovF-L">33000 *</p>
                 <p class="index-module--description--F8RZ3">
                   wlb965 项目在 GitHub 上已总计获得超过 33000 颗星
                 </p>
               </div>
-              <div
-                class="column is-half is-full-mobile has-text-centered px-4 py-0"
-              >
+              <div class="column is-half is-full-mobile has-text-centered px-4 py-0">
                 <p class="index-module--value--ovF-L">9</p>
                 <p class="index-module--description--F8RZ3">
                   9 个全球分支机构分布于中国、美国、新加坡、日本
                 </p>
               </div>
-              <div
-                class="column is-half is-full-mobile has-text-centered px-4 py-0"
-              >
+              <div class="column is-half is-full-mobile has-text-centered px-4 py-0">
                 <p class="index-module--value--ovF-L">20 +</p>
                 <p class="index-module--description--F8RZ3">
                   服务的客户超过 20 个国家
                 </p>
               </div>
-              <div
-                class="column is-half is-full-mobile has-text-centered px-4 py-0"
-              >
+              <div class="column is-half is-full-mobile has-text-centered px-4 py-0">
                 <p class="index-module--value--ovF-L">3000 +</p>
                 <p class="index-module--description--F8RZ3">
                   超过 3000 家企业用于线上生产环境
@@ -127,46 +96,34 @@ const tabKey = ref('company_situation')
         <div class="container px-4">
           <div class="common-center-container">
             <h2 style="padding-bottom: 1.75rem">我们的用户</h2>
-            <img
-              alt="关于我们-公司概况-我们的用户"
-              src="@/assets/img/logo_wall.png"
-            />
+            <img alt="关于我们-公司概况-我们的用户" src="@/assets/img/logo_wall.png" />
           </div>
         </div>
       </div>
       <div class="index-module--contactUsMore--8Jskc">
         <div class="container px-4">
           <div class="common-center-container">
-            <div
-              class="index-module--listContent--kAm0A"
-              data-role="list-content"
-            >
+            <div class="index-module--listContent--kAm0A" data-role="list-content">
               <div class="index-module--listLoop--W1gQW" data-role="list-loop">
                 <div class="index-module--inner--3XmiS">
-                  <img
-                    src="@/assets/img/recruit.svg"
-                    class="index-module--icon--P9ig-"
-                  />
+                  <img src="@/assets/img/recruit.svg" class="index-module--icon--P9ig-" />
                   <h3>招贤纳士</h3>
                   <p>加入 wlb965，用科技改变世界</p>
                   <div class="index-module--btnContent--832CE">
-                    <a class="button is-primary" href="/join-us">了解更多</a>
+                    <a class="button is-primary">了解更多</a>
                   </div>
                 </div>
               </div>
               <div class="index-module--listLoop--W1gQW" data-role="list-loop">
                 <div class="index-module--inner--3XmiS">
-                  <img
-                    src="@/assets/img/email.svg"
-                    class="index-module--icon--P9ig-"
-                  />
+                  <img src="@/assets/img/email.svg" class="index-module--icon--P9ig-" />
                   <h3>联系我们</h3>
                   <p>
                     对 wlb965
                     产品、技术支持、合作等有任何问题，请通过这些渠道跟我们联系
                   </p>
                   <div class="index-module--btnContent--832CE">
-                    <a class="button is-primary" href="/contact">了解更多</a>
+                    <a class="button is-primary" href="/contactUs">了解更多</a>
                   </div>
                 </div>
               </div>
@@ -177,13 +134,56 @@ const tabKey = ref('company_situation')
     </div>
   </div>
 </template>
+<script setup>
+import Header from '@/components/common/Header.vue'
+import Foot from '@/components/common/Foot.vue'
+import { defineComponent, ref } from 'vue'
+const tabs = ref([
+  {
+    tab_name: '公司概况',
+    tab_key: 'company_situation',
+  },
+  {
+    tab_name: '发展历程',
+    tab_key: 'development',
+  },
+  {
+    tab_name: '团队成员',
+    tab_key: 'members',
+  },
+]);
+const tabKey = ref('company_situation')
+
+const handleClickTabItem = ({ tab_key, tab_name }) => {
+  tabKey.value = tab_key;
+}
+
+</script>
 <style scoped lang="scss">
+.index-module-item {
+  padding: 0 20px;
+}
+
+.index-module-item-active {
+  &:before {
+    background: #3d3fea;
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: calc(50% - 2.5rem);
+    height: 2px;
+    margin: 0.4375rem 1rem 0.4375rem 0;
+    width: 80%;
+  }
+}
 .index-module--aboutUs {
   border-bottom: 1px solid rgba(44, 44, 44, 0.15);
   display: flex;
   justify-content: center;
   margin-top: 20px;
+  position: relative;
 }
+
 .common-center-container {
   margin: 0 auto;
   max-width: 59rem;
@@ -193,7 +193,6 @@ const tabKey = ref('company_situation')
   color: #2c2c2c;
   line-height: 3.75rem;
   position: relative;
-  margin-right: 3rem;
 }
 
 .pt-5 {
@@ -209,6 +208,7 @@ h2 {
   color: #2c2c2c;
   padding-top: 5rem;
 }
+
 .index-module--keyNumber--4xZ4D {
   background: #f7f8f9;
   border-radius: 0.625rem;
@@ -225,13 +225,16 @@ h2 {
 .has-text-centered {
   text-align: center !important;
 }
+
 .px-4 {
   padding-right: 1rem !important;
 }
+
 .pl-4,
 .px-4 {
   padding-left: 1rem !important;
 }
+
 .py-0 {
   padding-bottom: 0 !important;
   padding-top: 0 !important;
@@ -240,6 +243,7 @@ h2 {
 .is-flex {
   display: flex !important;
 }
+
 .is-flex-wrap-wrap {
   flex-wrap: wrap !important;
 }
@@ -265,6 +269,7 @@ h2 {
   padding-bottom: 3.75rem;
   padding-top: 1rem;
 }
+
 .index-module--whoAreWe--imKed p {
   color: rgba(44, 44, 44, 0.8);
   font-size: 1rem;
@@ -272,8 +277,7 @@ h2 {
   white-space: pre-line;
 }
 
-.index-module--valueAndMission--xp9ig
-  .index-module--backgroundContainer---zEhT {
+.index-module--valueAndMission--xp9ig .index-module--backgroundContainer---zEhT {
   background-position: 50%;
   background-repeat: no-repeat;
   background-size: cover;
@@ -285,8 +289,7 @@ h2 {
   width: 100%;
 }
 
-.index-module--socialResponsibilities--NYVNZ
-  .index-module--responsibility--CtULx {
+.index-module--socialResponsibilities--NYVNZ .index-module--responsibility--CtULx {
   padding-top: 1.5rem;
 }
 
@@ -295,16 +298,12 @@ h2 {
   padding-top: 3.75rem;
 }
 
-.index-module--socialResponsibilities--NYVNZ
-  .index-module--responsibility--CtULx
-  h4 {
+.index-module--socialResponsibilities--NYVNZ .index-module--responsibility--CtULx h4 {
   font-size: 1.25rem;
   font-weight: 400;
 }
 
-.index-module--socialResponsibilities--NYVNZ
-  .index-module--responsibility--CtULx
-  h4:before {
+.index-module--socialResponsibilities--NYVNZ .index-module--responsibility--CtULx h4:before {
   background: #3d3fea;
   content: '';
   float: left;
@@ -313,9 +312,7 @@ h2 {
   width: 0.25rem;
 }
 
-.index-module--socialResponsibilities--NYVNZ
-  .index-module--responsibility--CtULx
-  p {
+.index-module--socialResponsibilities--NYVNZ .index-module--responsibility--CtULx p {
   color: rgba(44, 44, 44, 0.8);
   font-size: 1rem;
   font-weight: 400;
@@ -343,10 +340,7 @@ h2 {
   padding: 0 1rem;
 }
 
-.index-module--ourTeam--IsZjh
-  .index-module--inner--rPmz1
-  .index-module--header--xMzD7
-  .index-module--listTitle--otWVV {
+.index-module--ourTeam--IsZjh .index-module--inner--rPmz1 .index-module--header--xMzD7 .index-module--listTitle--otWVV {
   align-items: center;
   background: rgba(0, 4, 49, 0.6);
   border-radius: 0.625rem 0.625rem 0 0;
@@ -373,8 +367,7 @@ img {
   padding: 0 1rem;
 }
 
-.index-module--listContent--kAm0A
-  [data-role='list-loop'].index-module--listLoop--W1gQW,
+.index-module--listContent--kAm0A [data-role='list-loop'].index-module--listLoop--W1gQW,
 .index-module--listLoop--W1gQW {
   max-width: 50%;
   min-width: 50%;
@@ -388,6 +381,7 @@ img {
   margin-top: 1rem;
   padding: 0 0.5rem;
 }
+
 .index-module--listLoop--W1gQW {
   flex: 1 1;
   margin-top: 2rem;
@@ -441,15 +435,18 @@ img {
   background-color: #3d3fea;
   border-color: transparent;
 }
+
 .index-module--inner--3XmiS a {
   min-width: 7rem;
 }
+
 .button {
   border-radius: 0.375rem;
   box-sizing: border-box;
   position: relative;
   transition: all 0.2s;
 }
+
 .button {
   background-color: #fff;
   border-color: #dbdbdb;
