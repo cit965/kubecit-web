@@ -22,3 +22,10 @@ export function courseDetail(courseId){
     method:'get'
   })
 }
+// 获取课程的章节
+export function courseChapters(courseId){
+  return request({
+    url: `/api/course/${courseId}/lessons`,
+    method: 'get'
+  })
+}

@@ -4,7 +4,7 @@
       <div class="navigation">
         <ul>
           <li
-            v-for="(item) in getFirstList"
+            v-for="item in getFirstList"
             :key="item.id"
             :class="{
               'is-hover':
@@ -66,7 +66,6 @@
                             <div class="cart-image">
                               <img src="@/assets/img/free.png" />
                             </div>
-                        
                           </div>
                         </div>
                       </div>
@@ -80,7 +79,12 @@
       </div>
       <div class="sliders">
         <el-carousel :interval="5000" arrow="always" height="460px">
-          <el-carousel-item v-for="item in slidersList" :key="item.id" @click="router.push({ name: 'course' })" style="cursor: pointer;">
+          <el-carousel-item
+            v-for="item in slidersList"
+            :key="item.id"
+            @click="router.push({ name: 'course' })"
+            style="cursor: pointer"
+          >
             <img :src="item.imageLink" :title="item.title" />
           </el-carousel-item>
         </el-carousel>
@@ -157,7 +161,6 @@ import {
 } from '@/utils/api/api.js'
 let { courseTypeFn } = courseType()
 
-
 let router = useRouter()
 let getFirstList = ref([])
 onMounted(() => {
@@ -203,8 +206,8 @@ const detailMouseHover = (id) => {
 }
 
 const SubCategoriesFn = (params) => {
-  ListSubCategories(params).then(res=>{
-  	subCategoryList.value = res.categories;
+  ListSubCategories(params).then((res) => {
+    subCategoryList.value = res.categories
   })
 }
 
@@ -223,10 +226,9 @@ const mouseOut = () => {
 
 // 鼠标移出分类内容区域
 const mouseOutNavContent = () => {
-  category.value = -1;
-  isFirst.value = false;
+  category.value = -1
+  isFirst.value = false
 }
-
 </script>
 
 <style scoped>
@@ -291,12 +293,13 @@ const mouseOutNavContent = () => {
   top: 0;
   left: 220px;
   background: rgba(255, 255, 255);
-  z-index: 65535;
+  z-index: 899;
   min-width: 800px;
   height: 460px;
   border-top-right-radius: 10px;
   box-sizing: border-box;
 }
+
 .detail-main {
   cursor: pointer;
   height: 100%;

@@ -106,7 +106,6 @@
 
 <script setup>
 import Pagination from '@/components/common/Pagination.vue'
-import { onMounted, ref } from 'vue'
 import { searchCourse } from '@/utils/api/api.js'
 import { queryCategoryList } from '@/utils/api/course.js'
 let courseDirection = ref([]) // 课程方向

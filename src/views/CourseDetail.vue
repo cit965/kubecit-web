@@ -5,7 +5,7 @@
     <Menu @clickIndex="shiftMenu"></Menu>
     <div class="course-content" v-if="currentIndex === 0">
       <DetailCart :course-data="courseData" @buy-instance="buyInstance"></DetailCart>
-      <ChapterView v-if="courseData.chapterList" :chapter-list="chapterList"></ChapterView>
+      <ChapterView v-if="chapterList.length > 0" :chapterList="chapterList" @startLearn="startLearn"></ChapterView>
     </div>
     <div class="course-content" v-else>
       <DownloadList v-if="courseData.downloadList" :file-list="downloadList"></DownloadList>
@@ -19,9 +19,8 @@ import Menu from '@/components/courseDetail/detailMenu.vue'
 import DetailCart from '@/components/courseDetail/detailCart.vue'
 import ChapterView from '@/components/courseDetail/chapterList.vue'
 import DownloadList from '@/components/courseDetail/downloadList.vue'
-import { onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
-import { courseDetail } from '@/utils/api/course.js'
+import { courseDetail, courseChapters } from '@/utils/api/course.js'
 let chapterList = ref([])
 let downloadList = ref([])
 let currentIndex = ref(0)
@@ -29,29 +28,6 @@ const route = useRoute()
 const router = useRouter()
 let courseData = ref({})
 
-const initList = () => {
-  for (let index = 0; index < 2; index++) {
-    const element = {
-      title: '章节标题',
-      des: '章节描述',
-      course: [
-        { title: '课程标题', type: '视频' },
-        { title: '课程标题', type: '视频' },
-        { title: '课程标题', type: '视频' },
-        { title: '课程标题', type: '视频' },
-        { title: '课程标题', type: '视频' },
-      ],
-    }
-    chapterList.value.push(element)
-  }
-  for (let index = 0; index < 12; index++) {
-    const element = {
-      title: '下载标题',
-      url: 'https://www.baidu.com',
-    }
-    downloadList.value.push(element)
-  }
-}
 const shiftMenu = (args) => {
   currentIndex.value = args
 }
@@ -61,6 +37,17 @@ const courseInfo = (courseId) => {
     courseData.value = res.data
 	})
 }
+// 获取课程章节
+const queryChapters = (courseId) => {
+  courseChapters(courseId).then(res => {
+    chapterList.value = res.data
+  })
+  .catch(error => {
+    console.log(error)
+  })
+}
+
+// 立即购买
 const buyInstance = () => {
   router.push({
     path: '/order',
@@ -73,11 +60,15 @@ const buyInstance = () => {
     }
   })
 }
+const startLearn = (lessonId)=> {
+  // 如果用户未登录，需要登录
+  console.log('开始学习', lessonId)
+}
 onMounted(() => {
-  initList()
   const courseId = route.query.id
   if (courseId) {
     courseInfo(courseId)
+    queryChapters(courseId)
   }
 })
 </script>

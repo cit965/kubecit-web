@@ -8,6 +8,7 @@
       next-text="下一页"
       :default-page-size="12"
       :page-count="pageCount"
+      v-model:current-page="currentPage"
       @current-change="clickSomePage"/>
     <div class="last-page" v-if="pageCount > 1" @click="clickLastPage">尾页</div>
   </div>
@@ -16,14 +17,20 @@
 <script setup>
 const props = defineProps(['pageCount'])
 const emit = defineEmits(['page-number'])
+let currentPage = ref(1)
 const clickSomePage = (pageNumber) => {
   emit('page-number', pageNumber)
+  currentPage.value = pageNumber
 }
 const clickFirstPage = () => {
+  if (currentPage.value === 1) return
   emit('page-number', 1)
+  currentPage.value = 1
 }
 const clickLastPage = () => {
+  if (currentPage.value === props.pageCount) return
   emit('page-number', props.pageCount)
+  currentPage.value = props.pageCount
 }
 </script>
 
@@ -39,8 +46,8 @@ const clickLastPage = () => {
   height: 30px;
   text-align: center;
   line-height: 28px;
-  font-size: 16px;
-  color: #93999F;
+  font-size: 14px;
+  color: #303133;
   width: 60px;
   cursor: pointer;
 }
