@@ -24,7 +24,7 @@
       <div class="fs30 fwb tcred1 vw90">你不是一个人在奋斗</div>
       <div class="tcgray vw90 mt10">我们的内容教研团队会协助你完成课程设计，并且提供科学的教学方法和技巧让你如虎添翼，
 高效输出优质课程，斩获一大波粉丝</div>
-      <div class="bcwarning w200 h100 bdr50 p10 fw40 tcwhite csp taC mt40 mb20" @click="contactus">加入我们</div>
+      <div class="bcwarning w200 bdr50 p10 fw40 tcwhite csp taC mt40 mb20" @click="contactus">加入我们</div>
     </div>
   </div>
 </template>
