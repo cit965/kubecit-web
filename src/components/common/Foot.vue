@@ -9,7 +9,7 @@
 			</div>
 			<div class="copytight">
 				<ul class='copy-top'>
-					<li>关于我们</li>
+					<li @click="clickAbout">关于我们</li>
 					<li>|</li>
 					<li class="csp" @click="contactUs">联系我们</li>
 					<li>|</li>
@@ -44,9 +44,14 @@
 </template>
 
 <script setup>
-	import { useRouter } from 'vue-router';
-	const router = useRouter()
-	function  contactUs() {
+import { useRoute } from 'vue-router'
+// const route = useRoute()
+const router = useRouter()
+const clickAbout = () => {
+  router.push('/about');
+}
+
+function  contactUs() {
 		router.push({name: 'contactUs'})
 	}
 	function recruitTeacher() {
