@@ -44,14 +44,13 @@
 </template>
 
 <script setup>
-import { useRoute } from 'vue-router'
-// const route = useRoute()
-const router = useRouter()
-const clickAbout = () => {
-  router.push('/about');
-}
+	import { inject } from 'vue'
+	const { router } = inject('baseTool')
+	const clickAbout = () => {
+		router.push('/about');
+	}
 
-function  contactUs() {
+	function  contactUs() {
 		router.push({name: 'contactUs'})
 	}
 </script>
