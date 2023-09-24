@@ -143,19 +143,20 @@
 
 <script setup>
 import { Search } from '@element-plus/icons-vue'
-import { useUserStore } from '@/store/user'
+// import { useUserStore } from '@/store/user'
 import { getInfo } from '@/utils/api/api.js'
-import { useRoute } from 'vue-router'
+// import { useRoute } from 'vue-router'
 
+const { router, route, userStore } = inject('baseTool')
 //用户信息
 let userInfo = ref({})
 // 滚动距离高度
 let scrollTop = ref(0)
 
-const route = useRoute()
+// const route = useRoute()
 const currentTabRouter = ref('home')
 
-let router = useRouter()
+// let router = useRouter()
 let vipInfo = ref(true)
 //显示用户更多数据
 let isShow = ref(false)
@@ -166,7 +167,7 @@ let tabs = [
   { name: '交流', router: 'communicate' },
 ]
 //pinia
-const userStore = useUserStore()
+// const userStore = useUserStore()
 
 const logout = () => {
   userStore.clearToken()

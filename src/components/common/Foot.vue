@@ -44,7 +44,6 @@
 </template>
 
 <script setup>
-	import { inject } from 'vue'
 	const { router } = inject('baseTool')
 	const clickAbout = () => {
 		router.push('/about');
