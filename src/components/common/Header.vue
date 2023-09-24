@@ -43,7 +43,7 @@
                 <img
                   v-else
                   class="avator"
-                  @click="tabClick('vip')"
+                  @click="tabClick('PersonCenter')"
                   src="@/assets/img/Avat62.png"
                 />
               </div>
