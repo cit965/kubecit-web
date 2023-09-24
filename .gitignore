@@ -13,7 +13,6 @@ dist
 dist-ssr
 coverage
 *.local
-src/auto.css
 
 /cypress/videos/
 /cypress/screenshots/
