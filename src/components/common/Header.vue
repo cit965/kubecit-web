@@ -2,7 +2,7 @@
   <header @mouseleave="isShow = false">
     <div
       class="header-content"
-      :class="{ 'header-content-fixed': scrollTop > 0 }"
+      :class="{'header-content-fixed': scrollTop > 0}"
     >
       <div class="header-content-inner">
         <div class="left">
@@ -182,16 +182,20 @@ const tabClick = (name) => {
 }
 
 const handleScroll = () => {
+  
   const calcScrollTop =
     window.scrollY ||
     document.documentElement.scrollTop ||
     document.body.scrollTop
   scrollTop.value = Number(calcScrollTop)
-  // console.log(calcScrollTop, 'scrollTop') // 输出滚动条高度
+  console.log('handlscroll')
+  console.log(calcScrollTop, 'scrollTop') // 输出滚动条高度
 }
 
 //用户是否是登录状态
 let isLogin = ref(false)
+
+
 
 onMounted(() => {
   console.log('mounted', userStore.token)
@@ -203,11 +207,6 @@ onMounted(() => {
     userInfo.value = res
   })
   console.log(userInfo)
-
-  let scrollAreaRef = null // 定义变量用于存储 DOM 元素
-
-  // 获取 DOM 元素
-  scrollAreaRef = document.querySelector('[ref="scrollArea"]')
 
   // 监听滚动事件
   window.addEventListener('scroll', handleScroll)
@@ -230,6 +229,15 @@ watch(
   // { immediate: true, deep: true }
   () => route.name,
   (name) => {
+    // console.log(name, scrollAreaRef.scrollTop)
+    // scrollAreaRef.scrollTop = 0
+    // console.log(name,document.documentElement.scrollTop)
+    document.documentElement.scrollTop = 0
+    setTimeout(()=>{
+      scrollTop.value = 0
+    
+      console.log('routechange')
+    },100)
     if (name.includes('courseDetail')) currentTabRouter.value = 'course'
     else currentTabRouter.value = name
   }
@@ -269,9 +277,9 @@ header {
 }
 
 .header-content-fixed {
-  position: fixed;
+  /* position: fixed;
   top: 0;
-  z-index: 900;
+  z-index: 900; */
   box-shadow: 0 4px 8px 0 rgba(7, 17, 27, 0.1);
   background: #fff;
 }

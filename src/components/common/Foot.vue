@@ -13,7 +13,7 @@
 					<li>|</li>
 					<li class="csp" @click="contactUs">联系我们</li>
 					<li>|</li>
-					<li>讲师招募</li>
+					<li class="csp" @click="recruitTeacher">讲师招募</li>
 					<li>|</li>
 					<li>版权声明</li>
 				</ul>
@@ -53,6 +53,9 @@ const clickAbout = () => {
 
 function  contactUs() {
 		router.push({name: 'contactUs'})
+	}
+	function recruitTeacher() {
+		router.push({name: 'recruitTeacher'})
 	}
 </script>
 <style scoped>
