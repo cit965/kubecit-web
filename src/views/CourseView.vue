@@ -82,16 +82,7 @@
         <div class="newCourseContent">
           <div class="courseUl" v-if="courseList.length > 0">
             <div class='courseItem' v-for="(courseItem, index) in courseList" :key="index" @click="toDetailPage(courseItem)">
-              <div class='courseInfo'>
-              <div class='courseBg'>
-                <img :src="courseItem.cover" alt="">
-              </div>
-              <div class="courseName">{{ courseItem.name }}</div>
-                <div class="courseDegree">{{ levelMap[courseItem.level] }}</div>
-                <div class="coursePricePri">
-                  <div class="pricePri">¥ {{ courseItem.price }}</div>
-                </div>
-              </div>
+              <CourseItem :course-item="courseItem"/>
             </div>
           </div>
           <div v-else class="no-course-info">
@@ -106,6 +97,7 @@
 
 <script setup>
 import Pagination from '@/components/common/Pagination.vue'
+import CourseItem from '@/components/common/CourseItem.vue'
 import { searchCourse } from '@/utils/api/api.js'
 import { queryCategoryList } from '@/utils/api/course.js'
 let courseDirection = ref([]) // 课程方向
@@ -135,6 +127,7 @@ const queryCourseList = (pageNumParam) => {
   }
   searchCourse(courseP).then(res=>{
 		courseList.value = res.list
+    console.log(JSON.stringify(res.list), 'ffff');
     pageCount.value = Math.ceil(res.total/12)
 	})
 }
