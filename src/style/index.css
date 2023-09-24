@@ -8,3 +8,7 @@ body {
 a, li {
   cursor: pointer;
 }
+
+li {
+  list-style: none;
+}
