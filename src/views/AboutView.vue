@@ -1,39 +1,20 @@
-<script setup>
-import Header from '@/components/common/Header.vue'
-import Foot from '@/components/common/Foot.vue'
-import { defineComponent, ref } from 'vue'
-let tabs = [
-  {
-    tab_name: '公司概况',
-    tab_key: 'company_situation',
-  },
-  {
-    tab_name: '发展历程',
-    tab_key: 'development',
-  },
-  ,
-  {
-    tab_name: '团队成员',
-    tab_key: 'members',
-  },
-];
-const tabKey = ref('company_situation')
-</script>
-
 <template>
   <div class="Vip">
     <!-- 头部介绍 -->
     <div class="container px-4">
       <div class="common-center-container">
         <div class="index-module--aboutUs">
-          <a class="index-module">公司介绍</a>
-          <!-- <a class="index-module" v-for="item in tabs">{{
-            item.tab_name
-          }}</a> -->
+          <a
+            class="index-module-item"
+            v-for="item in tabs"
+            @click="handleClickTabItem(item)"
+            :class="{ 'index-module-item-active': item.tab_key === tabKey }"
+            >{{ item?.tab_name }}</a
+          >
         </div>
       </div>
     </div>
-    <div>
+    <div v-show="tabKey === 'company_situation'">
       <div class="container px-4">
         <div class="index-module--whoAreWe--imKed">
           <div class="common-center-container">
@@ -150,7 +131,7 @@ const tabKey = ref('company_situation')
                   <h3>招贤纳士</h3>
                   <p>加入 wlb965，用科技改变世界</p>
                   <div class="index-module--btnContent--832CE">
-                    <a class="button is-primary" href="/join-us">了解更多</a>
+                    <a class="button is-primary">了解更多</a>
                   </div>
                 </div>
               </div>
@@ -166,7 +147,7 @@ const tabKey = ref('company_situation')
                     产品、技术支持、合作等有任何问题，请通过这些渠道跟我们联系
                   </p>
                   <div class="index-module--btnContent--832CE">
-                    <a class="button is-primary" href="/contact">了解更多</a>
+                    <a class="button is-primary" href="/contactUs">了解更多</a>
                   </div>
                 </div>
               </div>
@@ -175,15 +156,59 @@ const tabKey = ref('company_situation')
         </div>
       </div>
     </div>
+    <div v-show="tabKey === 'development'">发展历程</div>
+    <div v-show="tabKey === 'members'">团队成员</div>
   </div>
 </template>
+<script setup>
+import Header from "@/components/common/Header.vue";
+import Foot from "@/components/common/Foot.vue";
+import { defineComponent, ref } from "vue";
+const tabs = ref([
+  {
+    tab_name: "公司概况",
+    tab_key: "company_situation",
+  },
+  {
+    tab_name: "发展历程",
+    tab_key: "development",
+  },
+  {
+    tab_name: "团队成员",
+    tab_key: "members",
+  },
+]);
+const tabKey = ref("company_situation");
+
+const handleClickTabItem = ({ tab_key, tab_name }) => {
+  tabKey.value = tab_key;
+};
+</script>
 <style scoped lang="scss">
+.index-module-item {
+  padding: 0 20px;
+}
+
+.index-module-item-active {
+  &:before {
+    background: #3d3fea;
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: calc(50% - 2.5rem);
+    height: 2px;
+    margin: 0.4375rem 1rem 0.4375rem 0;
+    width: 80%;
+  }
+}
 .index-module--aboutUs {
   border-bottom: 1px solid rgba(44, 44, 44, 0.15);
   display: flex;
   justify-content: center;
   margin-top: 20px;
+  position: relative;
 }
+
 .common-center-container {
   margin: 0 auto;
   max-width: 59rem;
@@ -193,7 +218,6 @@ const tabKey = ref('company_situation')
   color: #2c2c2c;
   line-height: 3.75rem;
   position: relative;
-  margin-right: 3rem;
 }
 
 .pt-5 {
@@ -209,6 +233,7 @@ h2 {
   color: #2c2c2c;
   padding-top: 5rem;
 }
+
 .index-module--keyNumber--4xZ4D {
   background: #f7f8f9;
   border-radius: 0.625rem;
@@ -225,13 +250,16 @@ h2 {
 .has-text-centered {
   text-align: center !important;
 }
+
 .px-4 {
   padding-right: 1rem !important;
 }
+
 .pl-4,
 .px-4 {
   padding-left: 1rem !important;
 }
+
 .py-0 {
   padding-bottom: 0 !important;
   padding-top: 0 !important;
@@ -240,6 +268,7 @@ h2 {
 .is-flex {
   display: flex !important;
 }
+
 .is-flex-wrap-wrap {
   flex-wrap: wrap !important;
 }
@@ -265,6 +294,7 @@ h2 {
   padding-bottom: 3.75rem;
   padding-top: 1rem;
 }
+
 .index-module--whoAreWe--imKed p {
   color: rgba(44, 44, 44, 0.8);
   font-size: 1rem;
@@ -306,7 +336,7 @@ h2 {
   .index-module--responsibility--CtULx
   h4:before {
   background: #3d3fea;
-  content: '';
+  content: "";
   float: left;
   height: 1.25rem;
   margin: 0.4375rem 1rem 0.4375rem 0;
@@ -374,7 +404,7 @@ img {
 }
 
 .index-module--listContent--kAm0A
-  [data-role='list-loop'].index-module--listLoop--W1gQW,
+  [data-role="list-loop"].index-module--listLoop--W1gQW,
 .index-module--listLoop--W1gQW {
   max-width: 50%;
   min-width: 50%;
@@ -388,6 +418,7 @@ img {
   margin-top: 1rem;
   padding: 0 0.5rem;
 }
+
 .index-module--listLoop--W1gQW {
   flex: 1 1;
   margin-top: 2rem;
@@ -441,15 +472,18 @@ img {
   background-color: #3d3fea;
   border-color: transparent;
 }
+
 .index-module--inner--3XmiS a {
   min-width: 7rem;
 }
+
 .button {
   border-radius: 0.375rem;
   box-sizing: border-box;
   position: relative;
   transition: all 0.2s;
 }
+
 .button {
   background-color: #fff;
   border-color: #dbdbdb;
