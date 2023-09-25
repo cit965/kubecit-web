@@ -67,3 +67,10 @@ export function getInfo(params) {
     params,
   })
 }
+
+//获取推荐讲师
+export function getRecommendedLecturer () {
+  return request({
+    url: '/api/recommendedLecturer'
+  })
+}
