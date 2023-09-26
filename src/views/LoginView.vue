@@ -40,7 +40,7 @@
               <li
                 v-for="item in loginTxt"
                 :key="item.id"
-                class="nav-items"
+                class="nav-items csp"
                 :class="current == item.id ? 'actives' : ''"
                 @click="loginChange(item.id)"
               >
@@ -130,10 +130,11 @@ import { ElMessage } from 'element-plus'
 //api
 import { loginByJson } from '@/utils/api/api.js'
 //pinia
-import { useUserStore } from '@/store/user'
-import router from '../router'
-const userStore = useUserStore()
+// import { useUserStore } from '@/store/user'
+// import router from '../router'
+// const userStore = useUserStore()
 
+const { userStore, router } = inject('baseTool')
 //账号登录和短信登录切换
 let current = ref(1)
 //账号登录和短信登录

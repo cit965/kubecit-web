@@ -1,6 +1,13 @@
 <script setup>
+import { useRoute, useRouter } from 'vue-router';
+import { useUserStore } from '@/store/user'
 import Header from '@/components/common/Header.vue'
 import Footer from '@/components/common/Foot.vue'
+
+const router = useRouter()
+const route = useRoute()
+const userStore = useUserStore()
+provide('baseTool', { router, route, userStore })
 </script>
 
 <template>
