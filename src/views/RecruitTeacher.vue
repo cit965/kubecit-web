@@ -31,57 +31,29 @@
 
 <script setup>
   import TeacherCard from '../components/recruitTeacher/TeacherCard.vue';
-  import { useRouter } from 'vue-router';
-  const router = useRouter()
-	const teacherList = ref([{
-    id:0, name: 'teacher1',
-    avatar: "https://img2.sycdn.imooc.com/54584e2c00010a2c02200220-160-160.jpg",
-    level: '精英讲师',
-    title: 'web服务工程师',
-    brief: '十年研发及团队管理经验，对程序员面临的各种问题深有体会；精通Python、Java、Node.js、JavaScript等语言，对Web的基础研发、高并发处理与分布式有非常深入的理解。课程讲解深入浅出，极为擅长培养学生的编程思维。',
-    achievement: {
-      students: 1000,
-      fans: 500,
-      classHours: 2523,
-      praises: 12000
-    }
-  }, {
-    id:1, name: 'Tom',
-    avatar: "https://img2.sycdn.imooc.com/54584e2c00010a2c02200220-160-160.jpg",
-    level: '精英讲师',
-    title: 'web服务工程师',
-    brief: '十年研发及团队管理经验，对程序员面临的各种问题深有体会；精通Python、Java、Node.js、JavaScript等语言，对Web的基础研发、高并发处理与分布式有非常深入的理解。课程讲解深入浅出，极为擅长培养学生的编程思维。',
-    achievement: {
-      students: 1000,
-      fans: 500,
-      classHours: 2523,
-      praises: 12000
-    }
-  },{
-    id:2, name: 'Jerry',
-    avatar: "https://img2.sycdn.imooc.com/54584e2c00010a2c02200220-160-160.jpg",
-    level: '精英讲师',
-    title: 'web服务工程师',
-    brief: '十年研发及团队管理经验，对程序员面临的各种问题深有体会；精通Python、Java、Node.js、JavaScript等语言，对Web的基础研发、高并发处理与分布式有非常深入的理解。课程讲解深入浅出，极为擅长培养学生的编程思维。',
-    achievement: {
-      students: 1000,
-      fans: 500,
-      classHours: 2523,
-      praises: 12000
-    }
-  },{
-    id:3, name: 'teacher2',
-    avatar: "https://img2.sycdn.imooc.com/54584e2c00010a2c02200220-160-160.jpg",
-    level: '精英讲师',
-    title: 'web服务工程师',
-    brief: '十年研发及团队管理经验，对程序员面临的各种问题深有体会；精通Python、Java、Node.js、JavaScript等语言，对Web的基础研发、高并发处理与分布式有非常深入的理解。课程讲解深入浅出，极为擅长培养学生的编程思维。',
-    achievement: {
-      students: 1000,
-      fans: 500,
-      classHours: 2523,
-      praises: 12000
-    }
-  },]) 
+  import { getRecommendedLecturer } from '../utils/api/api';
+
+  const router = inject('baseTool')
+  
+	const teacherList = ref([
+    // {
+    //   id:1, name: 'Tom',
+    //   avatar: "https://img2.sycdn.imooc.com/54584e2c00010a2c02200220-160-160.jpg",
+    //   level: '精英讲师',
+    //   title: 'web服务工程师',
+    //   brief: '十年研发及团队管理经验，对程序员面临的各种问题深有体会；精通Python、Java、Node.js、JavaScript等语言，对Web的基础研发、高并发处理与分布式有非常深入的理解。课程讲解深入浅出，极为擅长培养学生的编程思维。',
+    //   achievement: {
+    //     students: 1000,
+    //     fans: 500,
+    //     classHours: 2523,
+    //     praises: 12000
+    //   }
+    // }
+  ])
+  async function getRecommendedTeachers() {
+    teacherList.value = (await getRecommendedLecturer()).recommendedLecturers
+  }
+  getRecommendedTeachers()
   const cardmove = ref(0)
   setInterval(()=>{
     if (cardmove.value == 2) cardmove.value = 0
