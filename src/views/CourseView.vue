@@ -18,9 +18,9 @@
               type="info"
               v-for="(item, index) in courseDirection"
               :key="index"
-              :class="{active: item.id == currentDirectionId}"
+              :class="{active: item?.id == currentDirectionId}"
               @click="selectFirstCategory(item)"
-            >{{ item.categoryName || ''}} 
+            >{{ item?.categoryName || ''}} 
             </el-tag>
           </div>
         </div>
@@ -40,9 +40,9 @@
               type="info"
               v-for="(item, index) in courseCategory"
               :key="index"
-              :class="{active: item.id == currentCategoryId}"
+              :class="{active: item?.id == currentCategoryId}"
               @click="selectCategory(item)"
-            >{{ item.categoryName }}
+            >{{ item?.categoryName }}
             </el-tag>
           </div>
         </div>
@@ -80,7 +80,7 @@
       </div>
       <div class="container-body">
         <div class="newCourseContent">
-          <div class="courseUl" v-if="courseList.length > 0">
+          <div class="courseUl" v-if="courseList?.length > 0">
             <div class='courseItem' v-for="(courseItem, index) in courseList" :key="index" @click="toDetailPage(courseItem)">
               <CourseItem :course-item="courseItem"/>
             </div>
@@ -127,7 +127,6 @@ const queryCourseList = (pageNumParam) => {
   }
   searchCourse(courseP).then(res=>{
 		courseList.value = res.list
-    console.log(JSON.stringify(res.list), 'ffff');
     pageCount.value = Math.ceil(res.total/12)
 	})
 }
@@ -140,7 +139,7 @@ const categoryList = () => {
     // 课程分类
     courseCategory.value = []
     categories.forEach(item => {
-      courseCategory.value = courseCategory.value.concat(item.children)
+      courseCategory.value = courseCategory.value.concat(item.children || [])
     })
 	})
 }
