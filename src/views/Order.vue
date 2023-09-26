@@ -58,10 +58,17 @@ import { onMounted, ref } from 'vue'
 //dialog
 const dialogVisible = ref(false);
 let courseOrder = ref({})
-const route = useRoute()
+const { route, userStore } = inject('baseTool')
 
+const validateBalance = computed(()=>{
+    if (payment.value.description == '金叶子支付') {
+        return !(userStore.userInfo.goldLeaf < courseOrder.value.price)
+    } else return true
+})
 const conformOrder = ()=>{
-    dialogVisible.value = true
+    if (validateBalance.value)
+        dialogVisible.value = true
+    else window['$message'].warning('余额不足')
 }
 
 let payment = ref({description:"微信支付"})

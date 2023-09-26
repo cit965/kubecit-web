@@ -6,8 +6,8 @@
         <div class="MoneyBox">
           <div class="box">
             <div class="content">
-              <p class="num">0 元</p>
-              <p class="text">当前余额</p>
+              <p class="num">{{ userStore.userInfo.goldLeaf }}</p>
+              <p class="text">当前余额({{ assetsName['goldLeaf'] }})</p>
             </div>
             <div class="icon"></div>
           </div>
@@ -26,6 +26,7 @@
             </div>
             <div class="icon"></div>
           </div>
+          
         </div>
         <p class="Payfor">充值项目（充值比例：1元=1元）</p>
         <div class="numMoney">
@@ -72,7 +73,9 @@
 </template>
 <script setup>
 import { defineComponent } from 'vue'
+import { assetsName } from '../../utils/const';
 
+const {userStore} = inject('baseTool')
 const PayValue = [50, 100, 500, 1000]
 const is_active = ref(0)
 const OtherPay = ref()
@@ -129,23 +132,30 @@ const SumNumber = ref({
       padding: 20px 0px 0 20px;
       // 金额状态
       .MoneyBox {
-        height: 98px;
+        /* height: 98px; */
         // height: 50px;
         display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        & .box:nth-child(1) {
+          background: #f9c851;
+        }
         & .box:nth-child(2) {
           background: #536de6;
         }
 
-        &.box:nth-child(3) {
+        & .box:nth-child(3) {
           background: #ff5b5b;
+        }
+        & .box:nth-child(4) {
+          background: #f9c851;
         }
         .box {
           display: flex;
           width: 322px;
           height: 98px;
           padding: 20px 24px;
-          background: #f9c851;
-          margin-right: 20px;
+          /* margin-right: 20px; */
           border-radius: 10px;
           .content {
             color: #fff;

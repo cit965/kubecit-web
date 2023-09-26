@@ -40,9 +40,9 @@
               type="info"
               v-for="(item, index) in courseCategory"
               :key="index"
-              :class="{active: item.id == currentCategoryId}"
+              :class="{active: item?.id == currentCategoryId}"
               @click="selectCategory(item)"
-            >{{ item.categoryName }}
+            >{{ item?.categoryName }}
             </el-tag>
           </div>
         </div>
@@ -127,7 +127,7 @@ const queryCourseList = (pageNumParam) => {
   }
   searchCourse(courseP).then(res=>{
 		courseList.value = res.list
-    console.log(JSON.stringify(res.list), 'ffff');
+    // console.log(JSON.stringify(res.list), 'ffff');
     pageCount.value = Math.ceil(res.total/12)
 	})
 }
@@ -142,6 +142,7 @@ const categoryList = () => {
     categories.forEach(item => {
       courseCategory.value = courseCategory.value.concat(item.children)
     })
+    // console.log(courseCategory.value)
 	})
 }
 // 跳转课程详情
@@ -208,10 +209,10 @@ const clickPageNumber = (p) => {
     queryCourseList(p)
   }
 }
-onMounted(() => {
+// onMounted(() => {
   categoryList()
   queryCourseList()
-})
+// })
 </script>
 
 <style scoped>

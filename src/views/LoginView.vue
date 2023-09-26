@@ -128,7 +128,7 @@
 import { Avatar, Lock, Iphone } from '@element-plus/icons-vue'
 import { ElMessage } from 'element-plus'
 //api
-import { loginByJson } from '@/utils/api/api.js'
+import { loginByJson, getInfo } from '@/utils/api/api.js'
 //pinia
 // import { useUserStore } from '@/store/user'
 // import router from '../router'
@@ -158,7 +158,7 @@ let rules = reactive({
   ],
   userpwd: [
     { required: true, message: '请输入密码', trigger: 'blur' },
-    { min: 3, max: 11, message: '请输入3-11位密码', trigger: 'blur' },
+    { min: 8, max: 16, message: '请输入8-16位密码', trigger: 'blur' },
   ],
 })
 
@@ -180,6 +180,9 @@ const userBtn = (formEl) => {
           })
           console.log('登录成功')
           userStore.setToken(res.data.accessToken)
+          getInfo().then(res1=>{
+            userStore.setUserInfo(res1.userInfo)
+          })
           router.push('/')
         } else {
           ElMessage({

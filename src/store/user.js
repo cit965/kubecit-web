@@ -18,6 +18,9 @@ export const useUserStore = defineStore({
       //清除用户信息
       this.userInfo = {}
     },
+    setUserInfo (userInfo) {
+      this.userInfo = userInfo
+    }
   },
   // 开启数据缓存
   persist: {

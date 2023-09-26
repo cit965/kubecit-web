@@ -33,7 +33,7 @@
   import TeacherCard from '../components/recruitTeacher/TeacherCard.vue';
   import { getRecommendedLecturer } from '../utils/api/api';
 
-  const router = inject('baseTool')
+  const {router} = inject('baseTool')
   
 	const teacherList = ref([
     // {
