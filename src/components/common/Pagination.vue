@@ -3,6 +3,7 @@
     <div class="first-page" v-if="pageCount > 1" @click="clickFirstPage">首页</div>
     <el-pagination
       background
+      v-if="pageCount > 0"
       layout="prev, pager, next"
       prev-text="上一页"
       next-text="下一页"
