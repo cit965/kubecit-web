@@ -19,7 +19,9 @@ export const useUserStore = defineStore({
       this.userInfo = {}
     },
     setUserInfo (userInfo) {
-      this.userInfo = userInfo
+      for (const key in userInfo) {
+        this.userInfo[key] = userInfo[key]
+      }
     }
   },
   // 开启数据缓存

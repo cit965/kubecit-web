@@ -180,9 +180,7 @@ const userBtn = (formEl) => {
           })
           console.log('登录成功')
           userStore.setToken(res.data.accessToken)
-          getInfo().then(res1=>{
-            userStore.setUserInfo(res1.userInfo)
-          })
+          getInfo({}, userStore.setUserInfo )
           router.push('/')
         } else {
           ElMessage({

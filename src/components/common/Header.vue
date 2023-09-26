@@ -209,9 +209,9 @@ onMounted(async () => {
   // getInfo().then((res) => {
   //   userInfo.value = res
   // })
-  userInfo.value = await getInfo()
-  console.log(userInfo)
-  userStore.setUserInfo(userInfo.value.userInfo)
+  userInfo.value = await getInfo({}, userStore.setUserInfo)
+  // console.log(userInfo)
+  // userStore.setUserInfo(userInfo.value.userInfo)
   // 监听滚动事件
   // window.addEventListener('scroll', handleScroll)
 })
