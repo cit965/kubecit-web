@@ -139,7 +139,7 @@ const categoryList = () => {
     // 课程分类
     courseCategory.value = []
     categories.forEach(item => {
-      courseCategory.value = courseCategory.value.concat(item.children)
+      courseCategory.value = courseCategory.value.concat(item.children || [])
     })
 	})
 }
