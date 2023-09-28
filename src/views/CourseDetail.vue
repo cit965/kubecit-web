@@ -19,14 +19,13 @@ import Menu from '@/components/courseDetail/detailMenu.vue'
 import DetailCart from '@/components/courseDetail/detailCart.vue'
 import ChapterView from '@/components/courseDetail/chapterList.vue'
 import DownloadList from '@/components/courseDetail/downloadList.vue'
-import { useRoute } from 'vue-router'
+const { userStore, router, route } = inject('baseTool')
 import { courseDetail, courseChapters } from '@/utils/api/course.js'
 let chapterList = ref([])
 let downloadList = ref([])
 let currentIndex = ref(0)
-const route = useRoute()
-const router = useRouter()
 let courseData = ref({})
+let isLogin = ref(false)
 
 const shiftMenu = (args) => {
   currentIndex.value = args
@@ -63,8 +62,24 @@ const buyInstance = () => {
 const startLearn = (lessonId)=> {
   // 如果用户未登录，需要登录
   console.log('开始学习', lessonId)
+  if (!lessonId) return
+  if (isLogin.value) {
+    router.push({
+      path: '/course/play',
+      query: {
+        lessonId: lessonId
+      }
+    })
+  } else {
+    // 去登录
+    router.push('/login')
+  }
 }
 onMounted(() => {
+  const token = userStore.token
+  if (token) {
+    isLogin.value = true
+  }
   const courseId = route.query.id
   if (courseId) {
     courseInfo(courseId)
