@@ -61,11 +61,17 @@ export function loginByJson(data) {
 }
 
 //获取个人信息
-export function getInfo(params) {
-  return request({
+export async function getInfo(params, handleUserInfo) {
+  const ret = await request({
     url: '/api/member/getInfo',
     params,
   })
+  console.log(ret)
+  handleUserInfo(ret)
+  const ret1 = await request({url:'/api/wallet/balance'})
+  // console.log('ret1', ret1)
+  handleUserInfo(ret1)
+  return ret
 }
 
 //获取推荐讲师
@@ -74,3 +80,4 @@ export function getRecommendedLecturer () {
     url: '/api/recommendedLecturer'
   })
 }
+

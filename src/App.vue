@@ -3,11 +3,27 @@ import { useRoute, useRouter } from 'vue-router';
 import { useUserStore } from '@/store/user'
 import Header from '@/components/common/Header.vue'
 import Footer from '@/components/common/Foot.vue'
+import { ElMessage } from 'element-plus';
 
 const router = useRouter()
 const route = useRoute()
 const userStore = useUserStore()
 provide('baseTool', { router, route, userStore })
+
+window['$message'] = {
+  success: (message) => {
+    ElMessage({message, type: 'success'})
+  },
+  warning: (message) => {
+    ElMessage({message, type: 'warning'})
+  },
+  info: (message) => {
+    ElMessage(message)
+  },
+  error: (message) => {
+    ElMessage({message, type: 'error'})
+  }
+}
 </script>
 
 <template>
