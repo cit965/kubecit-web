@@ -211,7 +211,6 @@
   </div>
 </template>
 <script setup>
-import { defineComponent } from 'vue'
 import AccountBinding from '../components/person/AccountBinding.vue'
 import ChangePsw from '../components/person/ChangePsw.vue'
 import Recharge from '../components/person/Recharge.vue'

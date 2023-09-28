@@ -18,6 +18,11 @@ export const useUserStore = defineStore({
       //清除用户信息
       this.userInfo = {}
     },
+    setUserInfo (userInfo) {
+      for (const key in userInfo) {
+        this.userInfo[key] = userInfo[key]
+      }
+    }
   },
   // 开启数据缓存
   persist: {

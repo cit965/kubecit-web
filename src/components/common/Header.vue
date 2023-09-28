@@ -194,23 +194,26 @@ const handleScroll = () => {
 }
 
 //用户是否是登录状态
-let isLogin = ref(false)
+const isLogin = computed(()=>{
+  return Boolean(userStore.token)
+})
 
 
 
-onMounted(() => {
+onMounted(async () => {
   console.log('mounted', userStore.token)
-  const token = userStore.token
-  if (token) {
-    isLogin.value = true
-  }
-  getInfo().then((res) => {
-    userInfo.value = res
-  })
-  console.log(userInfo)
-
+  // const token = userStore.token
+  // if (token) {
+  //   isLogin.value = true
+  // }
+  // getInfo().then((res) => {
+  //   userInfo.value = res
+  // })
+  userInfo.value = await getInfo({}, userStore.setUserInfo)
+  // console.log(userInfo)
+  // userStore.setUserInfo(userInfo.value.userInfo)
   // 监听滚动事件
-  window.addEventListener('scroll', handleScroll)
+  // window.addEventListener('scroll', handleScroll)
 })
 
 onUnmounted(() => {

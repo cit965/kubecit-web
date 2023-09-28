@@ -141,6 +141,7 @@ const categoryList = () => {
     categories.forEach(item => {
       courseCategory.value = courseCategory.value.concat(item.children || [])
     })
+    // console.log(courseCategory.value)
 	})
 }
 // 跳转课程详情
@@ -207,10 +208,10 @@ const clickPageNumber = (p) => {
     queryCourseList(p)
   }
 }
-onMounted(() => {
+// onMounted(() => {
   categoryList()
   queryCourseList()
-})
+// })
 </script>
 
 <style scoped>
