@@ -74,7 +74,7 @@
                   <div class="endTime" v-if="vipInfo.isExpired === 0">
                     {{ endTimeVip }}天到期
                   </div>
-                  <div class="endTime" v-else>
+                  <div class="endTime" v-else-if="endTimeVip">
                     已过期{{ Math.abs(endTimeVip) }}天
                   </div>
                 </div>
@@ -149,7 +149,9 @@ import { getInfo } from '@/utils/api/api.js'
 
 const { router, route, userStore } = inject('baseTool')
 //用户信息
-let userInfo = ref({})
+let userInfo = computed(()=>{
+  return userStore.userInfo
+})
 // 滚动距离高度
 let scrollTop = ref(0)
 
@@ -200,8 +202,8 @@ const isLogin = computed(()=>{
 
 
 
-onMounted(async () => {
-  console.log('mounted', userStore.token)
+// onMounted(() => {
+//   console.log('mounted', userStore.token)
   // const token = userStore.token
   // if (token) {
   //   isLogin.value = true
@@ -209,17 +211,17 @@ onMounted(async () => {
   // getInfo().then((res) => {
   //   userInfo.value = res
   // })
-  userInfo.value = await getInfo({}, userStore.setUserInfo)
+  getInfo({}, userStore.setUserInfo)
   // console.log(userInfo)
   // userStore.setUserInfo(userInfo.value.userInfo)
   // 监听滚动事件
   // window.addEventListener('scroll', handleScroll)
-})
+// })
 
-onUnmounted(() => {
-  // 移除滚动事件监听
-  window.removeEventListener('scroll', handleScroll)
-})
+// onUnmounted(() => {
+//   // 移除滚动事件监听
+//   window.removeEventListener('scroll', handleScroll)
+// })
 // 监听路由变化
 watch(
   // () => router.currentRoute.value.path,
@@ -409,8 +411,9 @@ header {
 }
 
 .user-info {
-  width: 200px;
-  height: 194px;
+  width: 220px;
+  /* height: 194px; */
+  padding: 10px;
   background-color: #fff;
   border: 1px solid rgba(248, 250, 252, 1);
   box-shadow: 0px 5px 15px 3px #888888;
@@ -425,7 +428,7 @@ header {
 .user-info-top {
   display: flex;
   width: 100%;
-  height: 160px;
+  /* height: 160px; */
   border-bottom: 1px solid rgba(248, 250, 252, 1);
   flex-direction: column;
 }
@@ -462,11 +465,11 @@ header {
 }
 .u-i-i-bottom {
   display: flex;
-  height: 100px;
-  width: 200px;
-  margin-top: 10px;
+  /* height: 100px; */
+  /* width: 200px; */
+  gap: 10px;
   flex-wrap: wrap;
-  justify-content: space-around;
+  /* justify-content: space-around; */
 }
 .u-i-i-bottom a {
   text-decoration: none;

@@ -23,9 +23,13 @@
                 <div class="choose">
                     <h3>支付方式 <span class="pay">{{payment.description}}</span></h3>
                     <div class="choosebg">
-                        <div v-for="item in payMods" @click="payModClick(item.description)" :class="{'active':payment.description === item.description}" rel="payModes" pay-mode-code="wxpayment" >
-                        <img :src="item.img" title="item.description" alt="">
-                        <span>{{ item.description }}</span>
+                        <div v-for="(item, index) in payways" :key="item.id" @click="payModClick(index)" class="flxR aiC" :class="{'active':payment.id === item.id}" rel="payModes" pay-mode-code="wxpayment" >
+                            <img :src="item.img" title="item.description" alt="" class="ml5" />
+                            <div class="flxC hfull">
+                                <div>{{ item.description }}</div>
+                                <div v-if="item.balanceName" class="tcgray2">余额：{{ userStore.userInfo[item.balanceName] }}</div>
+                            </div>
+                            
                         </div>
                 
                     </div>
@@ -55,14 +59,15 @@
 
 <script setup>
 import { onMounted, ref } from 'vue'
+import { payways } from '../utils/const';
 //dialog
 const dialogVisible = ref(false);
 let courseOrder = ref({})
 const { route, userStore } = inject('baseTool')
 
 const validateBalance = computed(()=>{
-    if (payment.value.description == '金叶子支付') {
-        return !(userStore.userInfo.goldLeaf < courseOrder.value.price)
+    if (payment.value.balanceName) {
+        return !(userStore.userInfo[payment.value.balanceName] < courseOrder.value.price)
     } else return true
 })
 const conformOrder = ()=>{
@@ -71,14 +76,15 @@ const conformOrder = ()=>{
     else window['$message'].warning('余额不足')
 }
 
-let payment = ref({description:"微信支付"})
+const currentPayway = ref(0)
+const payment = computed(()=>{
+    return payways[currentPayway.value]
+})
 
-let payMods = ref([{img:"/wxpay.png",description:"微信支付"},{img:"/zfbpay.png",description:"支付宝支付"},{img:"/jinyezi.png",description:"金叶子支付"}])
 
 // 选择支付方式
-const payModClick = (item) =>{
-    payment.value.description = item
-    console.log(item)
+const payModClick = (index) =>{
+    currentPayway.value = index
 }
 onMounted(() => {
     const queryInfo = route.query
@@ -357,7 +363,6 @@ onMounted(() => {
 }
 
 .choosebg div {
-    width: 150px;
     border: 2px solid #fff;
     margin-right: 10px;
     border-radius: 8px;

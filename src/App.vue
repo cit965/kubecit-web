@@ -41,7 +41,7 @@ window['$message'] = {
     min-height: 100vh;
   }
   .st {
-    z-index: 10;
+    z-index: 100;
     position: sticky; top:0;
   }
   
