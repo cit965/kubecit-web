@@ -81,3 +81,18 @@ export function getRecommendedLecturer () {
   })
 }
 
+//创建订单
+export async function getOrder(courseIds) {
+  return await request({
+    url: '/api/order',
+    data: { courseIds },
+    method: 'post'
+  })
+}
+
+//订单支付
+export async function orderPay(orderId, payType) {
+  return await request({
+    url: '/api/orderPay?orderId='+orderId+'&payType='+payType
+  })
+}

@@ -60,20 +60,41 @@
 <script setup>
 import { onMounted, ref } from 'vue'
 import { payways } from '../utils/const';
+import { getOrder, orderPay } from '../utils/api/api';
 //dialog
 const dialogVisible = ref(false);
 let courseOrder = ref({})
-const { route, userStore } = inject('baseTool')
+const { route, userStore, router } = inject('baseTool')
+
+if (payways[0].id == 1)
+    payways.shift()
 
 const validateBalance = computed(()=>{
     if (payment.value.balanceName) {
         return !(userStore.userInfo[payment.value.balanceName] < courseOrder.value.price)
     } else return true
 })
-const conformOrder = ()=>{
-    if (validateBalance.value)
-        dialogVisible.value = true
+const conformOrder = async ()=>{
+    
+    if (validateBalance.value) {
+        const ret = await getOrder([courseOrder.value.courseId])
+        if (!ret) {
+            window['$message'].warning('创建订单失败')
+            return
+        }
+        //console.log(ret)
+        const orderId = ret.details[0].orderId
+        if (payment.value.id > 3) {
+            const ret1 = orderPay(orderId, payment.value.id)
+            if (ret1) {
+                window['$message'].success('购买成功')
+                router.replace({name: 'course'})
+            }
+        } else dialogVisible.value = true
+    }
+        
     else window['$message'].warning('余额不足')
+
 }
 
 const currentPayway = ref(0)
@@ -89,6 +110,7 @@ const payModClick = (index) =>{
 onMounted(() => {
     const queryInfo = route.query
     Object.assign(courseOrder.value, queryInfo)
+    console.log(courseOrder.value)
 })
 </script>
 
