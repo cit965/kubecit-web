@@ -6,6 +6,7 @@ import Footer from '@/components/common/Foot.vue'
 import { ElMessage } from 'element-plus';
 
 const router = useRouter()
+window['$router'] = router
 const route = useRoute()
 const userStore = useUserStore()
 provide('baseTool', { router, route, userStore })
