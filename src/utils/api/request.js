@@ -24,6 +24,10 @@ service.interceptors.response.use(response => {
   //判断code码
   return response.data;
 },error => {
+  if (error.response.data.reason == "用户ID不存在") {
+    console.log('token error')
+    window['$router'].replace({name: 'login'})
+  }
   return Promise.reject(error);
 });
 

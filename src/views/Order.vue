@@ -23,7 +23,7 @@
                 <div class="choose">
                     <h3>支付方式 <span class="pay">{{payment.description}}</span></h3>
                     <div class="choosebg">
-                        <div v-for="(item, index) in payways" :key="item.id" @click="payModClick(index)" class="flxR aiC" :class="{'active':payment.id === item.id}" rel="payModes" pay-mode-code="wxpayment" >
+                        <div v-for="(item, index) in avalablePayWays" :key="item.id" @click="payModClick(index)" class="flxR aiC" :class="{'active':payment.id === item.id}" rel="payModes" pay-mode-code="wxpayment" >
                             <img :src="item.img" title="item.description" alt="" class="ml5" />
                             <div class="flxC hfull">
                                 <div>{{ item.description }}</div>
@@ -66,8 +66,10 @@ const dialogVisible = ref(false);
 let courseOrder = ref({})
 const { route, userStore, router } = inject('baseTool')
 
-if (payways[0].id == 1)
-    payways.shift()
+const avalablePayIds = [2,3,4]
+const avalablePayWays = payways.filter(item=>{
+    return avalablePayIds.includes(item.id)
+})
 
 const validateBalance = computed(()=>{
     if (payment.value.balanceName) {
@@ -99,7 +101,7 @@ const conformOrder = async ()=>{
 
 const currentPayway = ref(0)
 const payment = computed(()=>{
-    return payways[currentPayway.value]
+    return avalablePayWays[currentPayway.value]
 })
 
 

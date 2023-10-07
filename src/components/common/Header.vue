@@ -156,7 +156,7 @@ let userInfo = computed(()=>{
 let scrollTop = ref(0)
 
 // const route = useRoute()
-const currentTabRouter = ref('home')
+const currentTabRouter = ref(route.name)
 
 // let router = useRouter()
 let vipInfo = ref(true)
@@ -211,7 +211,7 @@ const isLogin = computed(()=>{
   // getInfo().then((res) => {
   //   userInfo.value = res
   // })
-  getInfo({}, userStore.setUserInfo)
+  if (userStore.userInfo.token) getInfo({}, userStore.setUserInfo)
   // console.log(userInfo)
   // userStore.setUserInfo(userInfo.value.userInfo)
   // 监听滚动事件
