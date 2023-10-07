@@ -83,6 +83,11 @@ const router = createRouter({
       path: '/recruitTeacher',
       name: 'recruitTeacher',
       component: () => import('@/views/RecruitTeacher.vue')
+    },
+    {
+      path: '/course/play',
+      name: 'coursePlay',
+      component: () => import('@/views/PlayCourse.vue')
     }
   ],
 });

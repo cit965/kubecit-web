@@ -29,3 +29,11 @@ export function courseChapters(courseId){
     method: 'get'
   })
 }
+// 获取某节课程视频链接
+export function courseVideoInfo(params){
+  return request({
+    url: '/api/video/player/get_player_param',
+    method: 'get',
+    params
+  })
+}

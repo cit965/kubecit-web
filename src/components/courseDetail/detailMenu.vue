@@ -8,7 +8,7 @@
 </template>
 
 <script setup>
-import { ref, defineEmits } from "vue"
+import { ref } from "vue"
 const emit = defineEmits(['clickIndex'])
 let currentIndex = ref(0)
 const showSelectedList = (index) => {
