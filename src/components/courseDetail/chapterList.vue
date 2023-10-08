@@ -15,7 +15,7 @@
 const props = defineProps(['chapterList'])
 const emit = defineEmits(['startLearn'])
 const toPlayPage = (lesson) => {
-  emit('startLearn', lesson.id)
+  emit('startLearn', lesson.id, lesson.storagePath)
 }
 </script>
 <style scoped lang="scss">

@@ -7,7 +7,8 @@
     <div class="player">
       <div class="player-left">
         <!-- <Player class="video-container" :url="videoUrl"></Player> -->
-        <NormalPlayer class="video-container" :url="videoUrl"></NormalPlayer>
+        <!-- <NormalPlayer class="video-container" :url="videoUrl"></NormalPlayer> -->
+        <OuterPlayer v-if="videoUrl" class="video-container" :url="videoUrl"></OuterPlayer>
         <!-- <div class="finished" id="finished-current">
           <p class="studynow">恭喜您学完该小节</p>
           <p class="nextCourse">下一小节：<span id="next-chapter"></span></p>
@@ -30,12 +31,11 @@
 <script setup>
 import { courseVideoInfo } from '@/utils/api/course.js'
 // import Player from '@/components/player/TCPlayer.vue'
-import NormalPlayer from '@/components/player/NormalPlayer.vue'
+// import NormalPlayer from '@/components/player/NormalPlayer.vue'
+import OuterPlayer from '@/components/player/OuterPlayer.vue'
 const { route, router } = inject('baseTool')
 let courseInfo = ref({})
-// let videoUrl = ref('https://1500005692.vod2.myqcloud.com/43843706vodtranscq1500005692/62656d94387702300542496289/v.f100240.m3u8')
-
-let videoUrl = ref('http://vjs.zencdn.net/v/oceans.mp4')
+let videoUrl = ref('')
 
 // 查询课程的URL
 const queryCourseVideoInfo = (lessonId) => {
@@ -50,11 +50,14 @@ const back = () => {
   router.back()
 }
 onMounted(() => {
-  const lessonId = route.query.lessonId
-  console.log('课程id', lessonId)
-  if (lessonId) {
-    queryCourseVideoInfo(lessonId)
-  }
+  // const lessonId = route.query.lessonId
+  const palyUrl = route.query.videoUrl
+  videoUrl.value = palyUrl
+  console.log('videoUrl', videoUrl.value)
+  // console.log('课程id', lessonId)
+  // if (lessonId) {
+  //   queryCourseVideoInfo(lessonId)
+  // }
 })
 </script>
 <style lang="scss" scoped>

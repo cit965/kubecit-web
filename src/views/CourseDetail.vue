@@ -59,15 +59,14 @@ const buyInstance = () => {
     }
   })
 }
-const startLearn = (lessonId)=> {
+const startLearn = (lessonId, storagePath)=> {
   // 如果用户未登录，需要登录
-  console.log('开始学习', lessonId)
-  if (!lessonId) return
   if (isLogin.value) {
     router.push({
       path: '/course/play',
       query: {
-        lessonId: lessonId
+        lessonId: lessonId,
+        videoUrl: storagePath
       }
     })
   } else {
