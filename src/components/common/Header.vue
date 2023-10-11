@@ -1,9 +1,6 @@
 <template>
   <header @mouseleave="isShow = false">
-    <div
-      class="header-content"
-      :class="{'header-content-fixed': scrollTop > 0}"
-    >
+    <div class="header-content" :class="{ 'header-content-fixed': scrollTop > 0 }">
       <div class="header-content-inner">
         <div class="left">
           <h1 class="content-logo">
@@ -11,12 +8,8 @@
           </h1>
           <div class="content-nav">
             <div class="nav-list">
-              <div
-                v-for="item in tabs"
-                @click="tabClick(item.router)"
-                class="nav-item"
-                :class="{ 'is-active': currentTabRouter === item.router }"
-              >
+              <div v-for="item in tabs" @click="tabClick(item.router)" class="nav-item"
+                :class="{ 'is-active': currentTabRouter === item.router }">
                 {{ item.name }}
               </div>
             </div>
@@ -24,28 +17,23 @@
         </div>
         <div class="search-buy-login right">
           <div class="content-search">
-            <input type="" placeholder="请输入要搜索的课程" />
+            <!-- <el-input v-model="searchInput" placeholder="请输入要搜索的课程" :prefix-icon="Search" /> -->
+            <el-select v-model="searchInput" filterable remote reserve-keyword placeholder="请输入要搜索的课程" remote-show-suffix :suffix-icon="Search"
+              :remote-method="remoteMethod" :loading="loading" @change="searchChange">
+              <el-option v-for="item in options" :key="item.id" :label="item.name" :value="item.id" />
+            </el-select>
+            <!-- <input type="" placeholder="请输入要搜索的课程" />
             <el-icon color="#808080" :size="22" class="content-search-icon">
               <search style="width: 24px; height: 24px" />
-            </el-icon>
+            </el-icon> -->
           </div>
           <div class="content-login">
             <router-link to="/login" v-if="!isLogin"> 登录 </router-link>
             <router-link to="/register" v-if="!isLogin"> 注册 </router-link>
             <div v-else>
               <div @mouseenter="isShow = true">
-                <img
-                  class="avator"
-                  :src="userInfo.avatar"
-                  alt=""
-                  v-if="userInfo.avatar"
-                />
-                <img
-                  v-else
-                  class="avator"
-                  @click="tabClick('PersonCenter')"
-                  src="@/assets/img/Avat62.png"
-                />
+                <img class="avator" :src="userInfo.avatar" alt="" v-if="userInfo.avatar" />
+                <img v-else class="avator" @click="tabClick('PersonCenter')" src="@/assets/img/Avat62.png" />
               </div>
             </div>
           </div>
@@ -53,22 +41,15 @@
           <div class="user-info" v-if="isShow">
             <div class="user-info-top">
               <div class="u-i-t-top">
-                <img
-                  class="avator"
-                  :src="userInfo.avatar"
-                  alt=""
-                  v-if="userInfo.avatar"
-                />
+                <img class="avator" :src="userInfo.avatar" alt="" v-if="userInfo.avatar" />
                 <img class="avator" src="@/assets/img/Avat62.png" v-else />
                 <div class="avator-info">
                   <p>{{ userInfo.username }}</p>
                 </div>
                 <div class="vip" v-if="vipInfo">
                   <div class="vipImg">
-                    <img
-                      src="https://www.xuexiluxian.cn/resources/images/index/info-member.png"
-                      :class="vipEndtime < 0 ? 'gray' : ''"
-                    />
+                    <img src="https://www.xuexiluxian.cn/resources/images/index/info-member.png"
+                      :class="vipEndtime < 0 ? 'gray' : ''" />
                   </div>
                   <div class="vipName">{{ vipInfo.vipName }}</div>
                   <div class="endTime" v-if="vipInfo.isExpired === 0">
@@ -143,17 +124,27 @@
 
 <script setup>
 import { Search } from '@element-plus/icons-vue'
+import { searchCourse } from '@/utils/api/course.js'
 // import { useUserStore } from '@/store/user'
 import { getInfo } from '@/utils/api/api.js'
 // import { useRoute } from 'vue-router'
 
 const { router, route, userStore } = inject('baseTool')
 //用户信息
-let userInfo = computed(()=>{
+let userInfo = computed(() => {
   return userStore.userInfo
 })
 // 滚动距离高度
 let scrollTop = ref(0)
+
+// 搜索框
+const searchInput = ref('')
+
+// loading
+const loading = ref(false)
+
+// 搜索结果
+const options = ref([])
 
 // const route = useRoute()
 const currentTabRouter = ref(route.name)
@@ -184,8 +175,33 @@ const tabClick = (name) => {
   // currentTabRouter.value = name
 }
 
-const handleScroll = () => {
+// 搜索
+const remoteMethod = (query) => {
+  if (query) {
+    searchCourse({ name: query }).then(res => {
+      options.value = res.list
+    }).finally(() => {
+      loading.value = false
+    })
+
+  } else {
+    options.value = []
+  }
+}
+
+const searchChange = (val) => {
+  router.push({
+    path: '/course/detail',
+    query: {
+      id: val
+    }
+  })
   
+}
+
+
+const handleScroll = () => {
+
   const calcScrollTop =
     window.scrollY ||
     document.documentElement.scrollTop ||
@@ -196,7 +212,7 @@ const handleScroll = () => {
 }
 
 //用户是否是登录状态
-const isLogin = computed(()=>{
+const isLogin = computed(() => {
   return Boolean(userStore.token)
 })
 
@@ -204,18 +220,18 @@ const isLogin = computed(()=>{
 
 // onMounted(() => {
 //   console.log('mounted', userStore.token)
-  // const token = userStore.token
-  // if (token) {
-  //   isLogin.value = true
-  // }
-  // getInfo().then((res) => {
-  //   userInfo.value = res
-  // })
-  if (userStore.userInfo.token) getInfo({}, userStore.setUserInfo)
-  // console.log(userInfo)
-  // userStore.setUserInfo(userInfo.value.userInfo)
-  // 监听滚动事件
-  // window.addEventListener('scroll', handleScroll)
+// const token = userStore.token
+// if (token) {
+//   isLogin.value = true
+// }
+// getInfo().then((res) => {
+//   userInfo.value = res
+// })
+if (userStore.userInfo.token) getInfo({}, userStore.setUserInfo)
+// console.log(userInfo)
+// userStore.setUserInfo(userInfo.value.userInfo)
+// 监听滚动事件
+// window.addEventListener('scroll', handleScroll)
 // })
 
 // onUnmounted(() => {
@@ -239,11 +255,11 @@ watch(
     // scrollAreaRef.scrollTop = 0
     // console.log(name,document.documentElement.scrollTop)
     document.documentElement.scrollTop = 0
-    setTimeout(()=>{
+    setTimeout(() => {
       scrollTop.value = 0
-    
+
       console.log('routechange')
-    },100)
+    }, 100)
     if (name.includes('courseDetail')) currentTabRouter.value = 'course'
     else currentTabRouter.value = name
   }
@@ -338,6 +354,7 @@ header {
   margin: 10px 30px 10px 0;
   cursor: pointer;
 }
+
 .content-logo img {
   height: 100%;
 }
@@ -346,6 +363,7 @@ header {
   width: 300px;
   height: 100%;
 }
+
 .content-nav .nav-list {
   margin: 0;
   display: flex;
@@ -372,6 +390,7 @@ header {
   margin-right: 50px;
   position: relative;
 }
+
 .content-search input {
   position: relative;
   padding: 0 40px 0 10px;
@@ -439,12 +458,14 @@ header {
   width: 100%;
   align-items: center;
 }
+
 .u-i-t-top img {
   width: 40px;
   height: 40px;
   margin: 0 10px;
   cursor: pointer;
 }
+
 .avator-info {
   width: 120px;
   height: 60px;
@@ -463,6 +484,7 @@ header {
   line-height: 40px;
   cursor: pointer;
 }
+
 .u-i-i-bottom {
   display: flex;
   /* height: 100px; */
@@ -471,9 +493,11 @@ header {
   flex-wrap: wrap;
   /* justify-content: space-around; */
 }
+
 .u-i-i-bottom a {
   text-decoration: none;
 }
+
 .info-item {
   width: 90px;
   height: 30px;
@@ -488,6 +512,7 @@ header {
   cursor: pointer;
   background-color: rgba(0, 0, 0, 0.1) !important;
 }
+
 .info-item img {
   width: 14px;
   height: 16px;
@@ -498,6 +523,7 @@ header {
   width: 100%;
   height: 30px;
 }
+
 .logout {
   line-height: 30px;
   position: absolute;
@@ -522,18 +548,22 @@ header {
   font-size: 12px;
   line-height: 30px;
 }
+
 .vipImg {
   width: 15px;
   height: 15px;
   margin-right: 12px;
 }
+
 .vipImg img {
   width: 100% !important;
   height: 100% !important;
 }
+
 .vipName {
   color: #93999f;
 }
+
 .endTime {
   padding-left: 2px;
   color: #ff0000;
