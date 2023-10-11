@@ -5,7 +5,7 @@
     <Menu @clickIndex="shiftMenu"></Menu>
     <div class="course-content" v-if="currentIndex === 0">
       <DetailCart :course-data="courseData" @buy-instance="buyInstance"></DetailCart>
-      <ChapterView v-if="chapterList.length > 0" :chapterList="chapterList" @startLearn="startLearn"></ChapterView>
+      <ChapterView v-if="chapterList?.length > 0" :chapterList="chapterList" @startLearn="startLearn"></ChapterView>
     </div>
     <div class="course-content" v-else>
       <DownloadList v-if="courseData.downloadList" :file-list="downloadList"></DownloadList>
