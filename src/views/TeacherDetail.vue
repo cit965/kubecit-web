@@ -1,20 +1,20 @@
 <template>
     <div>
         <div data-v-7f78dd80="" class="content">
-            <div data-v-7f78dd80="" class="avatar"><img data-v-7f78dd80=""
-                    src="https://static001.geekbang.org/static/university/img/teacher-avatar.0fd87247.png" alt=""
-                    class="avatar-img"><img data-v-7f78dd80=""
-                    src="https://static001.geekbang.org/static/university/img/teacher-extra.5846f021.png" alt=""
-                    class="avatar-extra"></div>
+            <div data-v-7f78dd80="" class="avatar">
+                <img data-v-7f78dd80="" :src="teacherData?.avator" alt="" class="avatar-img" />
+            </div>
             <div data-v-7f78dd80="" class="detail">
-                <h4 data-v-7f78dd80="">王炜<span data-v-7f78dd80="">前腾讯云 CODING 架构师</span></h4>
+                <h4 data-v-7f78dd80="">{{ teacherData.name }}<span> &nbsp; {{ teacherData.curriculumVitae }}&nbsp; {{
+                    teacherData.works }}</span></h4>
                 <ul data-v-7f78dd80="">
-                    <li data-v-7f78dd80="">他长期扎根云原生领域，多年来一直在从事云原生架构、GitOps、Docker、Kubernetes
+                    <li data-v-7f78dd80="">{{ teacherData.detail }}</li>
+                    <!-- <li data-v-7f78dd80="">他长期扎根云原生领域，多年来一直在从事云原生架构、GitOps、Docker、Kubernetes
                         等方面的研究与实践，著有云原生持续部署领域书籍《Spinnaker
                         实战：云原生多云环境的持续部署方案》，合著《深入理解 Istio：云原生服务网格进阶实战》、《软件研发效能权威指南》。</li>
                     <li data-v-7f78dd80="">他参与了 CODING CD 从零到一的研发，也是云原生开发工具 Nocalhost 项目（已捐赠 CNCF
                         成为沙箱项目）的创始成员，见证了云原生在国内从萌芽到蓬勃发展的整个阶段，也深谙转型云原生架构师的痛点、难点。</li>
-                    <li data-v-7f78dd80="">他热爱分享、善于教学，是 Linux 基金会亚太地区布道师和中国电子技术标准化研究院木兰开源社区导师。</li>
+                    <li data-v-7f78dd80="">他热爱分享、善于教学，是 Linux 基金会亚太地区布道师和中国电子技术标准化研究院木兰开源社区导师。</li> -->
                 </ul>
             </div>
         </div>
@@ -29,8 +29,14 @@
     </div>
 </template>
 <script setup>
+const { router } = inject('baseTool')
+import { getTeacherDetail } from '@/utils/api/teacher.js'
+import { searchCourse } from '@/utils/api/course.js'
 import CourseItem from '@/components/common/CourseItem.vue'
 const courseList = ref([{ "id": 1, "level": 1, "name": "go设计模式", "detail": "asf", "cover": "https://raw.githubusercontent.com/mouuii/picture/master/%E6%88%AA%E5%B1%8F2023-09-09%20%E4%B8%8A%E5%8D%8811.10.11.png", "price": 12, "tags": ["asdf"], "status": 1, "categoryId": 7, "createdAt": "2023-09-21T10:26:45Z", "updatedAt": "2023-09-21T10:26:39Z", "people": 102, "duration": 40, "score": 99 }, { "id": 2, "level": 1, "name": "vue3", "detail": "asf", "cover": "https://raw.githubusercontent.com/mouuii/picture/master/9ca7e372ef712cd03fd65313a221124743d37b6d.jpeg", "price": 12, "tags": ["asdf"], "status": 1, "categoryId": 8, "createdAt": "2023-09-21T10:26:45Z", "updatedAt": "2023-09-21T10:26:39Z", "people": 102, "duration": 40, "score": 99 }, { "id": 3, "level": 1, "name": "k8s 源码大学", "detail": "asf", "cover": "https://raw.githubusercontent.com/mouuii/picture/master/WechatIMG11857.jpeg", "price": 12, "tags": ["asdf"], "status": 1, "categoryId": 26, "createdAt": "2023-09-21T10:26:45Z", "updatedAt": "2023-09-21T10:26:39Z", "people": 102, "duration": 40, "score": 99 }, { "id": 4, "level": 1, "name": "手写gin框架", "detail": "asf", "cover": "https://raw.githubusercontent.com/mouuii/picture/master/%E6%88%AA%E5%B1%8F2023-09-09%20%E4%B8%8A%E5%8D%8811.13.15.png", "price": 12, "tags": ["asdf"], "status": 1, "categoryId": 7, "createdAt": "2023-09-21T10:26:45Z", "updatedAt": "2023-09-21T10:26:39Z", "people": 102, "duration": 40, "score": 99 }, { "id": 6, "level": 1, "name": "python 从入门到专家", "detail": "asf", "cover": "https://img1.baidu.com/it/u=1865757052,967482618&fm=253&fmt=auto&app=138&f=JPEG?w=807&h=500", "price": 12, "tags": ["asdf"], "status": 1, "categoryId": 31, "createdAt": "2023-09-21T10:26:45Z", "updatedAt": "2023-09-21T10:26:39Z", "people": 102, "duration": 40, "score": 99 }, { "id": 8, "level": 1, "name": "c++网络编程", "detail": "asf", "cover": "https://img2.baidu.com/it/u=92135045,2491414387&fm=253&fmt=auto&app=138&f=JPEG?w=889&h=500", "price": 12, "tags": ["asdf"], "status": 1, "categoryId": 29, "createdAt": "2023-09-21T10:26:45Z", "updatedAt": "2023-09-21T10:26:39Z", "people": 102, "duration": 40, "score": 99 }, { "id": 9, "level": 1, "name": "手把手教你抖音开店", "detail": "asf", "cover": "https://img1.baidu.com/it/u=1777665180,861191299&fm=253&fmt=auto&app=138&f=JPEG?w=494&h=297", "price": 12, "tags": ["asdf"], "status": 1, "categoryId": 33, "createdAt": "2023-09-21T10:26:45Z", "updatedAt": "2023-09-21T10:26:39Z", "people": 102, "duration": 40, "score": 99 }, { "id": 10, "level": 1, "name": "ppt 美化", "detail": "asf", "cover": "https://img0.baidu.com/it/u=3908748544,548907133&fm=253&fmt=auto&app=138&f=JPEG?w=889&h=500", "price": 12, "tags": ["asdf"], "status": 1, "categoryId": 33, "createdAt": "2023-09-21T10:26:45Z", "updatedAt": "2023-09-21T10:26:39Z", "people": 102, "duration": 40, "score": 99 }, { "id": 11, "level": 1, "name": "AI 大模型之美", "detail": "asf", "cover": "https://t11.baidu.com/it/u=3476623685,201141882&fm=30&app=106&f=JPEG?w=640&h=360&s=5ABF25C0C6AA1CB78E811403030030D2", "price": 12, "tags": ["asdf"], "status": 1, "categoryId": 30, "createdAt": "2023-09-21T10:26:45Z", "updatedAt": "2023-09-21T10:26:39Z", "people": 102, "duration": 40, "score": 99 }, { "id": 12, "level": 1, "name": "云原生架构师基础", "detail": "asf", "cover": "https://img2.baidu.com/it/u=662555810,1285585699&fm=253&fmt=auto&app=138&f=JPEG?w=690&h=429", "price": 12, "tags": ["asdf"], "status": 1, "categoryId": 26, "createdAt": "2023-09-21T10:26:45Z", "updatedAt": "2023-09-21T10:26:39Z", "people": 102, "duration": 40, "score": 99 }, { "id": 14, "level": 1, "name": "go 语言基础2", "detail": "asf", "cover": "https://img2.baidu.com/it/u=3083474656,3617724589&fm=253&fmt=auto&app=120&f=JPEG?w=499&h=282", "price": 12, "tags": ["asdf"], "status": 1, "categoryId": 7, "createdAt": "2023-09-21T10:26:45Z", "updatedAt": "2023-09-21T10:26:39Z", "people": 102, "duration": 40, "score": 99 }, { "id": 16, "level": 1, "name": "go 语言基础4", "detail": "asf", "cover": "https://img2.baidu.com/it/u=3083474656,3617724589&fm=253&fmt=auto&app=120&f=JPEG?w=499&h=282", "price": 12, "tags": ["asdf"], "status": 1, "categoryId": 7, "createdAt": "2023-09-21T10:26:45Z", "updatedAt": "2023-09-21T10:26:39Z", "people": 102, "duration": 40, "score": 99 }]);
+//教师数据
+const teacherData = ref({})
+
 // 跳转课程详情
 const toDetailPage = (item) => {
     router.push({
@@ -40,12 +46,36 @@ const toDetailPage = (item) => {
         }
     })
 }
+
+// 获取讲师详情
+const getTeacherDetailData = async () => {
+    //获取query数据
+    const { query } = useRoute()
+    const res = await getTeacherDetail(query.teacherId)
+    teacherData.value = res
+}
+
+//根据讲师id查询课程
+const searchCourseByTeacherId = async () => {
+    const { query } = useRoute()
+    const res = await searchCourse({
+        teacherId: query.teacherId
+    })
+    courseList.value = res.list
+}
+
+onMounted(() => {
+    console.log(router, 'router')
+    getTeacherDetailData()
+    searchCourseByTeacherId()
+})
 </script>
+
 <style lang="scss" scoped>
 .content[data-v-7f78dd80] {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    // justify-content: space-between;
+    // align-items: center;
     width: 1140px;
     margin: 50px auto 0;
     background: linear-gradient(131deg, #f9f7ff, #f1eeff);
@@ -80,7 +110,7 @@ const toDetailPage = (item) => {
 }
 
 .detail[data-v-7f78dd80] {
-    padding: 44px 58px 42px 82px;
+    padding: 0px 58px 42px 82px;
 }
 
 .detail h4[data-v-7f78dd80] {

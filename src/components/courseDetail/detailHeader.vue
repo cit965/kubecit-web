@@ -13,8 +13,8 @@
             <img :src="courseData.cover" alt="" />
           </el-avatar>
           <div class="avatar-right">
-            <div class="name">张老师</div>
-            <div class="level">金牌讲师</div>
+            <div class="name">{{ courseData.teacherName }}</div>
+            <div class="level">{{ teactLevelMap[courseData.teacherLevel] }}</div>
           </div>
         </div>
         <div class="course-tag">
@@ -40,6 +40,7 @@ import { ArrowRight } from '@element-plus/icons-vue'
 import { useRouter } from 'vue-router'
 // import router from '../../router';
 const levelMap = ref({ 1: '初级', 2: '中级', 3: '高级' });
+const teactLevelMap = ref({ 1: '入门', 2: '初级', 3: '中级',4:'高级',5:'大师' });
 const router = useRouter();
 const errorHandler = () => true
 const props = defineProps({
@@ -51,9 +52,21 @@ const props = defineProps({
   }
 })
 
+//监听courseData
+watch(() => props.courseData, (newVal, oldVal) => {
+  console.log('courseData', newVal, oldVal)
+})
+
 // 跳转讲师详情页面
 const handleClickCourseTeacher = () => {
-  router.push('/teacher/detail');
+  router.push(
+    {
+      path: '/teacher/detail',
+      query: {
+        teacherId: props.courseData.teacherId
+      }
+    }
+  );
 }
 </script>
 <style scoped lang="scss">
@@ -113,4 +126,5 @@ const handleClickCourseTeacher = () => {
   .dot {
     margin-right: 10px;
   }
-}</style>
+}
+</style>

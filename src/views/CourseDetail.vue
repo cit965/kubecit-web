@@ -5,7 +5,7 @@
     <Menu @clickIndex="shiftMenu"></Menu>
     <div class="course-content" v-if="currentIndex === 0">
       <DetailCart :course-data="courseData" @buy-instance="buyInstance"></DetailCart>
-      <ChapterView v-if="chapterList.length > 0" :chapterList="chapterList" @startLearn="startLearn"></ChapterView>
+      <ChapterView v-if="chapterList?.length > 0" :chapterList="chapterList" @startLearn="startLearn"></ChapterView>
     </div>
     <div class="course-content" v-else>
       <DownloadList v-if="courseData.downloadList" :file-list="downloadList"></DownloadList>
@@ -74,16 +74,26 @@ const startLearn = (lessonId, storagePath)=> {
     router.push('/login')
   }
 }
-onMounted(() => {
-  const token = userStore.token
-  if (token) {
-    isLogin.value = true
+// onMounted(() => {
+//   const token = userStore.token
+//   if (token) {
+//     isLogin.value = true
+//   }
+//   const courseId = route.query.id
+//   if (courseId) {
+//     courseInfo(courseId)
+//     queryChapters(courseId)
+//   }
+// })
+
+// 利用路由监听，当路由发生变化时，重新获取课程信息，(mounted只会执行一次 多次搜索无效)
+watch(() => route.query.id, (val) => {
+  if (val) {
+    courseInfo(val)
+    queryChapters(val)
   }
-  const courseId = route.query.id
-  if (courseId) {
-    courseInfo(courseId)
-    queryChapters(courseId)
-  }
+},{
+  immediate: true
 })
 </script>
 
