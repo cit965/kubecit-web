@@ -31,17 +31,17 @@
                   <div class="list-know">知识点：</div>
                   <div class="list-ul">
                     <router-link
-                      to="course"
                       v-for="subItem in subCategoryList"
                       :key="subItem.id"
                       class="list-item"
+                      :to="{path:'/course',query:{categoryId: subItem.id}}"
                       >{{ subItem.categoryName }}</router-link
                     >
                   </div>
                 </div>
                 <div class="detail-class">
                   <div
-                    @click="router.push({ name: 'course' })"
+                    @click="router.push({ path: '/course/detail', query:{id: item.id} })"
                     class="course-card"
                     v-for="item in searchCourseList"
                     :key="item.id"
@@ -82,7 +82,7 @@
           <el-carousel-item
             v-for="item in slidersList"
             :key="item.id"
-            @click="router.push({ name: 'course' })"
+            @click="router.push({ path: '/course/detail', query:{id: item.id} })"
             style="cursor: pointer"
           >
             <img :src="item.imageLink" :title="item.title" />
@@ -92,7 +92,7 @@
     </div>
     <div class="course-type">
       <div class="course-type-item">
-        <router-link to="/">
+        <div class="container">
           <div class="course-type-item-icon">
             <img src="@/assets/img/golang.png" />
           </div>
@@ -100,10 +100,10 @@
             <div class="course-type-item-title">初级课程</div>
             <div class="course-type-item-desc">入门快、岗位多</div>
           </div>
-        </router-link>
+        </div>
       </div>
       <div class="course-type-item">
-        <router-link to="/">
+        <div class="container">
           <div class="course-type-item-icon">
             <img src="@/assets/img/vue3.png" />
           </div>
@@ -111,10 +111,10 @@
             <div class="course-type-item-title">中级课程</div>
             <div class="course-type-item-desc">进阶与实战</div>
           </div>
-        </router-link>
+        </div>
       </div>
       <div class="course-type-item">
-        <router-link to="/">
+        <div class="container">
           <div class="course-type-item-icon">
             <img src="@/assets/img/ai.png" />
           </div>
@@ -122,10 +122,10 @@
             <div class="course-type-item-title">高级课程</div>
             <div class="course-type-item-desc">轻松掌握核心技能</div>
           </div>
-        </router-link>
+        </div>
       </div>
       <div class="course-type-item">
-        <router-link to="/">
+        <div class="container">
           <div class="course-type-item-icon">
             <img src="@/assets/img/k8s.png" />
           </div>
@@ -133,10 +133,10 @@
             <div class="course-type-item-title">项目实战</div>
             <div class="course-type-item-desc">手把手实践</div>
           </div>
-        </router-link>
+        </div>
       </div>
       <div class="course-type-item">
-        <router-link to="/">
+        <div class="container">
           <div class="course-type-item-icon">
             <img src="@/assets/img/devops.png" />
           </div>
@@ -144,7 +144,7 @@
             <div class="course-type-item-title">前端算法</div>
             <div class="course-type-item-desc">笑傲前端技能</div>
           </div>
-        </router-link>
+        </div>
       </div>
     </div>
   </div>
@@ -490,10 +490,9 @@ const mouseOutNavContent = () => {
   height: 100px;
   flex: 1;
 }
-.course-type-item a {
+.course-type-item .container {
   display: flex;
   justify-content: center;
-  text-decoration: none;
 }
 .course-type-item-icon {
   font-size: 35px;
