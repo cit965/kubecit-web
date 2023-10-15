@@ -3,7 +3,7 @@
     <div class="header-content" :class="{ 'header-content-fixed': scrollTop > 0 }">
       <div class="header-content-inner">
         <div class="left">
-          <h1 class="content-logo">
+          <h1 class="content-logo" @click="router.push('/')">
             <img src="@/assets/img/citlogo.jpeg" />
           </h1>
           <div class="content-nav">
@@ -16,17 +16,12 @@
           </div>
         </div>
         <div class="search-buy-login right">
-          <div class="content-search">
-            <!-- <el-input v-model="searchInput" placeholder="请输入要搜索的课程" :prefix-icon="Search" /> -->
+          <!-- <div class="content-search">
             <el-select v-model="searchInput" filterable remote reserve-keyword placeholder="请输入要搜索的课程" remote-show-suffix :suffix-icon="Search"
               :remote-method="remoteMethod" :loading="loading" @change="searchChange">
               <el-option v-for="item in options" :key="item.id" :label="item.name" :value="item.id" />
             </el-select>
-            <!-- <input type="" placeholder="请输入要搜索的课程" />
-            <el-icon color="#808080" :size="22" class="content-search-icon">
-              <search style="width: 24px; height: 24px" />
-            </el-icon> -->
-          </div>
+          </div> -->
           <div class="content-login">
             <router-link to="/login" v-if="!isLogin"> 登录 </router-link>
             <router-link to="/register" v-if="!isLogin"> 注册 </router-link>
@@ -61,7 +56,7 @@
                 </div>
               </div>
 
-              <div class="u-i-i-bottom">
+              <!-- <div class="u-i-i-bottom">
                 <div>
                   <router-link to="/">
                     <div class="info-item">
@@ -113,7 +108,7 @@
               </div>
               <div class="user-info-bottom">
                 <div class="logout" @click="logout">退出登录</div>
-              </div>
+              </div> -->
             </div>
           </div>
         </div>
@@ -155,9 +150,9 @@ let vipInfo = ref(true)
 let isShow = ref(false)
 let tabs = [
   { name: '首页', router: 'home' },
-  { name: '课程', router: 'course' },
-  { name: '试炼', router: 'challenge' },
-  { name: '交流', router: 'communicate' },
+  { name: '课程', router: 'course' }
+  // { name: '试炼', router: 'challenge' },
+  // { name: '交流', router: 'communicate' },
 ]
 //pinia
 // const userStore = useUserStore()
@@ -260,7 +255,8 @@ watch(
 
       console.log('routechange')
     }, 100)
-    if (name.includes('courseDetail')) currentTabRouter.value = 'course'
+    console.log('name', name)
+    if (name.includes('course')) currentTabRouter.value = 'course'
     else currentTabRouter.value = name
   }
 )

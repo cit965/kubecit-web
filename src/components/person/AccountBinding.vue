@@ -22,7 +22,7 @@
       </div>
       <div class="ThirdParty"></div>
     </div>
-    <div class="Message2">
+    <!-- <div class="Message2">
       <p class="title">第三方登录绑定</p>
       <div class="msg">
         <div class="title">绑定第三方登录您可以快速登录账号</div>
@@ -67,7 +67,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 <script setup>

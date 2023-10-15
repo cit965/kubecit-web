@@ -7,8 +7,8 @@
     <div class="player">
       <div class="player-left">
         <!-- <Player class="video-container" :url="videoUrl"></Player> -->
-        <!-- <NormalPlayer class="video-container" :url="videoUrl"></NormalPlayer> -->
-        <OuterPlayer v-if="videoUrl" class="video-container" :url="videoUrl"></OuterPlayer>
+        <NormalPlayer v-if="videoSource !== 'bilibili' && videoUrl" class="video-container" :url="videoUrl"></NormalPlayer>
+        <OuterPlayer v-if="videoSource === 'bilibili' && videoUrl" class="video-container" :url="videoUrl"></OuterPlayer>
         <!-- <div class="finished" id="finished-current">
           <p class="studynow">恭喜您学完该小节</p>
           <p class="nextCourse">下一小节：<span id="next-chapter"></span></p>
@@ -31,11 +31,12 @@
 <script setup>
 import { courseVideoInfo } from '@/utils/api/course.js'
 // import Player from '@/components/player/TCPlayer.vue'
-// import NormalPlayer from '@/components/player/NormalPlayer.vue'
+import NormalPlayer from '@/components/player/NormalPlayer.vue'
 import OuterPlayer from '@/components/player/OuterPlayer.vue'
 const { route, router } = inject('baseTool')
 let courseInfo = ref({})
 let videoUrl = ref('')
+let videoSource = ref('bilibili') // 视频类型-七牛云或者外链
 
 // 查询课程的URL
 const queryCourseVideoInfo = (lessonId) => {
@@ -51,8 +52,14 @@ const back = () => {
 }
 onMounted(() => {
   // const lessonId = route.query.lessonId
-  const palyUrl = route.query.videoUrl
-  videoUrl.value = palyUrl
+  const query = route.query
+  videoUrl.value = query.videoUrl || ''
+  videoSource.value = query.source || 'bilibili'
+  debugger
+  // 给一个默认的七牛云的地址
+  if (videoSource.value !== 'bilibili') {
+    videoUrl.value = 'http://s2g6nkhso.bkt.clouddn.com/golang%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F01-%E7%BC%93%E5%AD%98%E4%BB%A3%E7%90%86.mp4'
+  }
   console.log('videoUrl', videoUrl.value)
   // console.log('课程id', lessonId)
   // if (lessonId) {

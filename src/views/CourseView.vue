@@ -100,6 +100,7 @@ import Pagination from '@/components/common/Pagination.vue'
 import CourseItem from '@/components/common/CourseItem.vue'
 import { searchCourse } from '@/utils/api/api.js'
 import { queryCategoryList } from '@/utils/api/course.js'
+const { router, route } = inject('baseTool')
 let courseDirection = ref([]) // 课程方向
 let courseCategory = ref([]) // 所有课程分类
 let currentDirectionId = ref(0) // 当前选中方向的id
@@ -109,7 +110,6 @@ let courseLevel = ref([{ level: '初级', id: 1 }, { level: '中级', id: 2 }, {
 const levelMap = ref({1:'初级', 2:'中级', 3:'高级'})
 let courseList = ref([]) // 筛选出的课程列表
 let pageCount = ref(10) // 分页数据
-let router = useRouter()
 // 查询课程列表
 const queryCourseList = (pageNumParam) => {
   let courseP = {
@@ -209,6 +209,12 @@ const clickPageNumber = (p) => {
   }
 }
 // onMounted(() => {
+  const categoryId = route.query.categoryId
+  if (categoryId) {
+    currentCategoryId.value = categoryId
+    // 查询课程列表
+    queryCourseList()
+  }
   categoryList()
   queryCourseList()
 // })

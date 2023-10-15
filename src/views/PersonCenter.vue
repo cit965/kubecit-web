@@ -11,14 +11,14 @@
             <div class="acount">268038625@qq.com</div>
           </div>
         </div>
-        <div class="Quit">
+        <!-- <div class="Quit">
           <svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" data-v-ea893728="">
             <path
               fill="currentColor"
               d="M195.2 195.2a64 64 0 0 1 90.496 0L512 421.504 738.304 195.2a64 64 0 0 1 90.496 90.496L602.496 512 828.8 738.304a64 64 0 0 1-90.496 90.496L512 602.496 285.696 828.8a64 64 0 0 1-90.496-90.496L421.504 512 195.2 285.696a64 64 0 0 1 0-90.496z"></path>
           </svg>
           <div class="text">退出登录</div>
-        </div>
+        </div> -->
       </div>
     </div>
     <!-- 中间数据 -->
@@ -26,7 +26,7 @@
       <!-- 导航栏 -->
       <div class="nav">
         <!-- 钱包 -->
-        <div class="wallet">
+        <!-- <div class="wallet">
           <h6>元钱包</h6>
           <div class="money">
             <div class="current">
@@ -42,17 +42,6 @@
                     fill="currentColor"
                     d="M512 544c-227.456 0-416-94.272-416-224S284.544 96 512 96s416 94.272 416 224-188.544 224-416 224zm0-64c196.672 0 352-77.696 352-160S708.672 160 512 160s-352 77.696-352 160 155.328 160 352 160z"></path>
                 </svg>
-                <!-- <svg class="repeat" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" data-v-ea893728="">
-                  <path
-                    fill="#f9c054"
-                    d="m161.92 580.736 29.888 58.88C171.328 659.776 160 681.728 160 704c0 82.304 155.328 160 352 160s352-77.696 352-160c0-22.272-11.392-44.16-31.808-64.32l30.464-58.432C903.936 615.808 928 657.664 928 704c0 129.728-188.544 224-416 224S96 833.728 96 704c0-46.592 24.32-88.576 65.92-123.264z"></path>
-                  <path
-                    fill="#f9c054"
-                    d="m161.92 388.736 29.888 58.88C171.328 467.84 160 489.792 160 512c0 82.304 155.328 160 352 160s352-77.696 352-160c0-22.272-11.392-44.16-31.808-64.32l30.464-58.432C903.936 423.808 928 465.664 928 512c0 129.728-188.544 224-416 224S96 641.728 96 512c0-46.592 24.32-88.576 65.92-123.264z"></path>
-                  <path
-                    fill="#f9c054"
-                    d="M512 544c-227.456 0-416-94.272-416-224S284.544 96 512 96s416 94.272 416 224-188.544 224-416 224zm0-64c196.672 0 352-77.696 352-160S708.672 160 512 160s-352 77.696-352 160 155.328 160 352 160z"></path>
-                </svg> -->
                 <span>0</span>
               </div>
               <div class="text">当前余额</div>
@@ -87,7 +76,7 @@
               <div class="text">每日签到</div>
             </div>
           </el-tooltip>
-        </div>
+        </div> -->
         <div class="Allmsg">
           <!-- 会员中心 -->
           <div class="center">
@@ -227,10 +216,13 @@ const msg = ref({
   detail: '', //介绍
 })
 
-const navValue = ['我的余额', '我的会员', '购买记录', '下载记录', '我的收藏', '推广中心']
-const navValue2 = ['基本信息', '账号绑定', '密码设置']
+// const navValue = ['我的余额', '我的会员', '购买记录', '下载记录', '我的收藏', '推广中心']
+// const navValue2 = ['基本信息', '账号绑定', '密码设置']
+const navValue = ['我的会员']
+const navValue2 = ['基本信息', '密码设置']
 const defaultView = ref(6)
-const viewArr = [Recharge, VipView, PurchaseRecord, Download, Collect, extend, '', AccountBinding, ChangePsw]
+// const viewArr = [Recharge, VipView, PurchaseRecord, Download, Collect, extend, '', AccountBinding, ChangePsw]
+const viewArr = [VipView]
 // 切换组件
 const ChangeView = (val) => {
   defaultView.value = val
@@ -245,15 +237,17 @@ const ChangeView = (val) => {
     width: 100%;
     height: 104px;
     background-image: linear-gradient(-225deg, #5d9fff 0%, #b8dcff 48%, #6bbbff 100%);
-    display: flex;
+    // display: flex;
     // text-align: center;
     // align-items: center;
-    justify-content: center;
+    // justify-content: center;
     .content {
       display: flex;
       align-items: center;
-      width: 1410px;
+      justify-content: flex-start;
+      width: 1200px;
       height: 100%;
+      margin-left: 260px;
       //   padding-left: 251px;
     }
     .person {
@@ -308,7 +302,7 @@ const ChangeView = (val) => {
 
   .Content {
     min-height: 764px;
-    margin: 32px 0 0px 251px;
+    margin: 32px 0 0px 250px;
     display: flex;
     background: #eaf0f1;
     .nav {
