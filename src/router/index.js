@@ -82,13 +82,37 @@ const router = createRouter({
     {
       path: '/recruitTeacher',
       name: 'recruitTeacher',
-      component: () => import('@/views/RecruitTeacher.vue')
+      component: () => import('@/views/RecruitTeacher.vue'),
     },
     {
       path: '/course/play',
       name: 'coursePlay',
-      component: () => import('@/views/PlayCourse.vue')
-    }
+      component: () => import('@/views/PlayCourse.vue'),
+    },
+    {
+      path: '/course/uploadCourse',
+      name: 'uploadCourse',
+      component: () => import('@/views/CouersUpload.vue'),
+      meta: {
+        title: '我的课程',
+      },
+    },
+    {
+      path: '/course/CourseHourUpload',
+      name: 'CourseHourUpload',
+      component: () => import('@/views/CourseHourUpload.vue'),
+      meta: {
+        title: '上传课时',
+      },
+    },
+    {
+      path: '/course/CourseUploadDetail',
+      name: 'CourseUploadDetail',
+      component: () => import('@/views/CourseUploadDetail.vue'),
+      meta: {
+        title: '我的课程详情',
+      },
+    },
   ],
 });
 
