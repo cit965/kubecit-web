@@ -6,7 +6,7 @@
     >
       <div class="header-content-inner">
         <div class="left">
-          <h1 class="content-logo">
+          <h1 class="content-logo" @click="router.push('/')">
             <img src="@/assets/img/citlogo.jpeg" />
           </h1>
           <div class="content-nav">
@@ -43,12 +43,12 @@
                 :label="item.name"
                 :value="item.id"
               />
+          <!-- <div class="content-search">
+            <el-select v-model="searchInput" filterable remote reserve-keyword placeholder="请输入要搜索的课程" remote-show-suffix :suffix-icon="Search"
+              :remote-method="remoteMethod" :loading="loading" @change="searchChange">
+              <el-option v-for="item in options" :key="item.id" :label="item.name" :value="item.id" />
             </el-select>
-            <!-- <input type="" placeholder="请输入要搜索的课程" />
-            <el-icon color="#808080" :size="22" class="content-search-icon">
-              <search style="width: 24px; height: 24px" />
-            </el-icon> -->
-          </div>
+          </div> -->
           <div class="content-login">
             <router-link to="/login" v-if="!isLogin"> 登录 </router-link>
             <router-link to="/register" v-if="!isLogin"> 注册 </router-link>
@@ -100,7 +100,7 @@
                 </div>
               </div>
 
-              <div class="u-i-i-bottom">
+              <!-- <div class="u-i-i-bottom">
                 <div>
                   <router-link to="/">
                     <div class="info-item">
@@ -152,7 +152,7 @@
               </div>
               <div class="user-info-bottom">
                 <div class="logout" @click="logout">退出登录</div>
-              </div>
+              </div> -->
             </div>
           </div>
           <el-button type="primary" :icon="Upload" @click="goUpload">
@@ -313,6 +313,11 @@ const goUpload = () => {
     router.push({
       name: 'uploadCourse',
     });
+      console.log('routechange')
+    }, 100)
+    console.log('name', name)
+    if (name.includes('course')) currentTabRouter.value = 'course'
+    else currentTabRouter.value = name
   }
 };
 </script>

@@ -5,11 +5,11 @@
     <Menu @clickIndex="shiftMenu"></Menu>
     <div class="course-content" v-if="currentIndex === 0">
       <DetailCart :course-data="courseData" @buy-instance="buyInstance"></DetailCart>
-      <ChapterView v-if="chapterList?.length > 0" :chapterList="chapterList" @startLearn="startLearn"></ChapterView>
+      <ChapterView v-if="chapterList" :chapterList="chapterList" @startLearn="startLearn"></ChapterView>
     </div>
-    <div class="course-content" v-else>
+    <!-- <div class="course-content" v-else>
       <DownloadList v-if="courseData.downloadList" :file-list="downloadList"></DownloadList>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -18,11 +18,11 @@ import DetailHeader from '@/components/courseDetail/detailHeader.vue'
 import Menu from '@/components/courseDetail/detailMenu.vue'
 import DetailCart from '@/components/courseDetail/detailCart.vue'
 import ChapterView from '@/components/courseDetail/chapterList.vue'
-import DownloadList from '@/components/courseDetail/downloadList.vue'
+// import DownloadList from '@/components/courseDetail/downloadList.vue'
 const { userStore, router, route } = inject('baseTool')
 import { courseDetail, courseChapters } from '@/utils/api/course.js'
-let chapterList = ref([])
-let downloadList = ref([])
+let chapterList = ref(null)
+// let downloadList = ref([])
 let currentIndex = ref(0)
 let courseData = ref({})
 let isLogin = ref(false)
@@ -39,7 +39,10 @@ const courseInfo = (courseId) => {
 // 获取课程章节
 const queryChapters = (courseId) => {
   courseChapters(courseId).then(res => {
-    chapterList.value = res.data
+    console.log('课程章节信息:', res)
+    if (res && res.data && Array.isArray(res.data)) {
+      chapterList.value = res.data
+    }
   })
   .catch(error => {
     console.log(error)
@@ -59,14 +62,19 @@ const buyInstance = () => {
     }
   })
 }
-const startLearn = (lessonId, storagePath)=> {
+const startLearn = (lessonId, storagePath, source)=> {
+  const token = userStore.token
+  if (token) {
+    isLogin.value = true
+  }
   // 如果用户未登录，需要登录
   if (isLogin.value) {
     router.push({
       path: '/course/play',
       query: {
         lessonId: lessonId,
-        videoUrl: storagePath
+        videoUrl: storagePath,
+        source: source
       }
     })
   } else {

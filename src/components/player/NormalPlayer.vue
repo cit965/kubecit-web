@@ -5,7 +5,6 @@
       class="video-js video"
       controls
       preload="auto"
-      poster="https://vjs.zencdn.net/v/oceans.png"
     >
       <source :src="url"/>
     </video>
