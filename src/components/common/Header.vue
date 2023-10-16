@@ -1,6 +1,9 @@
 <template>
   <header @mouseleave="isShow = false">
-    <div class="header-content" :class="{ 'header-content-fixed': scrollTop > 0 }">
+    <div
+      class="header-content"
+      :class="{ 'header-content-fixed': scrollTop > 0 }"
+    >
       <div class="header-content-inner">
         <div class="left">
           <h1 class="content-logo" @click="router.push('/')">
@@ -8,14 +11,38 @@
           </h1>
           <div class="content-nav">
             <div class="nav-list">
-              <div v-for="item in tabs" @click="tabClick(item.router)" class="nav-item"
-                :class="{ 'is-active': currentTabRouter === item.router }">
+              <div
+                v-for="item in tabs"
+                @click="tabClick(item.router)"
+                class="nav-item"
+                :class="{ 'is-active': currentTabRouter === item.router }"
+              >
                 {{ item.name }}
               </div>
             </div>
           </div>
         </div>
         <div class="search-buy-login right">
+          <div class="content-search">
+            <!-- <el-input v-model="searchInput" placeholder="请输入要搜索的课程" :prefix-icon="Search" /> -->
+            <el-select
+              v-model="searchInput"
+              filterable
+              remote
+              reserve-keyword
+              placeholder="请输入要搜索的课程"
+              remote-show-suffix
+              :suffix-icon="Search"
+              :remote-method="remoteMethod"
+              :loading="loading"
+              @change="searchChange"
+            >
+              <el-option
+                v-for="item in options"
+                :key="item.id"
+                :label="item.name"
+                :value="item.id"
+              />
           <!-- <div class="content-search">
             <el-select v-model="searchInput" filterable remote reserve-keyword placeholder="请输入要搜索的课程" remote-show-suffix :suffix-icon="Search"
               :remote-method="remoteMethod" :loading="loading" @change="searchChange">
@@ -27,8 +54,18 @@
             <router-link to="/register" v-if="!isLogin"> 注册 </router-link>
             <div v-else>
               <div @mouseenter="isShow = true">
-                <img class="avator" :src="userInfo.avatar" alt="" v-if="userInfo.avatar" />
-                <img v-else class="avator" @click="tabClick('PersonCenter')" src="@/assets/img/Avat62.png" />
+                <img
+                  class="avator"
+                  :src="userInfo.avatar"
+                  alt=""
+                  v-if="userInfo.avatar"
+                />
+                <img
+                  v-else
+                  class="avator"
+                  @click="tabClick('PersonCenter')"
+                  src="@/assets/img/Avat62.png"
+                />
               </div>
             </div>
           </div>
@@ -36,15 +73,22 @@
           <div class="user-info" v-if="isShow">
             <div class="user-info-top">
               <div class="u-i-t-top">
-                <img class="avator" :src="userInfo.avatar" alt="" v-if="userInfo.avatar" />
+                <img
+                  class="avator"
+                  :src="userInfo.avatar"
+                  alt=""
+                  v-if="userInfo.avatar"
+                />
                 <img class="avator" src="@/assets/img/Avat62.png" v-else />
                 <div class="avator-info">
                   <p>{{ userInfo.username }}</p>
                 </div>
                 <div class="vip" v-if="vipInfo">
                   <div class="vipImg">
-                    <img src="https://www.xuexiluxian.cn/resources/images/index/info-member.png"
-                      :class="vipEndtime < 0 ? 'gray' : ''" />
+                    <img
+                      src="https://www.xuexiluxian.cn/resources/images/index/info-member.png"
+                      :class="vipEndtime < 0 ? 'gray' : ''"
+                    />
                   </div>
                   <div class="vipName">{{ vipInfo.vipName }}</div>
                   <div class="endTime" v-if="vipInfo.isExpired === 0">
@@ -111,6 +155,9 @@
               </div> -->
             </div>
           </div>
+          <el-button type="primary" :icon="Upload" @click="goUpload">
+            投稿
+          </el-button>
         </div>
       </div>
     </div>
@@ -118,100 +165,96 @@
 </template>
 
 <script setup>
-import { Search } from '@element-plus/icons-vue'
-import { searchCourse } from '@/utils/api/course.js'
+import { Search } from '@element-plus/icons-vue';
+import { searchCourse } from '@/utils/api/course.js';
 // import { useUserStore } from '@/store/user'
-import { getInfo } from '@/utils/api/api.js'
+import { getInfo } from '@/utils/api/api.js';
 // import { useRoute } from 'vue-router'
-
-const { router, route, userStore } = inject('baseTool')
+import { Upload } from '@element-plus/icons-vue';
+const { router, route, userStore } = inject('baseTool');
 //用户信息
 let userInfo = computed(() => {
-  return userStore.userInfo
-})
+  return userStore.userInfo;
+});
 // 滚动距离高度
-let scrollTop = ref(0)
+let scrollTop = ref(0);
 
 // 搜索框
-const searchInput = ref('')
+const searchInput = ref('');
 
 // loading
-const loading = ref(false)
+const loading = ref(false);
 
 // 搜索结果
-const options = ref([])
+const options = ref([]);
 
 // const route = useRoute()
-const currentTabRouter = ref(route.name)
+const currentTabRouter = ref(route.name);
 
 // let router = useRouter()
-let vipInfo = ref(true)
+let vipInfo = ref(true);
 //显示用户更多数据
-let isShow = ref(false)
+let isShow = ref(false);
 let tabs = [
   { name: '首页', router: 'home' },
-  { name: '课程', router: 'course' }
-  // { name: '试炼', router: 'challenge' },
-  // { name: '交流', router: 'communicate' },
-]
+  { name: '课程', router: 'course' },
+  { name: '试炼', router: 'challenge' },
+  { name: '交流', router: 'communicate' },
+];
 //pinia
 // const userStore = useUserStore()
 
 const logout = () => {
-  userStore.clearToken()
-  router.push({ name: 'login' })
-}
+  userStore.clearToken();
+  router.push({ name: 'login' });
+};
 
 // tab 跳转页面
 const tabClick = (name) => {
   router.push({
     name: name,
-  })
+  });
   // currentTabRouter.value = name
-}
+};
 
 // 搜索
 const remoteMethod = (query) => {
   if (query) {
-    searchCourse({ name: query }).then(res => {
-      options.value = res.list
-    }).finally(() => {
-      loading.value = false
-    })
-
+    searchCourse({ name: query })
+      .then((res) => {
+        options.value = res.list;
+      })
+      .finally(() => {
+        loading.value = false;
+      });
   } else {
-    options.value = []
+    options.value = [];
   }
-}
+};
 
 const searchChange = (val) => {
   router.push({
     path: '/course/detail',
     query: {
-      id: val
-    }
-  })
-  
-}
-
+      id: val,
+    },
+  });
+};
 
 const handleScroll = () => {
-
   const calcScrollTop =
     window.scrollY ||
     document.documentElement.scrollTop ||
-    document.body.scrollTop
-  scrollTop.value = Number(calcScrollTop)
-  console.log('handlscroll')
-  console.log(calcScrollTop, 'scrollTop') // 输出滚动条高度
-}
+    document.body.scrollTop;
+  scrollTop.value = Number(calcScrollTop);
+  console.log('handlscroll');
+  console.log(calcScrollTop, 'scrollTop'); // 输出滚动条高度
+};
 
 //用户是否是登录状态
 const isLogin = computed(() => {
-  return Boolean(userStore.token)
-})
-
-
+  return Boolean(userStore.token);
+});
 
 // onMounted(() => {
 //   console.log('mounted', userStore.token)
@@ -222,7 +265,7 @@ const isLogin = computed(() => {
 // getInfo().then((res) => {
 //   userInfo.value = res
 // })
-if (userStore.userInfo.token) getInfo({}, userStore.setUserInfo)
+if (userStore.userInfo.token) getInfo({}, userStore.setUserInfo);
 // console.log(userInfo)
 // userStore.setUserInfo(userInfo.value.userInfo)
 // 监听滚动事件
@@ -246,20 +289,37 @@ watch(
   // { immediate: true, deep: true }
   () => route.name,
   (name) => {
-    // console.log(name, scrollAreaRef.scrollTop)
+    // console.log(name, oldname);
     // scrollAreaRef.scrollTop = 0
     // console.log(name,document.documentElement.scrollTop)
-    document.documentElement.scrollTop = 0
+    document.documentElement.scrollTop = 0;
     setTimeout(() => {
-      scrollTop.value = 0
+      scrollTop.value = 0;
 
+      console.log('routechange');
+    }, 100);
+    if (name.includes('courseDetail')) currentTabRouter.value = 'course';
+    else currentTabRouter.value = name;
+  }
+);
+
+//跳转课程上传
+const goUpload = () => {
+  if (!userStore.token) {
+    router.push({
+      name: 'login',
+    });
+  } else {
+    router.push({
+      name: 'uploadCourse',
+    });
       console.log('routechange')
     }, 100)
     console.log('name', name)
     if (name.includes('course')) currentTabRouter.value = 'course'
     else currentTabRouter.value = name
   }
-)
+};
 </script>
 
 <style scoped lang="scss">
@@ -291,7 +351,6 @@ header {
   color: gray;
   font-size: 16px;
   margin: 0 auto;
-
 }
 
 .header-content-fixed {
@@ -403,6 +462,9 @@ header {
   position: absolute;
   right: 10px;
   top: 6px;
+}
+.content-login {
+  margin-right: 20px;
 }
 
 .content-login a {
