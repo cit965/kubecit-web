@@ -212,8 +212,6 @@ const clickPageNumber = (p) => {
   const categoryId = route.query.categoryId
   if (categoryId) {
     currentCategoryId.value = categoryId
-    // 查询课程列表
-    queryCourseList()
   }
   categoryList()
   queryCourseList()

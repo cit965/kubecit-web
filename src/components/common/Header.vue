@@ -43,6 +43,8 @@
                 :label="item.name"
                 :value="item.id"
               />
+            </el-select>
+          </div>
           <!-- <div class="content-search">
             <el-select v-model="searchInput" filterable remote reserve-keyword placeholder="请输入要搜索的课程" remote-show-suffix :suffix-icon="Search"
               :remote-method="remoteMethod" :loading="loading" @change="searchChange">
@@ -298,7 +300,7 @@ watch(
 
       console.log('routechange');
     }, 100);
-    if (name.includes('courseDetail')) currentTabRouter.value = 'course';
+    if (name.includes('course')) currentTabRouter.value = 'course';
     else currentTabRouter.value = name;
   }
 );
@@ -314,7 +316,7 @@ const goUpload = () => {
       name: 'uploadCourse',
     });
       console.log('routechange')
-    }, 100)
+    // }, 100)
     console.log('name', name)
     if (name.includes('course')) currentTabRouter.value = 'course'
     else currentTabRouter.value = name

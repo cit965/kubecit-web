@@ -37,3 +37,19 @@ export function courseVideoInfo(params){
     params
   })
 }
+// 新增课程
+export function cerateCourse(data){
+  return request({
+    url: '/api/course',
+    method: 'post',
+    data
+  })
+}
+// 创建讲师
+export function createTeacher(data){
+  return request({
+    url: '/api/teacher',
+    method: 'post',
+    data
+  })
+}
