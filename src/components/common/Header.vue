@@ -24,7 +24,6 @@
         </div>
         <div class="search-buy-login right">
           <div class="content-search">
-            <!-- <el-input v-model="searchInput" placeholder="请输入要搜索的课程" :prefix-icon="Search" /> -->
             <el-select
               v-model="searchInput"
               filterable
@@ -45,12 +44,6 @@
               />
             </el-select>
           </div>
-          <!-- <div class="content-search">
-            <el-select v-model="searchInput" filterable remote reserve-keyword placeholder="请输入要搜索的课程" remote-show-suffix :suffix-icon="Search"
-              :remote-method="remoteMethod" :loading="loading" @change="searchChange">
-              <el-option v-for="item in options" :key="item.id" :label="item.name" :value="item.id" />
-            </el-select>
-          </div> -->
           <div class="content-login">
             <router-link to="/login" v-if="!isLogin"> 登录 </router-link>
             <router-link to="/register" v-if="!isLogin"> 注册 </router-link>
@@ -151,10 +144,10 @@
                     </div>
                   </router-link>
                 </div>
-              </div>
+              </div>-->
               <div class="user-info-bottom">
                 <div class="logout" @click="logout">退出登录</div>
-              </div> -->
+              </div> 
             </div>
           </div>
           <el-button type="primary" :icon="Upload" @click="goUpload">
@@ -200,8 +193,8 @@ let isShow = ref(false);
 let tabs = [
   { name: '首页', router: 'home' },
   { name: '课程', router: 'course' },
-  { name: '试炼', router: 'challenge' },
-  { name: '交流', router: 'communicate' },
+  // { name: '试炼', router: 'challenge' },
+  // { name: '交流', router: 'communicate' },
 ];
 //pinia
 // const userStore = useUserStore()
@@ -434,6 +427,7 @@ header {
   display: flex;
   justify-content: flex-end;
   align-items: center;
+  position: relative;
   // min-width: 600px;
 }
 
@@ -497,8 +491,8 @@ header {
   border: 1px solid rgba(248, 250, 252, 1);
   box-shadow: 0px 5px 15px 3px #888888;
   position: absolute;
-  top: 75px;
-  right: 80px;
+  top: 60px;
+  right: -90px;
   z-index: 999;
   display: block;
   border-radius: 10px;

@@ -4,11 +4,11 @@
     <div class="Header">
       <div class="content">
         <div class="person">
-          <div class="img"></div>
+          <img class="img" src="@/assets/img/Avat62.png" alt=""/>
           <div class="detail">
-            <div class="name">新用户 <span>普通</span></div>
+            <div class="name">{{ userStore.userInfo.username}}</div>
 
-            <div class="acount">268038625@qq.com</div>
+            <div class="acount">用户ID：<span>{{ userStore.userInfo.userId}}</span></div>
           </div>
         </div>
         <!-- <div class="Quit">
@@ -135,7 +135,7 @@
             </ul>
           </div>
           <!-- 账号信息 -->
-          <div class="count">
+          <!-- <div class="count">
             <p>账号信息</p>
             <ul>
               <li :class="index + 6 == defaultView ? 'is_active' : ''" v-for="(item, index) in navValue2" :key="index" @click="ChangeView(index + 6)">
@@ -157,13 +157,13 @@
                 {{ item }} <span v-if="index == 2">请设置密码</span>
               </li>
             </ul>
-          </div>
+          </div> -->
         </div>
       </div>
 
       <!-- 相应内容 -->
       <!-- 默认个人基本信息 -->
-      <div class="Message" v-if="defaultView == 6">
+      <!-- <div class="Message" v-if="defaultView == 6">
         <p>个人基本资料</p>
         <div class="headerImg"></div>
         <div class="msg">
@@ -191,7 +191,7 @@
         <div class="footer">
           <div class="submit">保存个人信息</div>
         </div>
-      </div>
+      </div> -->
       <!-- 组件信息 -->
       <keep-alive>
         <component :is="viewArr[defaultView]" />
@@ -208,6 +208,7 @@ import PurchaseRecord from '../components/person/PurchaseRecord.vue'
 import Download from '../components/person/Download.vue'
 import Collect from '../components/person/Collect.vue'
 import extend from '../components/person/extend.vue'
+const { userStore } = inject('baseTool');
 const msg = ref({
   count: '', //账号
   name: '', //昵称
@@ -219,8 +220,7 @@ const msg = ref({
 // const navValue = ['我的余额', '我的会员', '购买记录', '下载记录', '我的收藏', '推广中心']
 // const navValue2 = ['基本信息', '账号绑定', '密码设置']
 const navValue = ['我的会员']
-const navValue2 = ['基本信息', '密码设置']
-const defaultView = ref(6)
+const defaultView = ref(0)
 // const viewArr = [Recharge, VipView, PurchaseRecord, Download, Collect, extend, '', AccountBinding, ChangePsw]
 const viewArr = [VipView]
 // 切换组件
@@ -254,11 +254,10 @@ const ChangeView = (val) => {
       display: flex;
       //   头像
       .img {
-        margin-right: 8px;
-        width: 56px;
-        height: 56px;
-        border-radius: 28px 28px;
-        background: blue;
+        height: 53px;
+        width: 53px;
+        margin-right: 10px;
+        border-radius: 50%;
       }
       .detail {
         .name {
