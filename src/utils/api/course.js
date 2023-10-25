@@ -45,11 +45,3 @@ export function cerateCourse(data){
     data
   })
 }
-// 创建讲师
-export function createTeacher(data){
-  return request({
-    url: '/api/teacher',
-    method: 'post',
-    data
-  })
-}

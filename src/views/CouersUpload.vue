@@ -100,7 +100,7 @@ import { Upload } from '@element-plus/icons-vue';
 import { ElMessage, ElMessageBox } from 'element-plus';
 import AddCoursesDialog from './AddCoursesDialog.vue';
 import EditCoursesDialog from './EditCoursesDialog.vue';
-import { addCourse, searchCourse } from '@/utils/api/course.js'
+import { searchCourse } from '@/utils/api/course.js'
 const { userStore, router } = inject('baseTool')
 const activeName = ref('first');
 const AddCoursesDialogRef = ref();

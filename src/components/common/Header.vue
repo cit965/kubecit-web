@@ -153,6 +153,9 @@
           <el-button type="primary" :icon="Upload" @click="goUpload">
             投稿
           </el-button>
+          <el-button type="primary" @click="becomeTeacher">
+            成为讲师
+          </el-button>
         </div>
       </div>
     </div>
@@ -315,6 +318,20 @@ const goUpload = () => {
     else currentTabRouter.value = name
   }
 };
+// 申请成为讲师
+const becomeTeacher = () => {
+  if (!userStore.token) {
+    router.push({
+      name: 'login',
+    })
+  } else {
+    router.push({
+      name: 'TeacherApply',
+    })
+    if (name.includes('course')) currentTabRouter.value = 'course'
+    else currentTabRouter.value = name
+  }
+}
 </script>
 
 <style scoped lang="scss">

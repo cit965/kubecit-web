@@ -7,17 +7,29 @@
       <img v-if="courseItem.type === 2" class="video audio" src="@/assets/img/audio.png" alt=""/>
       <div class="course-name">{{ courseItem.name }}</div>
       <div class="learn" @click.stop="toPlayPage(courseItem)">开始学习</div>
+      <!-- <div v-if="currentIndex === courseIndex && isMember" class="member">会员免费</div> -->
+      <div v-if="courseItem.isFreePreview >= 2" class="member">会员免费</div>
     </div>
   </div>
 </template>
 
 <script setup>
+// import { ref } from 'vue';
 const props = defineProps(['chapterList'])
 const emit = defineEmits(['startLearn'])
+// const isMember = ref(false)
+// const currentIndex = ref(0)
 const toPlayPage = (lesson) => {
-  console.log(lesson.value)
-  emit('startLearn', lesson.id, lesson.storagePath, lesson.source)
+  emit('startLearn', lesson)
 }
+// const handleMouseOver = (lesson, index) => {
+//   currentIndex.value = index
+//   if (lesson.isFreePreview > 2) {
+//     isMember.value = true
+//   } else {
+//     isMember.value = false
+//   }
+// }
 </script>
 <style scoped lang="scss">
 .chapter-container {
@@ -84,6 +96,22 @@ const toPlayPage = (lesson) => {
       outline: none;
       color: #fff;
       background: #388fff;
+      border-radius: 12px;
+      cursor: pointer;
+      font-size: 14px;
+      text-align: center;
+    }
+    .member {
+      position: absolute;
+      right: 105px;
+      top: 5px;
+      width: 80px;
+      height: 30px;
+      line-height: 30px;
+      border: 0px;
+      outline: none;
+      color: #fff;
+      background: gray;
       border-radius: 12px;
       cursor: pointer;
       font-size: 14px;

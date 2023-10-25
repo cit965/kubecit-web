@@ -21,6 +21,7 @@ import ChapterView from '@/components/courseDetail/chapterList.vue'
 // import DownloadList from '@/components/courseDetail/downloadList.vue'
 const { userStore, router, route } = inject('baseTool')
 import { courseDetail, courseChapters } from '@/utils/api/course.js'
+import { ElMessage } from 'element-plus'
 let chapterList = ref(null)
 // let downloadList = ref([])
 let currentIndex = ref(0)
@@ -62,21 +63,40 @@ const buyInstance = () => {
     }
   })
 }
-const startLearn = (lessonId, storagePath, source)=> {
+const startLearn = (lesson)=> {
   const token = userStore.token
   if (token) {
     isLogin.value = true
   }
   // 如果用户未登录，需要登录
   if (isLogin.value) {
-    router.push({
-      path: '/course/play',
-      query: {
-        lessonId: lessonId,
-        videoUrl: storagePath,
-        source: source
+    if (lesson.isFreePreview >= 2) {
+      // 如果是会员
+      if (userStore.isMember) {
+        router.push({
+          path: '/course/play',
+          query: {
+            lessonId: lesson.id,
+            videoUrl: lesson.storagePath,
+            source: lesson.source
+          }
+        })
+      } else {
+        ElMessage({
+          type: 'info',
+          message: '请购买课程后观看'
+        })
       }
-    })
+    } else {
+      router.push({
+        path: '/course/play',
+        query: {
+          lessonId: lesson.id,
+          videoUrl: lesson.storagePath,
+          source: lesson.source
+        }
+      })
+    }
   } else {
     // 去登录
     router.push('/login')

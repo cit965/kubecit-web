@@ -113,6 +113,22 @@ const router = createRouter({
         title: '我的课程详情',
       },
     },
+    {
+      path: '/teacher/review',
+      name: 'TeacherReview',
+      component: () => import('@/views/Teacher/TeacherReview.vue'),
+      meta: {
+        title: '讲师审核',
+      }
+    },
+    {
+      path: '/teacher/apply',
+      name: 'TeacherApply',
+      component: () => import('@/views/Teacher/TeacherApply.vue'),
+      meta: {
+        title: '讲师申请',
+      }
+    }
   ],
 });
 
