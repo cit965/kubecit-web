@@ -100,7 +100,8 @@ import { Upload } from '@element-plus/icons-vue';
 import { ElMessage, ElMessageBox } from 'element-plus';
 import AddCoursesDialog from './AddCoursesDialog.vue';
 import EditCoursesDialog from './EditCoursesDialog.vue';
-const router = useRouter();
+import { searchCourse } from '@/utils/api/course.js'
+const { userStore, router } = inject('baseTool')
 const activeName = ref('first');
 const AddCoursesDialogRef = ref();
 const EditCoursesDialogRef = ref();
@@ -153,6 +154,27 @@ const openEdit = (row) => {
 const openAddCoursesDialog = () => {
   AddCoursesDialogRef.value.open();
 };
+// 新增课程信息
+const addCourses = (courseInfo) => {
+  console.log('新增内容', courseInfo)
+  cerateCourse(courseInfo).then(res=>{
+    debugger
+	})
+}
+// 查询课程信息
+const queryCourseList = () => {
+  let courseP = {
+    pageNum: 1,
+    pageSize: 20,
+    teacherId: userStore.userInfo.userId
+  }
+  
+  searchCourse(courseP).then(res=>{
+		courseList.value = res.list
+    pageCount.value = Math.ceil(res.total/12)
+	})
+}
+queryCourseList()
 </script>
 <style scoped lang="scss">
 .container {

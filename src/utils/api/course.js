@@ -37,3 +37,11 @@ export function courseVideoInfo(params){
     params
   })
 }
+// 新增课程
+export function cerateCourse(data){
+  return request({
+    url: '/api/course',
+    method: 'post',
+    data
+  })
+}
