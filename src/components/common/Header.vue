@@ -34,7 +34,7 @@
               :suffix-icon="Search"
               :remote-method="remoteMethod"
               :loading="loading"
-              @change="searchChange"
+              @visible-change ="searchChange"
             >
               <el-option
                 v-for="item in options"
@@ -169,6 +169,7 @@ import { searchCourse } from '@/utils/api/course.js';
 import { getInfo } from '@/utils/api/api.js';
 // import { useRoute } from 'vue-router'
 import { Upload } from '@element-plus/icons-vue';
+import { nextTick } from 'vue';
 const { router, route, userStore } = inject('baseTool');
 //用户信息
 let userInfo = computed(() => {
@@ -231,12 +232,15 @@ const remoteMethod = (query) => {
 };
 
 const searchChange = (val) => {
-  router.push({
-    path: '/course/detail',
-    query: {
-      id: val,
-    },
-  });
+  if (!val)
+    nextTick(()=>{
+      router.push({
+      path: '/course/detail',
+      query: {
+        id: searchInput.value,
+      },
+      })
+    })
 };
 
 const handleScroll = () => {
