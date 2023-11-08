@@ -24,9 +24,10 @@ export function teacherApplyList(data){
     })
 }
 // 讲师审核
-export function teacherReview(teacherId){
+export function teacherReview(teacherId, data){
     return request({
-        url: '/api/teacher/review' + teacherId,
-        method: 'patch'
+        url: '/api/teacher/review/' + teacherId,
+        method: 'patch',
+        data
     })
 }

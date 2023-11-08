@@ -150,12 +150,15 @@
               </div> 
             </div>
           </div>
-          <el-button type="primary" :icon="Upload" @click="goUpload">
+          <!-- <el-button type="primary" :icon="Upload" @click="goUpload">
             投稿
           </el-button>
           <el-button type="primary" @click="becomeTeacher">
             成为讲师
           </el-button>
+          <el-button type="primary" @click="reviewTeacher">
+            讲师审核
+          </el-button> -->
         </div>
       </div>
     </div>
@@ -331,6 +334,19 @@ const becomeTeacher = () => {
   } else {
     router.push({
       name: 'TeacherApply',
+    })
+    if (name.includes('course')) currentTabRouter.value = 'course'
+    else currentTabRouter.value = name
+  }
+}
+const reviewTeacher = () => {
+  if (!userStore.token) {
+    router.push({
+      name: 'login',
+    })
+  } else {
+    router.push({
+      name: 'TeacherReview'
     })
     if (name.includes('course')) currentTabRouter.value = 'course'
     else currentTabRouter.value = name

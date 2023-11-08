@@ -181,10 +181,10 @@ const deleteLessons = (id) => {
       border-bottom: none;
       margin-bottom: 0;
     }
-    ::v-deep .el-collapse-item__header {
+    :deep(.el-collapse-item__header) {
       font-size: 16px !important;
     }
-    ::v-deep .el-collapse-item__content {
+    :deep(.el-collapse-item__content) {
       padding-bottom: 0;
     }
   }

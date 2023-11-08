@@ -57,7 +57,7 @@ onMounted(() => {
   videoSource.value = query.source || 'bilibili'
   // 给一个默认的七牛云的地址
   if (videoSource.value !== 'bilibili') {
-    videoUrl.value = 'http://s2g6nkhso.bkt.clouddn.com/golang%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F01-%E7%BC%93%E5%AD%98%E4%BB%A3%E7%90%86.mp4'
+    videoUrl.value = 'http://s2g6nkhso.bkt.clouddn.com/go/01-%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F.mp4'
   }
   console.log('videoUrl', videoUrl.value)
   // console.log('课程id', lessonId)
